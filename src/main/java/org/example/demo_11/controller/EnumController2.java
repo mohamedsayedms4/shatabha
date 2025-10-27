@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/api/V2/enums")
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class EnumController2 {
 
     // ✅ استرجاع القيم حسب الكاتيجوري من الـ URL

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/enums")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 public class EnumController {
 
     // ✅ القيم باللغة الإنجليزية (أسماء الـ Enum)

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/residential-units/price")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class CompleteResidentialUnitController {
 

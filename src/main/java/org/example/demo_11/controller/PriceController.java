@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/prices")
-//@CrossOrigin("*")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class PriceController {
 
