@@ -149,4 +149,52 @@ public class EnumController2 {
                 "org.example.demo_11.eunms.shutter"
         };
     }
+
+
+    // ✅ Endpoint لجلب جميع الـ Enums مع القيم (إنجليزية أو عربية)
+    @GetMapping("/all/{lang}")
+    public Map<String, List<String>> getAllEnums(@PathVariable String lang) {
+        boolean arabic = lang.equalsIgnoreCase("ar");
+        String[] packages = getEnumPackages();
+
+        // نفس القائمة من EnumController الأول
+        String[] enumNames = {
+                "BaseType",
+                "CeilingType",
+                "DoorType",
+                "ExhaustType",
+                "FloorMaterial",
+                "WallType",
+                "MixerType",
+                "ShowerArea",
+                "SinkType",
+                "WindowType",
+                "ShutterType",
+                "FinishingStatus",
+                "Location",
+                "MAGNTIC_TRACK",
+                "SPOT",
+                "UnitCollection",
+                "WindowStatus"
+        };
+
+        Map<String, List<String>> allEnums = new LinkedHashMap<>();
+
+        for (String enumName : enumNames) {
+            try {
+                Class<?> enumClass = findEnumClass(enumName, packages);
+                Object[] constants = enumClass.getEnumConstants();
+                List<String> values = Arrays.stream(constants)
+                        .map(c -> mapEnumValue(c, arabic))
+                        .collect(Collectors.toList());
+                allEnums.put(enumName, values);
+            } catch (Exception e) {
+                log.warn("⚠️ Enum not found or invalid: {}", enumName);
+            }
+        }
+
+        log.info("✅ Loaded {} enums with language '{}'", allEnums.size(), lang);
+        return allEnums;
+    }
+
 }

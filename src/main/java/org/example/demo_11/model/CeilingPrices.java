@@ -1,16 +1,21 @@
+
+// ============================================
+// 8. CeilingPrices
+// ============================================
 package org.example.demo_11.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CeilingPrices {
-    // ============ الأسقف ============
     private Long beitNoorMaterials;
     private Long beitNoorLabor;
     private Long shadowGapMaterials;
@@ -24,8 +29,6 @@ public class CeilingPrices {
     private Long corniceFutecLargeLabor;
     private Long flatMaterials;
     private Long flatLabor;
-
-    // ============ دهان الأسقف ============
     private Long CelingPaint_NormalMaterials;
     private Long CelingPaint_NormalLabor;
     private Long CelingPaint_StritchMaterials;

@@ -4,58 +4,47 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Price {
+
     @Id
     private Long id = 1L;
 
-    // ============ الأساسيات ============
     private Long coldInsulationForFloors;
     private Long maharhBand38;
     private Long pathRoomAccesories;
-
-    // ============ السباكة ============
     private Long plumbingPatRoomSetup;
     private Long plumbingPatRoomFinnish;
     private Long plumbingKitchenSetup;
     private Long plumbingKitchenFinnish;
-
-    // ============ النقاشة ============
     private Long paintForWallMaterials;
     private Long paintForWallLabor;
     private Long paintForCeilingMaterials;
     private Long paintForCeilingLabor;
-
-    // ============ التكسير ============
     private Long previousFinishingDemolitionLessThan100M;
     private Long previousFinishingDemolitionLessThan150M;
     private Long previousFinishingDemolitionMoreThan150M;
-
-    // ============ الكهرباء ============
     private Long electricalInstallationLessThan100MCategory;
     private Long electricalInstallationLessThan100MManufacturers;
     private Long electricalInstallationLessThan150MCategory;
     private Long electricalInstallationLessThan150MManufacturers;
     private Long electricalInstallationMoreThan150MCategory;
     private Long electricalInstallationMoreThan150MManufacturers;
-
-    // ============ المواد الأساسية ============
     private Long cementAndMaterialSupplyLessThan100M;
     private Long cementAndMaterialSupplyLessThan150M;
     private Long cementAndMaterialSupplyMoreThan150M;
     private Long cementSandAndMaterialsSupplyLessThan100M;
     private Long cementSandAndMaterialsSupplyLessThan150M;
     private Long cementSandAndMaterialsSupplyMoreThan150M;
-
-    // ============ التكييف ============
     private Long adaptationMaterials;
     private Long adaptationLabor;
 
-    // ============ الأقسام المضمنة ============
     @Embedded
     private WindowPrices windowPrices;
 

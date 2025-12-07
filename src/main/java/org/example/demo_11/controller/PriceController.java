@@ -1,36 +1,61 @@
 package org.example.demo_11.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.example.demo_11.model.Price;
-import org.example.demo_11.repository.PriceRepository;
-import org.example.demo_11.service.PriceService;
+import org.example.demo_11.service.impl.PriceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("api/v1/prices")
-@CrossOrigin("*")
-@RequiredArgsConstructor
+@RequestMapping("/api/prices")
+@CrossOrigin(origins = "*")
 public class PriceController {
 
-    private final PriceService priceService;
-    private final PriceRepository priceRepository;
+    @Autowired
+    private PriceService priceService;
 
-    @PostMapping
-    public ResponseEntity<Price> addPrice(@RequestBody Price price) {
-        return ResponseEntity.ok(priceService.addPrice(price));
+    /**
+     * ✅ جلب السعر بالـ ID
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Price> getPrice(@PathVariable Long id) {
+        return priceService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * ✅ جلب السعر الافتراضي
+     */
     @GetMapping
-    public ResponseEntity<List<Price>> getAllPrices() {
-        return ResponseEntity.ok(priceRepository.findAll());
+    public ResponseEntity<Price> getDefaultPrice() {
+        return ResponseEntity.ok(priceService.getOrCreateDefault());
     }
 
-    @PutMapping
-    public ResponseEntity<Price> updatePrice(@RequestBody Price price) {
-        return ResponseEntity.ok(priceRepository.save(price));
+    /**
+     * ✅ تحديث جزئي ذكي
+     * - بيحدث الحقول اللي فيها قيم بس (اللي مش null)
+     * - حتى لو جوه embedded objects، بيحدث الحقل المعبي بس
+     * - الحقول الفاضية (null) بتتسيب زي ما هي في الداتابيز
+     */
+    @PatchMapping("/{id}")
+    public ResponseEntity<Price> partialUpdatePrice(
+            @PathVariable Long id,
+            @RequestBody Price updates
+    ) {
+        try {
+            Price updated = priceService.partialUpdate(id, updates);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    /**
+     * ✅ إنشاء سعر جديد
+     */
+    @PostMapping
+    public ResponseEntity<Price> createPrice(@RequestBody Price price) {
+        return ResponseEntity.ok(priceService.save(price));
+    }
 }
