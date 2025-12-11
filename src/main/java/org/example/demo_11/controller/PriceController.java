@@ -1,18 +1,21 @@
 package org.example.demo_11.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.demo_11.model.Price;
 import org.example.demo_11.service.impl.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/prices")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class PriceController {
 
-    @Autowired
-    private PriceService priceService;
+    private final PriceService priceService;
 
     /**
      * ✅ جلب السعر بالـ ID
@@ -33,18 +36,18 @@ public class PriceController {
     }
 
     /**
-     * ✅ تحديث جزئي ذكي
-     * - بيحدث الحقول اللي فيها قيم بس (اللي مش null)
-     * - حتى لو جوه embedded objects، بيحدث الحقل المعبي بس
-     * - الحقول الفاضية (null) بتتسيب زي ما هي في الداتابيز
+     * ✅ تحديث ذكي - يدعم تحديث حقول مفردة
+     * يمكن إرسال:
+     * - حقل عادي: {"coldInsulationForFloors": 300}
+     * - حقل في كائن مضمن: {"windowPrices": {"alumetalPsMaterials": 250}}
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<Price> partialUpdatePrice(
+    public ResponseEntity<Price> smartUpdatePrice(
             @PathVariable Long id,
-            @RequestBody Price updates
+            @RequestBody Map<String, Object> updates
     ) {
         try {
-            Price updated = priceService.partialUpdate(id, updates);
+            Price updated = priceService.smartUpdate(id, updates);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
