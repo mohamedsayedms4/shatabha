@@ -1,6 +1,5 @@
 package org.example.demo_11.eunms.ceiling;
 
-
 import org.example.demo_11.model.Price;
 
 public class ShadowGapLightStrategy implements CeilingPriceStrategy {
@@ -12,8 +11,12 @@ public class ShadowGapLightStrategy implements CeilingPriceStrategy {
 
     @Override
     public Long calculatePrice(Double area, Double perimeter) {
-        Long shadowGap = safeAdd(price.getCeilingPrices().getShadowGapLightMaterials(), price.getCeilingPrices().getShadowGapLightLabor() );
-        return (long) (shadowGap * perimeter.longValue() + area*price.getCeilingPrices().getBand51());
+        Long shadowGap = safeAdd(price.getCeilingPrices().getShadowGapLightMaterials(), price.getCeilingPrices().getShadowGapLightLabor());
+        Long band51Materials = price.getCeilingPrices().getBand51Materials();
+        Long band51Labor = price.getCeilingPrices().getBand51Labor();
+        Long band51Price = safeAdd(band51Materials, band51Labor);
+
+        return (long) (shadowGap * perimeter.longValue() + area * band51Price);
     }
 
     private Long safeAdd(Long materials, Long labor) {

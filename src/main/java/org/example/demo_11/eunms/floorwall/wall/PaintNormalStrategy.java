@@ -1,6 +1,5 @@
 package org.example.demo_11.eunms.floorwall.wall;
 
-
 import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
@@ -13,8 +12,8 @@ public class PaintNormalStrategy extends BaseClassPriceAreaPermaitair implements
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getCeilingPrices().getCelingPaint_NormalMaterials(),
-                price.getCeilingPrices().getCelingPaint_NormalLabor(),
+        return safeAdd(price.getCeilingPrices().getCeilingPaintNormalMaterials(),
+                price.getCeilingPrices().getCeilingPaintNormalLabor(),
                 area);
     }
 
@@ -24,4 +23,3 @@ public class PaintNormalStrategy extends BaseClassPriceAreaPermaitair implements
         return Math.round((m + l) * area);
     }
 }
-

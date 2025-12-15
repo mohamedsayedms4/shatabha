@@ -28,13 +28,13 @@ public enum FloorMaterial {
     MARBLE_FLOOR_OTHER("رخام أرضيات (اخرى)", MarbleFloorOtherStrategy.class),
 
 
-    Parquet_CERMIC("باركية سيراميك", PCD_Parquet.class),
-    Parquet_SPC_LOCAL("باركية SPC محلي", SPC_LOCAL_Parquet.class),
-    Parquet_SPC_IMPORTED("باركية SPC مستورد", SPC_IMPORTED_Parquet.class),
-    Parquet_HDF("باركية HDF ألماني", HDF_GERMAN_Parquet.class),
+    Parquet_CERMIC("باركية سيراميك", PcdParquet.class),
+    Parquet_SPC_LOCAL("باركية SPC محلي", SpcLocalParquet.class),
+    Parquet_SPC_IMPORTED("باركية SPC مستورد", SpcImportedParquet.class),
+    Parquet_HDF("باركية HDF ألماني", HdfGermanParquet.class),
     Parquet_HDF_WATER("باركية HDF ضد الماء", HDF_WATERPROOF_Parquet.class),
-    Parquet_PORCELAIN_60x80("باركية بورسلين 60×80", PORCELAIN_60x80_Parquet.class),
-    Parquet_PORCELAIN_85x125("باركية بورسلين 85×125", PORCELAIN_85x125_Parquet.class),
+    Parquet_PORCELAIN_60x80("باركية بورسلين 60×80", Porcelain60x80Parquet.class),
+    Parquet_PORCELAIN_85x125("باركية بورسلين 85×125", Porcelain85x125Parquet.class),
 
     Local_Porcelain_60x120("بورسلين محلي أرضيات 60×120", Local_Porcelain_60x120_Floor.class),
 

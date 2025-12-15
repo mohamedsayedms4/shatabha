@@ -1,6 +1,5 @@
 package org.example.demo_11.eunms.floorwall.wall;
 
-
 import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
@@ -13,8 +12,8 @@ public class DicoarQatifaStrategy extends BaseClassPriceAreaPermaitair implement
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getCeilingPrices().getCelingDicoar_QatifaMaterials(),
-                price.getCeilingPrices().getCelingDicoar_QatifaLabor(),
+        return safeAdd(price.getCeilingPrices().getCeilingDicoarQatifaMaterials(),
+                price.getCeilingPrices().getCeilingDicoarQatifaLabor(),
                 area);
     }
 
@@ -24,6 +23,3 @@ public class DicoarQatifaStrategy extends BaseClassPriceAreaPermaitair implement
         return Math.round((m + l) * area);
     }
 }
-
-
-

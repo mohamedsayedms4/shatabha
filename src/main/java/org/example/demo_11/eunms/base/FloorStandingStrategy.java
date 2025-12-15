@@ -12,9 +12,8 @@ public class FloorStandingStrategy implements BasePriceStrategy {
 
     @Override
     public Long calculatePrice() {
-        // خد القيم من الـ BathroomPrices الـ Embedded
-        Long materials = price.getBathroomPrices().getBasefloorStandingMaterials();
-        Long labor = price.getBathroomPrices().getBasefloorStandingLabor();
+        Long materials = price.getBathroomPrices().getBaseFloorStandingMaterials();
+        Long labor = price.getBathroomPrices().getBaseFloorStandingLabor();
 
         return safeAdd(materials, labor);
     }

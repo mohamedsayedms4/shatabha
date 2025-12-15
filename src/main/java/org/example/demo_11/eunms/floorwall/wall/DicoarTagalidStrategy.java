@@ -12,8 +12,8 @@ public class DicoarTagalidStrategy extends BaseClassPriceAreaPermaitair implemen
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getCeilingPrices().getCelingDicoar_TagalidMaterials(),
-                price.getCeilingPrices().getCelingDicoar_TagalidLabor(),
+        return safeAdd(price.getCeilingPrices().getCeilingDicoarTagalidMaterials(),
+                price.getCeilingPrices().getCeilingDicoarTagalidLabor(),
                 area);
     }
 
@@ -23,6 +23,3 @@ public class DicoarTagalidStrategy extends BaseClassPriceAreaPermaitair implemen
         return Math.round((m + l) * area);
     }
 }
-
-
-

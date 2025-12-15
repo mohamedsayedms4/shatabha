@@ -4,16 +4,16 @@ import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
 
-public class SPC_IMPORTED_Parquet extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
-    public SPC_IMPORTED_Parquet(Price price, Double area, Double perimeter) {
+public class PcdParquet extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
+    public PcdParquet(Price price, Double area, Double perimeter) {
         super(price, area, perimeter);
     }
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getFloorWallPrices().getSPCIMPORTEDParquetMaterials(),
-                price.getFloorWallPrices().getSPCIMPORTEDParquetLabor(),
-                area*1.2);
+        return safeAdd(price.getFloorWallPrices().getPcdParquetMaterials(),
+                price.getFloorWallPrices().getPcdParquetLabor(),
+                area);
     }
 
     private Long safeAdd(Long materials, Long labor, double area) {

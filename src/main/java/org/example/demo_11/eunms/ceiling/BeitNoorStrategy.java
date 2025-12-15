@@ -11,13 +11,15 @@ public class BeitNoorStrategy implements CeilingPriceStrategy {
 
     @Override
     public Long calculatePrice(Double area, Double perimeter) {
-        // خد القيم من الـ CeilingPrices الـ Embedded
         Long materials = price.getCeilingPrices().getBeitNoorMaterials();
         Long labor = price.getCeilingPrices().getBeitNoorLabor();
-        Long backLed = price.getLightingPrices().getBackLedHiddenLighting();
+        Long backLedMaterials = price.getLightingPrices().getBackLedHiddenLightingMaterials();
+        Long backLedLabor = price.getLightingPrices().getBackLedHiddenLightingLabor();
 
         Long basePrice = safeAdd(materials, labor);
-        return (long)(basePrice * perimeter) + backLed;
+        Long backLedPrice = safeAdd(backLedMaterials, backLedLabor);
+
+        return (long)(basePrice * perimeter) + backLedPrice;
     }
 
     private Long safeAdd(Long materials, Long labor) {

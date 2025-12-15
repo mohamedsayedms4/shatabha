@@ -29,9 +29,14 @@ public class CeilingPrices {
     @JsonProperty("shadowGapLabor")
     private Long shadowGapLabor;
 
-    @Column(name = "band51")
-    @JsonProperty("band51")
-    private Long band51;
+    // اقتراح: إضافة وصف إذا كان "band51" نوع سقف
+    @Column(name = "band_51_materials")  // أو "ceiling_band_51"
+    @JsonProperty("band51Materials")
+    private Long band51Materials;
+
+    @Column(name = "band_51_labor")
+    @JsonProperty("band51Labor")
+    private Long band51Labor;
 
     @Column(name = "shadow_gap_light_materials")
     @JsonProperty("shadowGapLightMaterials")
@@ -65,35 +70,37 @@ public class CeilingPrices {
     @JsonProperty("flatLabor")
     private Long flatLabor;
 
-    @Column(name = "celing_paint_normal_materials")
-    @JsonProperty("celingPaint_NormalMaterials")
-    private Long CelingPaint_NormalMaterials;
+    // تصحيح: إصلاح الإملاء وإزالة underscore من JSON
+    @Column(name = "ceiling_paint_normal_materials")
+    @JsonProperty("ceilingPaintNormalMaterials")
+    private Long ceilingPaintNormalMaterials;
 
-    @Column(name = "celing_paint_normal_labor")
-    @JsonProperty("celingPaint_NormalLabor")
-    private Long CelingPaint_NormalLabor;
+    @Column(name = "ceiling_paint_normal_labor")
+    @JsonProperty("ceilingPaintNormalLabor")
+    private Long ceilingPaintNormalLabor;
 
-    @Column(name = "celing_paint_stritch_materials")
-    @JsonProperty("celingPaint_StritchMaterials")
-    private Long CelingPaint_StritchMaterials;
+    // تصحيح: "Stritch" ربما تكون "Stretch" (سقف مشدود)
+    @Column(name = "ceiling_paint_stretch_materials")
+    @JsonProperty("ceilingPaintStretchMaterials")
+    private Long ceilingPaintStretchMaterials;
 
-    @Column(name = "celing_paint_stritch_labor")
-    @JsonProperty("celingPaint_StritchLabor")
-    private Long CelingPaint_StritchLabor;
+    @Column(name = "ceiling_paint_stretch_labor")
+    @JsonProperty("ceilingPaintStretchLabor")
+    private Long ceilingPaintStretchLabor;
 
-    @Column(name = "celing_dicoar_qatifa_materials")
-    @JsonProperty("celingDicoar_QatifaMaterials")
-    private Long CelingDicoar_QatifaMaterials;
+    @Column(name = "ceiling_dicoar_qatifa_materials")
+    @JsonProperty("ceilingDicoarQatifaMaterials")
+    private Long ceilingDicoarQatifaMaterials;
 
-    @Column(name = "celing_dicoar_qatifa_labor")
-    @JsonProperty("celingDicoar_QatifaLabor")
-    private Long CelingDicoar_QatifaLabor;
+    @Column(name = "ceiling_dicoar_qatifa_labor")
+    @JsonProperty("ceilingDicoarQatifaLabor")
+    private Long ceilingDicoarQatifaLabor;
 
-    @Column(name = "celing_dicoar_tagalid_materials")
-    @JsonProperty("celingDicoar_TagalidMaterials")
-    private Long CelingDicoar_TagalidMaterials;
+    @Column(name = "ceiling_dicoar_tagalid_materials")
+    @JsonProperty("ceilingDicoarTagalidMaterials")
+    private Long ceilingDicoarTagalidMaterials;
 
-    @Column(name = "celing_dicoar_tagalid_labor")
-    @JsonProperty("celingDicoar_TagalidLabor")
-    private Long CelingDicoar_TagalidLabor;
+    @Column(name = "ceiling_dicoar_tagalid_labor")
+    @JsonProperty("ceilingDicoarTagalidLabor")
+    private Long ceilingDicoarTagalidLabor;
 }

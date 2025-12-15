@@ -61,6 +61,12 @@ public class LightingPrices {
     @JsonProperty("backLedHiddenLightingLabor")
     private Long backLedHiddenLightingLabor;
 
+    // ⚠️ تم حذف هذا الحقل لأنه مكرر وغير واضح
+    // @Column(name = "back_led_hidden_lighting")
+    // @JsonProperty("backLedHiddenLighting")
+    // private Long backLedHiddenLighting;
+
+    // ✅ توحيد التسمية: إما جميعها "magneticTrackLighting" أو "magneticTrack"
     @Column(name = "magnetic_track_lighting_materials")
     @JsonProperty("magneticTrackLightingMaterials")
     private Long magneticTrackLightingMaterials;
@@ -69,15 +75,12 @@ public class LightingPrices {
     @JsonProperty("magneticTrackLightingLabor")
     private Long magneticTrackLightingLabor;
 
-    @Column(name = "back_led_hidden_lighting")
-    @JsonProperty("backLedHiddenLighting")
-    private Long backLedHiddenLighting;
+    // ⚠️ تم حذف هذه لأنها مكررة مع السابقة
+    // @Column(name = "magnetic_track_materials")
+    // @JsonProperty("magneticTrackMaterials")
+    // private Long magneticTrackMaterials;
 
-    @Column(name = "magnetic_track_materials")
-    @JsonProperty("magneticTrackMaterials")
-    private Long magneticTrackMaterials;
-
-    @Column(name = "magnetic_track_labor")
-    @JsonProperty("magneticTrackLabor")
-    private Long magneticTrackLabor;
+    // @Column(name = "magnetic_track_labor")
+    // @JsonProperty("magneticTrackLabor")
+    // private Long magneticTrackLabor;
 }

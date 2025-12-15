@@ -45,251 +45,255 @@ public class FloorWallPrices {
     @JsonProperty("marbleFloorOtherLabor")
     private Long marbleFloorOtherLabor;
 
-    @Column(name = "hdfgermanparquet_materials")
-    @JsonProperty("hdfgermanparquetMaterials")
-    private Long HDFGERMANParquetMaterials;
+    // تصحيح: توحيد التسمية
+    @Column(name = "hdf_german_parquet_materials")
+    @JsonProperty("hdfGermanParquetMaterials")
+    private Long hdfGermanParquetMaterials;
 
-    @Column(name = "hdfgermanparquet_labor")
-    @JsonProperty("hdfgermanparquetLabor")
-    private Long HDFGERMANParquetLabor;
+    @Column(name = "hdf_german_parquet_labor")
+    @JsonProperty("hdfGermanParquetLabor")
+    private Long hdfGermanParquetLabor;
 
-    @Column(name = "hdfwaterproofparquet_materials")
-    @JsonProperty("hdfwaterproofparquetMaterials")
-    private Long HDFWATERPROOFParquetMaterials;
+    @Column(name = "hdf_waterproof_parquet_materials")
+    @JsonProperty("hdfWaterproofParquetMaterials")
+    private Long hdfWaterproofParquetMaterials;
 
-    @Column(name = "hdfwaterproofparquet_labor")
-    @JsonProperty("hdfwaterproofparquetLabor")
-    private Long HDFWATERPROOFParquetLabor;
+    @Column(name = "hdf_waterproof_parquet_labor")
+    @JsonProperty("hdfWaterproofParquetLabor")
+    private Long hdfWaterproofParquetLabor;
 
-    @Column(name = "pcdparquet_materials")
-    @JsonProperty("pcdparquetMaterials")
-    private Long PCDParquetMaterials;
+    @Column(name = "pcd_parquet_materials")
+    @JsonProperty("pcdParquetMaterials")
+    private Long pcdParquetMaterials;
 
-    @Column(name = "pcdparquet_labor")
-    @JsonProperty("pcdparquetLabor")
-    private Long PCDParquetLabor;
+    @Column(name = "pcd_parquet_labor")
+    @JsonProperty("pcdParquetLabor")
+    private Long pcdParquetLabor;
 
-    @Column(name = "porcelain60x80parquet_materials")
+    @Column(name = "porcelain_60x80_parquet_materials")
     @JsonProperty("porcelain60x80ParquetMaterials")
-    private Long PORCELAIN60x80ParquetMaterials;
+    private Long porcelain60x80ParquetMaterials;
 
-    @Column(name = "porcelain60x80parquet_labor")
+    @Column(name = "porcelain_60x80_parquet_labor")
     @JsonProperty("porcelain60x80ParquetLabor")
-    private Long PORCELAIN60x80ParquetLabor;
+    private Long porcelain60x80ParquetLabor;
 
-    @Column(name = "porcelain85x125parquet_materials")
+    @Column(name = "porcelain_85x125_parquet_materials")
     @JsonProperty("porcelain85x125ParquetMaterials")
-    private Long PORCELAIN85x125ParquetMaterials;
+    private Long porcelain85x125ParquetMaterials;
 
-    @Column(name = "porcelain85x125parquet_labor")
+    @Column(name = "porcelain_85x125_parquet_labor")
     @JsonProperty("porcelain85x125ParquetLabor")
-    private Long PORCELAIN85x125ParquetLabor;
+    private Long porcelain85x125ParquetLabor;
 
-    @Column(name = "spcimportedparquet_materials")
-    @JsonProperty("spcimportedparquetMaterials")
-    private Long SPCIMPORTEDParquetMaterials;
+    @Column(name = "spc_imported_parquet_materials")
+    @JsonProperty("spcImportedParquetMaterials")
+    private Long spcImportedParquetMaterials;
 
-    @Column(name = "spcimportedparquet_labor")
-    @JsonProperty("spcimportedparquetLabor")
-    private Long SPCIMPORTEDParquetLabor;
+    @Column(name = "spc_imported_parquet_labor")
+    @JsonProperty("spcImportedParquetLabor")
+    private Long spcImportedParquetLabor;
 
-    @Column(name = "spclocalparquet_materials")
-    @JsonProperty("spclocalparquetMaterials")
-    private Long SPCLOCALParquetMaterials;
+    @Column(name = "spc_local_parquet_materials")
+    @JsonProperty("spcLocalParquetMaterials")
+    private Long spcLocalParquetMaterials;
 
-    @Column(name = "spclocalparquet_labor")
-    @JsonProperty("spclocalparquetLabor")
-    private Long SPCLOCALParquetLabor;
+    @Column(name = "spc_local_parquet_labor")
+    @JsonProperty("spcLocalParquetLabor")
+    private Long spcLocalParquetLabor;
 
-    @Column(name = "ceramic_floor60x60materials")
+    // تصحيح: إضافة underscores
+    @Column(name = "ceramic_floor_60x60_materials")
     @JsonProperty("ceramicFloor60x60Materials")
     private Long ceramicFloor60x60Materials;
 
-    @Column(name = "ceramic_floor60x60labor")
+    @Column(name = "ceramic_floor_60x60_labor")
     @JsonProperty("ceramicFloor60x60Labor")
     private Long ceramicFloor60x60Labor;
 
-    @Column(name = "ceramic_floor120x60materials")
+    @Column(name = "ceramic_floor_120x60_materials")
     @JsonProperty("ceramicFloor120x60Materials")
     private Long ceramicFloor120x60Materials;
 
-    @Column(name = "ceramic_floor120x60labor")
+    @Column(name = "ceramic_floor_120x60_labor")
     @JsonProperty("ceramicFloor120x60Labor")
     private Long ceramicFloor120x60Labor;
 
-    @Column(name = "local_porcelain_floor60x120materials")
+    @Column(name = "local_porcelain_floor_60x120_materials")
     @JsonProperty("localPorcelainFloor60x120Materials")
     private Long localPorcelainFloor60x120Materials;
 
-    @Column(name = "local_porcelain_floor60x120labor")
+    @Column(name = "local_porcelain_floor_60x120_labor")
     @JsonProperty("localPorcelainFloor60x120Labor")
     private Long localPorcelainFloor60x120Labor;
 
-    @Column(name = "hindi_porcelain_floor60x120materials")
+    @Column(name = "hindi_porcelain_floor_60x120_materials")
     @JsonProperty("hindiPorcelainFloor60x120Materials")
     private Long hindiPorcelainFloor60x120Materials;
 
-    @Column(name = "hindi_porcelain_floor60x120labor")
+    @Column(name = "hindi_porcelain_floor_60x120_labor")
     @JsonProperty("hindiPorcelainFloor60x120Labor")
     private Long hindiPorcelainFloor60x120Labor;
 
-    @Column(name = "hindi_porcelain_floor120x180materials")
+    @Column(name = "hindi_porcelain_floor_120x180_materials")
     @JsonProperty("hindiPorcelainFloor120x180Materials")
     private Long hindiPorcelainFloor120x180Materials;
 
-    @Column(name = "hindi_porcelain_floor120x180labor")
+    @Column(name = "hindi_porcelain_floor_120x180_labor")
     @JsonProperty("hindiPorcelainFloor120x180Labor")
     private Long hindiPorcelainFloor120x180Labor;
 
-    @Column(name = "hindi_porcelain_floor120x240materials")
+    @Column(name = "hindi_porcelain_floor_120x240_materials")
     @JsonProperty("hindiPorcelainFloor120x240Materials")
     private Long hindiPorcelainFloor120x240Materials;
 
-    @Column(name = "hindi_porcelain_floor120x240labor")
+    @Column(name = "hindi_porcelain_floor_120x240_labor")
     @JsonProperty("hindiPorcelainFloor120x240Labor")
     private Long hindiPorcelainFloor120x240Labor;
 
-    @Column(name = "spanish_porcelain_floor60x120materials")
+    @Column(name = "spanish_porcelain_floor_60x120_materials")
     @JsonProperty("spanishPorcelainFloor60x120Materials")
     private Long spanishPorcelainFloor60x120Materials;
 
-    @Column(name = "spanish_porcelain_floor60x120labor")
+    @Column(name = "spanish_porcelain_floor_60x120_labor")
     @JsonProperty("spanishPorcelainFloor60x120Labor")
     private Long spanishPorcelainFloor60x120Labor;
 
-    @Column(name = "spanish_porcelain_floor120x180materials")
+    @Column(name = "spanish_porcelain_floor_120x180_materials")
     @JsonProperty("spanishPorcelainFloor120x180Materials")
     private Long spanishPorcelainFloor120x180Materials;
 
-    @Column(name = "spanish_porcelain_floor120x180labor")
+    @Column(name = "spanish_porcelain_floor_120x180_labor")
     @JsonProperty("spanishPorcelainFloor120x180Labor")
     private Long spanishPorcelainFloor120x180Labor;
 
-    @Column(name = "spanish_porcelain_floor120x240materials")
+    @Column(name = "spanish_porcelain_floor_120x240_materials")
     @JsonProperty("spanishPorcelainFloor120x240Materials")
     private Long spanishPorcelainFloor120x240Materials;
 
-    @Column(name = "spanish_porcelain_floor120x240labor")
+    @Column(name = "spanish_porcelain_floor_120x240_labor")
     @JsonProperty("spanishPorcelainFloor120x240Labor")
     private Long spanishPorcelainFloor120x240Labor;
 
-    @Column(name = "paint_normalmaterials")
-    @JsonProperty("paint_NORMALMaterials")
-    private Long PAINT_NORMALMaterials;
+    // تصحيح: إزالة underscore من JSON وتوحيد التسمية
+    @Column(name = "paint_normal_materials")
+    @JsonProperty("paintNormalMaterials")
+    private Long paintNormalMaterials;
 
-    @Column(name = "paint_normallabor")
-    @JsonProperty("paint_NORMALLabor")
-    private Long PAINT_NORMALLabor;
+    @Column(name = "paint_normal_labor")
+    @JsonProperty("paintNormalLabor")
+    private Long paintNormalLabor;
 
-    @Column(name = "paint_dicoarmaterials")
-    @JsonProperty("paint_DICOARMaterials")
-    private Long PAINT_DICOARMaterials;
+    @Column(name = "paint_dicoar_materials")
+    @JsonProperty("paintDicoarMaterials")
+    private Long paintDicoarMaterials;
 
-    @Column(name = "paint_dicoarlabor")
-    @JsonProperty("paint_DICOARLabor")
-    private Long PAINT_DICOARLabor;
+    @Column(name = "paint_dicoar_labor")
+    @JsonProperty("paintDicoarLabor")
+    private Long paintDicoarLabor;
 
-    @Column(name = "tagliad_madematerials")
-    @JsonProperty("tagliad_MADEMaterials")
-    private Long TAGLIAD_MADEMaterials;
+    @Column(name = "tagliad_made_materials")
+    @JsonProperty("tagliadMadeMaterials")
+    private Long tagliadMadeMaterials;
 
-    @Column(name = "tagliad_madelabor")
-    @JsonProperty("tagliad_MADELabor")
-        private Long TAGLIAD_MADELabor;
+    @Column(name = "tagliad_made_labor")
+    @JsonProperty("tagliadMadeLabor")
+    private Long tagliadMadeLabor;
 
-    @Column(name = "tagliad_normalmaterials")
-    @JsonProperty("tagliad_NORMALMaterials")
-    private Long TAGLIAD_NORMALMaterials;
+    @Column(name = "tagliad_normal_materials")
+    @JsonProperty("tagliadNormalMaterials")
+    private Long tagliadNormalMaterials;
 
-    @Column(name = "tagliad_normallabor")
-    @JsonProperty("tagliad_NORMALLabor")
-    private Long TAGLIAD_NORMALLabor;
+    @Column(name = "tagliad_normal_labor")
+    @JsonProperty("tagliadNormalLabor")
+    private Long tagliadNormalLabor;
 
-    @Column(name = "banohatmaterials")
-    @JsonProperty("banohatmaterials")
-    private Long BANOHATMaterials;
+    // تصحيح: توضيح المعنى (ربما "banoh at" أو شيء آخر)
+    @Column(name = "banoh_at_materials")
+    @JsonProperty("banohAtMaterials")
+    private Long banohAtMaterials;
 
-    @Column(name = "banohatlabor")
-    @JsonProperty("banohatlabor")
-    private Long BANOHATLabor;
+    @Column(name = "banoh_at_labor")
+    @JsonProperty("banohAtLabor")
+    private Long banohAtLabor;
 
-    @Column(name = "ceramic_wall60x30materials")
+    @Column(name = "ceramic_wall_60x30_materials")
     @JsonProperty("ceramicWall60x30Materials")
     private Long ceramicWall60x30Materials;
 
-    @Column(name = "ceramic_wall60x30labor")
+    @Column(name = "ceramic_wall_60x30_labor")
     @JsonProperty("ceramicWall60x30Labor")
     private Long ceramicWall60x30Labor;
 
-    @Column(name = "ceramic_wall75x25materials")
+    @Column(name = "ceramic_wall_75x25_materials")
     @JsonProperty("ceramicWall75x25Materials")
     private Long ceramicWall75x25Materials;
 
-    @Column(name = "ceramic_wall75x25labor")
+    @Column(name = "ceramic_wall_75x25_labor")
     @JsonProperty("ceramicWall75x25Labor")
     private Long ceramicWall75x25Labor;
 
-    @Column(name = "ceramic_wall120x60materials")
+    @Column(name = "ceramic_wall_120x60_materials")
     @JsonProperty("ceramicWall120x60Materials")
     private Long ceramicWall120x60Materials;
 
-    @Column(name = "ceramic_wall120x60labor")
+    @Column(name = "ceramic_wall_120x60_labor")
     @JsonProperty("ceramicWall120x60Labor")
     private Long ceramicWall120x60Labor;
 
-    @Column(name = "local_porcelain_wall60x120materials")
+    @Column(name = "local_porcelain_wall_60x120_materials")
     @JsonProperty("localPorcelainWall60x120Materials")
     private Long localPorcelainWall60x120Materials;
 
-    @Column(name = "local_porcelain_wall60x120labor")
+    @Column(name = "local_porcelain_wall_60x120_labor")
     @JsonProperty("localPorcelainWall60x120Labor")
     private Long localPorcelainWall60x120Labor;
 
-    @Column(name = "hindi_porcelain_wall60x120materials")
+    @Column(name = "hindi_porcelain_wall_60x120_materials")
     @JsonProperty("hindiPorcelainWall60x120Materials")
     private Long hindiPorcelainWall60x120Materials;
 
-    @Column(name = "hindi_porcelain_wall60x120labor")
+    @Column(name = "hindi_porcelain_wall_60x120_labor")
     @JsonProperty("hindiPorcelainWall60x120Labor")
     private Long hindiPorcelainWall60x120Labor;
 
-    @Column(name = "hindi_porcelain_wall120x180materials")
+    @Column(name = "hindi_porcelain_wall_120x180_materials")
     @JsonProperty("hindiPorcelainWall120x180Materials")
     private Long hindiPorcelainWall120x180Materials;
 
-    @Column(name = "hindi_porcelain_wall120x180labor")
+    @Column(name = "hindi_porcelain_wall_120x180_labor")
     @JsonProperty("hindiPorcelainWall120x180Labor")
     private Long hindiPorcelainWall120x180Labor;
 
-    @Column(name = "hindi_porcelain_wall120x240materials")
+    @Column(name = "hindi_porcelain_wall_120x240_materials")
     @JsonProperty("hindiPorcelainWall120x240Materials")
     private Long hindiPorcelainWall120x240Materials;
 
-    @Column(name = "hindi_porcelain_wall120x240labor")
+    @Column(name = "hindi_porcelain_wall_120x240_labor")
     @JsonProperty("hindiPorcelainWall120x240Labor")
     private Long hindiPorcelainWall120x240Labor;
 
-    @Column(name = "spanish_porcelain_wall60x120materials")
+    @Column(name = "spanish_porcelain_wall_60x120_materials")
     @JsonProperty("spanishPorcelainWall60x120Materials")
     private Long spanishPorcelainWall60x120Materials;
 
-    @Column(name = "spanish_porcelain_wall60x120labor")
+    @Column(name = "spanish_porcelain_wall_60x120_labor")
     @JsonProperty("spanishPorcelainWall60x120Labor")
     private Long spanishPorcelainWall60x120Labor;
 
-    @Column(name = "spanish_porcelain_wall120x180materials")
+    @Column(name = "spanish_porcelain_wall_120x180_materials")
     @JsonProperty("spanishPorcelainWall120x180Materials")
     private Long spanishPorcelainWall120x180Materials;
 
-    @Column(name = "spanish_porcelain_wall120x180labor")
+    @Column(name = "spanish_porcelain_wall_120x180_labor")
     @JsonProperty("spanishPorcelainWall120x180Labor")
     private Long spanishPorcelainWall120x180Labor;
 
-    @Column(name = "spanish_porcelain_wall120x240materials")
+    @Column(name = "spanish_porcelain_wall_120x240_materials")
     @JsonProperty("spanishPorcelainWall120x240Materials")
     private Long spanishPorcelainWall120x240Materials;
 
-    @Column(name = "spanish_porcelain_wall120x240labor")
+    @Column(name = "spanish_porcelain_wall_120x240_labor")
     @JsonProperty("spanishPorcelainWall120x240Labor")
     private Long spanishPorcelainWall120x240Labor;
 }

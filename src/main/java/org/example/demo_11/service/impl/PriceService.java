@@ -44,10 +44,6 @@ public class PriceService {
         return price;
     }
 
-    /**
-     * 🔥 تحديث ذكي باستخدام Map
-     * يدعم تحديث حقول فردية فقط
-     */
     @Transactional
     public Price smartUpdate(Long id, Map<String, Object> updates) {
         Price existing = priceRepository.findById(id)
@@ -55,12 +51,10 @@ public class PriceService {
 
         initializeEmbeddedObjects(existing);
 
-        // معالجة كل حقل في الماب
         for (Map.Entry<String, Object> entry : updates.entrySet()) {
             String fieldName = entry.getKey();
             Object value = entry.getValue();
 
-            // التحقق إذا كان الحقل من الكائنات المضمنة
             if (isEmbeddedField(fieldName)) {
                 updateEmbeddedField(existing, fieldName, value);
             } else {
@@ -129,14 +123,12 @@ public class PriceService {
                 switch (field) {
                     case "alumetalPsMaterials": windowPrices.setAlumetalPsMaterials(longValue); break;
                     case "alumetalPsLabor": windowPrices.setAlumetalPsLabor(longValue); break;
-                    case "alumetalJumpoMaterials": windowPrices.setAlumetalJumpoMaterials(longValue); break;
-                    case "alumetalJumpoLabor": windowPrices.setAlumetalJumpoLabor(longValue); break;
+                    case "alumetalJumboMaterials": windowPrices.setAlumetalJumboMaterials(longValue); break;
+                    case "alumetalJumboLabor": windowPrices.setAlumetalJumboLabor(longValue); break;
                     case "upvcTurkeyMaterials": windowPrices.setUpvcTurkeyMaterials(longValue); break;
                     case "upvcTurkeyLabor": windowPrices.setUpvcTurkeyLabor(longValue); break;
                     case "upvcBelgiumMaterials": windowPrices.setUpvcBelgiumMaterials(longValue); break;
                     case "upvcBelgiumLabor": windowPrices.setUpvcBelgiumLabor(longValue); break;
-                    case "windowShutterGeneralMaterials": windowPrices.setWindowShutterGeneralMaterials(longValue); break;
-                    case "windowShutterGeneralLabor": windowPrices.setWindowShutterGeneralLabor(longValue); break;
                     case "windowShutterNormalMaterials": windowPrices.setWindowShutterNormalMaterials(longValue); break;
                     case "windowShutterNormalLabor": windowPrices.setWindowShutterNormalLabor(longValue); break;
                     case "windowShutterArmoredMaterials": windowPrices.setWindowShutterArmoredMaterials(longValue); break;
@@ -233,9 +225,6 @@ public class PriceService {
                     case "backLedHiddenLightingLabor": lightingPrices.setBackLedHiddenLightingLabor(longValue); break;
                     case "magneticTrackLightingMaterials": lightingPrices.setMagneticTrackLightingMaterials(longValue); break;
                     case "magneticTrackLightingLabor": lightingPrices.setMagneticTrackLightingLabor(longValue); break;
-                    case "backLedHiddenLighting": lightingPrices.setBackLedHiddenLighting(longValue); break;
-                    case "magneticTrackMaterials": lightingPrices.setMagneticTrackMaterials(longValue); break;
-                    case "magneticTrackLabor": lightingPrices.setMagneticTrackLabor(longValue); break;
                 }
             }
         }
@@ -260,14 +249,14 @@ public class PriceService {
                     case "showerSurfaceLabor": bathroomPrices.setShowerSurfaceLabor(longValue); break;
                     case "showerConcealedMaterials": bathroomPrices.setShowerConcealedMaterials(longValue); break;
                     case "showerConcealedLabor": bathroomPrices.setShowerConcealedLabor(longValue); break;
-                    case "showerConcealed2Materials": bathroomPrices.setShowerConcealed2Materials(longValue); break;
-                    case "showerConcealed2Labor": bathroomPrices.setShowerConcealed2Labor(longValue); break;
-                    case "buriedShowerMixer2OutletMaterials": bathroomPrices.setBuriedShowerMixer2OutletMaterials(longValue); break;
-                    case "buriedShowerMixer2OutletLabor": bathroomPrices.setBuriedShowerMixer2OutletLabor(longValue); break;
-                    case "showerConcealed3Materials": bathroomPrices.setShowerConcealed3Materials(longValue); break;
-                    case "showerConcealed3Labor": bathroomPrices.setShowerConcealed3Labor(longValue); break;
-                    case "buriedShowerMixer3OutletMaterials": bathroomPrices.setBuriedShowerMixer3OutletMaterials(longValue); break;
-                    case "buriedShowerMixer3OutletLabor": bathroomPrices.setBuriedShowerMixer3OutletLabor(longValue); break;
+                    case "showerConcealedTwoOutletMaterials": bathroomPrices.setShowerConcealedTwoOutletMaterials(longValue); break;
+                    case "showerConcealedTwoOutletLabor": bathroomPrices.setShowerConcealedTwoOutletLabor(longValue); break;
+                    case "buriedShowerMixerTwoOutletMaterials": bathroomPrices.setBuriedShowerMixerTwoOutletMaterials(longValue); break;
+                    case "buriedShowerMixerTwoOutletLabor": bathroomPrices.setBuriedShowerMixerTwoOutletLabor(longValue); break;
+                    case "showerConcealedThreeOutletMaterials": bathroomPrices.setShowerConcealedThreeOutletMaterials(longValue); break;
+                    case "showerConcealedThreeOutletLabor": bathroomPrices.setShowerConcealedThreeOutletLabor(longValue); break;
+                    case "buriedShowerMixerThreeOutletMaterials": bathroomPrices.setBuriedShowerMixerThreeOutletMaterials(longValue); break;
+                    case "buriedShowerMixerThreeOutletLabor": bathroomPrices.setBuriedShowerMixerThreeOutletLabor(longValue); break;
                     case "showerSmartMaterials": bathroomPrices.setShowerSmartMaterials(longValue); break;
                     case "showerSmartLabor": bathroomPrices.setShowerSmartLabor(longValue); break;
                     case "shattafSurfaceMaterials": bathroomPrices.setShattafSurfaceMaterials(longValue); break;
@@ -284,8 +273,8 @@ public class PriceService {
                     case "baseWallHungConcealedLabor": bathroomPrices.setBaseWallHungConcealedLabor(longValue); break;
                     case "baseWallHungConcealedBoxMaterials": bathroomPrices.setBaseWallHungConcealedBoxMaterials(longValue); break;
                     case "baseWallHungConcealedBoxLabor": bathroomPrices.setBaseWallHungConcealedBoxLabor(longValue); break;
-                    case "basefloorStandingMaterials": bathroomPrices.setBasefloorStandingMaterials(longValue); break;
-                    case "basefloorStandingLabor": bathroomPrices.setBasefloorStandingLabor(longValue); break;
+                    case "baseFloorStandingMaterials": bathroomPrices.setBaseFloorStandingMaterials(longValue); break;
+                    case "baseFloorStandingLabor": bathroomPrices.setBaseFloorStandingLabor(longValue); break;
                     case "bathtubMaterials": bathroomPrices.setBathtubMaterials(longValue); break;
                     case "bathtubLabor": bathroomPrices.setBathtubLabor(longValue); break;
                     case "jacuzziMaterials": bathroomPrices.setJacuzziMaterials(longValue); break;
@@ -294,8 +283,8 @@ public class PriceService {
                     case "showerBaseGlass80_210Labor": bathroomPrices.setShowerBaseGlass80_210Labor(longValue); break;
                     case "showerNoneMaterials": bathroomPrices.setShowerNoneMaterials(longValue); break;
                     case "showerNoneLabor": bathroomPrices.setShowerNoneLabor(longValue); break;
-                    case "shower_baseLabor": bathroomPrices.setShower_baseLabor(longValue); break;
-                    case "shower_baseMaterials": bathroomPrices.setShower_baseMaterials(longValue); break;
+                    case "showerBaseMaterials": bathroomPrices.setShowerBaseMaterials(longValue); break;
+                    case "showerBaseLabor": bathroomPrices.setShowerBaseLabor(longValue); break;
                     case "sinkAboveUnitMaterials": bathroomPrices.setSinkAboveUnitMaterials(longValue); break;
                     case "sinkAboveUnitLabor": bathroomPrices.setSinkAboveUnitLabor(longValue); break;
                     case "sinkHalfPedestalMaterials": bathroomPrices.setSinkHalfPedestalMaterials(longValue); break;
@@ -326,20 +315,20 @@ public class PriceService {
                     case "marbleFloorKarraraLabor": floorWallPrices.setMarbleFloorKarraraLabor(longValue); break;
                     case "marbleFloorOtherMaterials": floorWallPrices.setMarbleFloorOtherMaterials(longValue); break;
                     case "marbleFloorOtherLabor": floorWallPrices.setMarbleFloorOtherLabor(longValue); break;
-                    case "HDFGERMANParquetMaterials": floorWallPrices.setHDFGERMANParquetMaterials(longValue); break;
-                    case "HDFGERMANParquetLabor": floorWallPrices.setHDFGERMANParquetLabor(longValue); break;
-                    case "HDFWATERPROOFParquetMaterials": floorWallPrices.setHDFWATERPROOFParquetMaterials(longValue); break;
-                    case "HDFWATERPROOFParquetLabor": floorWallPrices.setHDFWATERPROOFParquetLabor(longValue); break;
-                    case "PCDParquetMaterials": floorWallPrices.setPCDParquetMaterials(longValue); break;
-                    case "PCDParquetLabor": floorWallPrices.setPCDParquetLabor(longValue); break;
-                    case "PORCELAIN60x80ParquetMaterials": floorWallPrices.setPORCELAIN60x80ParquetMaterials(longValue); break;
-                    case "PORCELAIN60x80ParquetLabor": floorWallPrices.setPORCELAIN60x80ParquetLabor(longValue); break;
-                    case "PORCELAIN85x125ParquetMaterials": floorWallPrices.setPORCELAIN85x125ParquetMaterials(longValue); break;
-                    case "PORCELAIN85x125ParquetLabor": floorWallPrices.setPORCELAIN85x125ParquetLabor(longValue); break;
-                    case "SPCIMPORTEDParquetMaterials": floorWallPrices.setSPCIMPORTEDParquetMaterials(longValue); break;
-                    case "SPCIMPORTEDParquetLabor": floorWallPrices.setSPCIMPORTEDParquetLabor(longValue); break;
-                    case "SPCLOCALParquetMaterials": floorWallPrices.setSPCLOCALParquetMaterials(longValue); break;
-                    case "SPCLOCALParquetLabor": floorWallPrices.setSPCLOCALParquetLabor(longValue); break;
+                    case "hdfGermanParquetMaterials": floorWallPrices.setHdfGermanParquetMaterials(longValue); break;
+                    case "hdfGermanParquetLabor": floorWallPrices.setHdfGermanParquetLabor(longValue); break;
+                    case "hdfWaterproofParquetMaterials": floorWallPrices.setHdfWaterproofParquetMaterials(longValue); break;
+                    case "hdfWaterproofParquetLabor": floorWallPrices.setHdfWaterproofParquetLabor(longValue); break;
+                    case "pcdParquetMaterials": floorWallPrices.setPcdParquetMaterials(longValue); break;
+                    case "pcdParquetLabor": floorWallPrices.setPcdParquetLabor(longValue); break;
+                    case "porcelain60x80ParquetMaterials": floorWallPrices.setPorcelain60x80ParquetMaterials(longValue); break;
+                    case "porcelain60x80ParquetLabor": floorWallPrices.setPorcelain60x80ParquetLabor(longValue); break;
+                    case "porcelain85x125ParquetMaterials": floorWallPrices.setPorcelain85x125ParquetMaterials(longValue); break;
+                    case "porcelain85x125ParquetLabor": floorWallPrices.setPorcelain85x125ParquetLabor(longValue); break;
+                    case "spcImportedParquetMaterials": floorWallPrices.setSpcImportedParquetMaterials(longValue); break;
+                    case "spcImportedParquetLabor": floorWallPrices.setSpcImportedParquetLabor(longValue); break;
+                    case "spcLocalParquetMaterials": floorWallPrices.setSpcLocalParquetMaterials(longValue); break;
+                    case "spcLocalParquetLabor": floorWallPrices.setSpcLocalParquetLabor(longValue); break;
                     case "ceramicFloor60x60Materials": floorWallPrices.setCeramicFloor60x60Materials(longValue); break;
                     case "ceramicFloor60x60Labor": floorWallPrices.setCeramicFloor60x60Labor(longValue); break;
                     case "ceramicFloor120x60Materials": floorWallPrices.setCeramicFloor120x60Materials(longValue); break;
@@ -358,16 +347,16 @@ public class PriceService {
                     case "spanishPorcelainFloor120x180Labor": floorWallPrices.setSpanishPorcelainFloor120x180Labor(longValue); break;
                     case "spanishPorcelainFloor120x240Materials": floorWallPrices.setSpanishPorcelainFloor120x240Materials(longValue); break;
                     case "spanishPorcelainFloor120x240Labor": floorWallPrices.setSpanishPorcelainFloor120x240Labor(longValue); break;
-                    case "PAINT_NORMALMaterials": floorWallPrices.setPAINT_NORMALMaterials(longValue); break;
-                    case "PAINT_NORMALLabor": floorWallPrices.setPAINT_NORMALLabor(longValue); break;
-                    case "PAINT_DICOARMaterials": floorWallPrices.setPAINT_DICOARMaterials(longValue); break;
-                    case "PAINT_DICOARLabor": floorWallPrices.setPAINT_DICOARLabor(longValue); break;
-                    case "TAGLIAD_MADEMaterials": floorWallPrices.setTAGLIAD_MADEMaterials(longValue); break;
-                    case "TAGLIAD_MADELabor": floorWallPrices.setTAGLIAD_MADELabor(longValue); break;
-                    case "TAGLIAD_NORMALMaterials": floorWallPrices.setTAGLIAD_NORMALMaterials(longValue); break;
-                    case "TAGLIAD_NORMALLabor": floorWallPrices.setTAGLIAD_NORMALLabor(longValue); break;
-                    case "BANOHATMaterials": floorWallPrices.setBANOHATMaterials(longValue); break;
-                    case "BANOHATLabor": floorWallPrices.setBANOHATLabor(longValue); break;
+                    case "paintNormalMaterials": floorWallPrices.setPaintNormalMaterials(longValue); break;
+                    case "paintNormalLabor": floorWallPrices.setPaintNormalLabor(longValue); break;
+                    case "paintDicoarMaterials": floorWallPrices.setPaintDicoarMaterials(longValue); break;
+                    case "paintDicoarLabor": floorWallPrices.setPaintDicoarLabor(longValue); break;
+                    case "tagliadMadeMaterials": floorWallPrices.setTagliadMadeMaterials(longValue); break;
+                    case "tagliadMadeLabor": floorWallPrices.setTagliadMadeLabor(longValue); break;
+                    case "tagliadNormalMaterials": floorWallPrices.setTagliadNormalMaterials(longValue); break;
+                    case "tagliadNormalLabor": floorWallPrices.setTagliadNormalLabor(longValue); break;
+                    case "banohAtMaterials": floorWallPrices.setBanohAtMaterials(longValue); break;
+                    case "banohAtLabor": floorWallPrices.setBanohAtLabor(longValue); break;
                     case "ceramicWall60x30Materials": floorWallPrices.setCeramicWall60x30Materials(longValue); break;
                     case "ceramicWall60x30Labor": floorWallPrices.setCeramicWall60x30Labor(longValue); break;
                     case "ceramicWall75x25Materials": floorWallPrices.setCeramicWall75x25Materials(longValue); break;
@@ -406,7 +395,8 @@ public class PriceService {
                     case "beitNoorLabor": ceilingPrices.setBeitNoorLabor(longValue); break;
                     case "shadowGapMaterials": ceilingPrices.setShadowGapMaterials(longValue); break;
                     case "shadowGapLabor": ceilingPrices.setShadowGapLabor(longValue); break;
-                    case "band51": ceilingPrices.setBand51(longValue); break;
+                    case "band51Materials": ceilingPrices.setBand51Materials(longValue); break;
+                    case "band51Labor": ceilingPrices.setBand51Labor(longValue); break;
                     case "shadowGapLightMaterials": ceilingPrices.setShadowGapLightMaterials(longValue); break;
                     case "shadowGapLightLabor": ceilingPrices.setShadowGapLightLabor(longValue); break;
                     case "corniceFutecSmallMaterials": ceilingPrices.setCorniceFutecSmallMaterials(longValue); break;
@@ -415,14 +405,14 @@ public class PriceService {
                     case "corniceFutecLargeLabor": ceilingPrices.setCorniceFutecLargeLabor(longValue); break;
                     case "flatMaterials": ceilingPrices.setFlatMaterials(longValue); break;
                     case "flatLabor": ceilingPrices.setFlatLabor(longValue); break;
-                    case "CelingPaint_NormalMaterials": ceilingPrices.setCelingPaint_NormalMaterials(longValue); break;
-                    case "CelingPaint_NormalLabor": ceilingPrices.setCelingPaint_NormalLabor(longValue); break;
-                    case "CelingPaint_StritchMaterials": ceilingPrices.setCelingPaint_StritchMaterials(longValue); break;
-                    case "CelingPaint_StritchLabor": ceilingPrices.setCelingPaint_StritchLabor(longValue); break;
-                    case "CelingDicoar_QatifaMaterials": ceilingPrices.setCelingDicoar_QatifaMaterials(longValue); break;
-                    case "CelingDicoar_QatifaLabor": ceilingPrices.setCelingDicoar_QatifaLabor(longValue); break;
-                    case "CelingDicoar_TagalidMaterials": ceilingPrices.setCelingDicoar_TagalidMaterials(longValue); break;
-                    case "CelingDicoar_TagalidLabor": ceilingPrices.setCelingDicoar_TagalidLabor(longValue); break;
+                    case "ceilingPaintNormalMaterials": ceilingPrices.setCeilingPaintNormalMaterials(longValue); break;
+                    case "ceilingPaintNormalLabor": ceilingPrices.setCeilingPaintNormalLabor(longValue); break;
+                    case "ceilingPaintStretchMaterials": ceilingPrices.setCeilingPaintStretchMaterials(longValue); break;
+                    case "ceilingPaintStretchLabor": ceilingPrices.setCeilingPaintStretchLabor(longValue); break;
+                    case "ceilingDicoarQatifaMaterials": ceilingPrices.setCeilingDicoarQatifaMaterials(longValue); break;
+                    case "ceilingDicoarQatifaLabor": ceilingPrices.setCeilingDicoarQatifaLabor(longValue); break;
+                    case "ceilingDicoarTagalidMaterials": ceilingPrices.setCeilingDicoarTagalidMaterials(longValue); break;
+                    case "ceilingDicoarTagalidLabor": ceilingPrices.setCeilingDicoarTagalidLabor(longValue); break;
                 }
             }
         }
@@ -452,56 +442,51 @@ public class PriceService {
 
             switch (fieldName) {
                 case "coldInsulationForFloors": price.setColdInsulationForFloors(longValue); break;
-                case "maharhBand38": price.setMaharhBand38(longValue); break;
-                case "pathRoomAccesories": price.setPathRoomAccesories(longValue); break;
-                case "plumbingPatRoomSetup": price.setPlumbingPatRoomSetup(longValue); break;
-                case "plumbingPatRoomFinnish": price.setPlumbingPatRoomFinnish(longValue); break;
+                case "mahrhaBand38": price.setMahrhaBand38(longValue); break;
+                case "bathRoomAccessories": price.setBathRoomAccessories(longValue); break;
+                case "plumbingBathRoomSetup": price.setPlumbingBathRoomSetup(longValue); break;
+                case "plumbingBathRoomFinish": price.setPlumbingBathRoomFinish(longValue); break;
                 case "plumbingKitchenSetup": price.setPlumbingKitchenSetup(longValue); break;
-                case "plumbingKitchenFinnish": price.setPlumbingKitchenFinnish(longValue); break;
+                case "plumbingKitchenFinish": price.setPlumbingKitchenFinish(longValue); break;
                 case "paintForWallMaterials": price.setPaintForWallMaterials(longValue); break;
                 case "paintForWallLabor": price.setPaintForWallLabor(longValue); break;
                 case "paintForCeilingMaterials": price.setPaintForCeilingMaterials(longValue); break;
                 case "paintForCeilingLabor": price.setPaintForCeilingLabor(longValue); break;
-                case "previousFinishingDemolitionLessThan100M": price.setPreviousFinishingDemolitionLessThan100M(longValue); break;
-                case "previousFinishingDemolitionLessThan150M": price.setPreviousFinishingDemolitionLessThan150M(longValue); break;
-                case "previousFinishingDemolitionMoreThan150M": price.setPreviousFinishingDemolitionMoreThan150M(longValue); break;
-                case "electricalInstallationLessThan100MCategory": price.setElectricalInstallationLessThan100MCategory(longValue); break;
-                case "electricalInstallationLessThan100MManufacturers": price.setElectricalInstallationLessThan100MManufacturers(longValue); break;
-                case "electricalInstallationLessThan150MCategory": price.setElectricalInstallationLessThan150MCategory(longValue); break;
-                case "electricalInstallationLessThan150MManufacturers": price.setElectricalInstallationLessThan150MManufacturers(longValue); break;
-                case "electricalInstallationMoreThan150MCategory": price.setElectricalInstallationMoreThan150MCategory(longValue); break;
-                case "electricalInstallationMoreThan150MManufacturers": price.setElectricalInstallationMoreThan150MManufacturers(longValue); break;
-                case "cementAndMaterialSupplyLessThan100M": price.setCementAndMaterialSupplyLessThan100M(longValue); break;
-                case "cementAndMaterialSupplyLessThan150M": price.setCementAndMaterialSupplyLessThan150M(longValue); break;
-                case "cementAndMaterialSupplyMoreThan150M": price.setCementAndMaterialSupplyMoreThan150M(longValue); break;
-                case "cementSandAndMaterialsSupplyLessThan100M": price.setCementSandAndMaterialsSupplyLessThan100M(longValue); break;
-                case "cementSandAndMaterialsSupplyLessThan150M": price.setCementSandAndMaterialsSupplyLessThan150M(longValue); break;
-                case "cementSandAndMaterialsSupplyMoreThan150M": price.setCementSandAndMaterialsSupplyMoreThan150M(longValue); break;
+                case "previousFinishingDemolitionLessThan100Sqm": price.setPreviousFinishingDemolitionLessThan100Sqm(longValue); break;
+                case "previousFinishingDemolitionLessThan150Sqm": price.setPreviousFinishingDemolitionLessThan150Sqm(longValue); break;
+                case "previousFinishingDemolitionMoreThan150Sqm": price.setPreviousFinishingDemolitionMoreThan150Sqm(longValue); break;
+                case "electricalInstallationLessThan100SqmCategory": price.setElectricalInstallationLessThan100SqmCategory(longValue); break;
+                case "electricalInstallationLessThan100SqmManufacturers": price.setElectricalInstallationLessThan100SqmManufacturers(longValue); break;
+                case "electricalInstallationLessThan150SqmCategory": price.setElectricalInstallationLessThan150SqmCategory(longValue); break;
+                case "electricalInstallationLessThan150SqmManufacturers": price.setElectricalInstallationLessThan150SqmManufacturers(longValue); break;
+                case "electricalInstallationMoreThan150SqmCategory": price.setElectricalInstallationMoreThan150SqmCategory(longValue); break;
+                case "electricalInstallationMoreThan150SqmManufacturers": price.setElectricalInstallationMoreThan150SqmManufacturers(longValue); break;
+                case "cementAndMaterialSupplyLessThan100Sqm": price.setCementAndMaterialSupplyLessThan100Sqm(longValue); break;
+                case "cementAndMaterialSupplyLessThan150Sqm": price.setCementAndMaterialSupplyLessThan150Sqm(longValue); break;
+                case "cementAndMaterialSupplyMoreThan150Sqm": price.setCementAndMaterialSupplyMoreThan150Sqm(longValue); break;
+                case "cementSandAndMaterialsSupplyLessThan100Sqm": price.setCementSandAndMaterialsSupplyLessThan100Sqm(longValue); break;
+                case "cementSandAndMaterialsSupplyLessThan150Sqm": price.setCementSandAndMaterialsSupplyLessThan150Sqm(longValue); break;
+                case "cementSandAndMaterialsSupplyMoreThan150Sqm": price.setCementSandAndMaterialsSupplyMoreThan150Sqm(longValue); break;
                 case "adaptationMaterials": price.setAdaptationMaterials(longValue); break;
                 case "adaptationLabor": price.setAdaptationLabor(longValue); break;
             }
         }
     }
 
-    /**
-     * 🔥 الحل البديل: استخدام copyNonNullProperties بدون reflection
-     */
     @Transactional
     public Price partialUpdate(Long id, Price updates) {
         Price existing = priceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Price not found with id: " + id));
 
-        // تهيئة embedded objects
         initializeEmbeddedObjects(existing);
 
-        // تحديث الحقول العادية يدوياً
         if (updates.getColdInsulationForFloors() != null) existing.setColdInsulationForFloors(updates.getColdInsulationForFloors());
-        if (updates.getMaharhBand38() != null) existing.setMaharhBand38(updates.getMaharhBand38());
-        if (updates.getPathRoomAccesories() != null) existing.setPathRoomAccesories(updates.getPathRoomAccesories());
-        if (updates.getPlumbingPatRoomSetup() != null) existing.setPlumbingPatRoomSetup(updates.getPlumbingPatRoomSetup());
-        if (updates.getPlumbingPatRoomFinnish() != null) existing.setPlumbingPatRoomFinnish(updates.getPlumbingPatRoomFinnish());
+        if (updates.getMahrhaBand38() != null) existing.setMahrhaBand38(updates.getMahrhaBand38());
+        if (updates.getBathRoomAccessories() != null) existing.setBathRoomAccessories(updates.getBathRoomAccessories());
+        if (updates.getPlumbingBathRoomSetup() != null) existing.setPlumbingBathRoomSetup(updates.getPlumbingBathRoomSetup());
+        if (updates.getPlumbingBathRoomFinish() != null) existing.setPlumbingBathRoomFinish(updates.getPlumbingBathRoomFinish());
         if (updates.getPlumbingKitchenSetup() != null) existing.setPlumbingKitchenSetup(updates.getPlumbingKitchenSetup());
-        if (updates.getPlumbingKitchenFinnish() != null) existing.setPlumbingKitchenFinnish(updates.getPlumbingKitchenFinnish());
+        if (updates.getPlumbingKitchenFinish() != null) existing.setPlumbingKitchenFinish(updates.getPlumbingKitchenFinish());
         if (updates.getPaintForWallMaterials() != null) existing.setPaintForWallMaterials(updates.getPaintForWallMaterials());
         if (updates.getPaintForWallLabor() != null) existing.setPaintForWallLabor(updates.getPaintForWallLabor());
         if (updates.getPaintForCeilingMaterials() != null) existing.setPaintForCeilingMaterials(updates.getPaintForCeilingMaterials());
@@ -509,53 +494,50 @@ public class PriceService {
         if (updates.getAdaptationMaterials() != null) existing.setAdaptationMaterials(updates.getAdaptationMaterials());
         if (updates.getAdaptationLabor() != null) existing.setAdaptationLabor(updates.getAdaptationLabor());
 
-        // تحديث FloorWallPrices
         if (updates.getFloorWallPrices() != null) {
             FloorWallPrices src = updates.getFloorWallPrices();
             FloorWallPrices dst = existing.getFloorWallPrices();
 
-            if (src.getHDFGERMANParquetMaterials() != null) dst.setHDFGERMANParquetMaterials(src.getHDFGERMANParquetMaterials());
-            if (src.getHDFGERMANParquetLabor() != null) dst.setHDFGERMANParquetLabor(src.getHDFGERMANParquetLabor());
-            if (src.getHDFWATERPROOFParquetMaterials() != null) dst.setHDFWATERPROOFParquetMaterials(src.getHDFWATERPROOFParquetMaterials());
-            if (src.getHDFWATERPROOFParquetLabor() != null) dst.setHDFWATERPROOFParquetLabor(src.getHDFWATERPROOFParquetLabor());
-            if (src.getPCDParquetMaterials() != null) dst.setPCDParquetMaterials(src.getPCDParquetMaterials());
-            if (src.getPCDParquetLabor() != null) dst.setPCDParquetLabor(src.getPCDParquetLabor());
-            if (src.getPORCELAIN60x80ParquetMaterials() != null) dst.setPORCELAIN60x80ParquetMaterials(src.getPORCELAIN60x80ParquetMaterials());
-            if (src.getPORCELAIN60x80ParquetLabor() != null) dst.setPORCELAIN60x80ParquetLabor(src.getPORCELAIN60x80ParquetLabor());
-            if (src.getPORCELAIN85x125ParquetMaterials() != null) dst.setPORCELAIN85x125ParquetMaterials(src.getPORCELAIN85x125ParquetMaterials());
-            if (src.getPORCELAIN85x125ParquetLabor() != null) dst.setPORCELAIN85x125ParquetLabor(src.getPORCELAIN85x125ParquetLabor());
-            if (src.getSPCIMPORTEDParquetMaterials() != null) dst.setSPCIMPORTEDParquetMaterials(src.getSPCIMPORTEDParquetMaterials());
-            if (src.getSPCIMPORTEDParquetLabor() != null) dst.setSPCIMPORTEDParquetLabor(src.getSPCIMPORTEDParquetLabor());
-            if (src.getSPCLOCALParquetMaterials() != null) dst.setSPCLOCALParquetMaterials(src.getSPCLOCALParquetMaterials());
-            if (src.getSPCLOCALParquetLabor() != null) dst.setSPCLOCALParquetLabor(src.getSPCLOCALParquetLabor());
-            if (src.getPAINT_NORMALMaterials() != null) dst.setPAINT_NORMALMaterials(src.getPAINT_NORMALMaterials());
-            if (src.getPAINT_NORMALLabor() != null) dst.setPAINT_NORMALLabor(src.getPAINT_NORMALLabor());
-            if (src.getPAINT_DICOARMaterials() != null) dst.setPAINT_DICOARMaterials(src.getPAINT_DICOARMaterials());
-            if (src.getPAINT_DICOARLabor() != null) dst.setPAINT_DICOARLabor(src.getPAINT_DICOARLabor());
-            if (src.getTAGLIAD_MADEMaterials() != null) dst.setTAGLIAD_MADEMaterials(src.getTAGLIAD_MADEMaterials());
-            if (src.getTAGLIAD_MADELabor() != null) dst.setTAGLIAD_MADELabor(src.getTAGLIAD_MADELabor());
-            if (src.getTAGLIAD_NORMALMaterials() != null) dst.setTAGLIAD_NORMALMaterials(src.getTAGLIAD_NORMALMaterials());
-            if (src.getTAGLIAD_NORMALLabor() != null) dst.setTAGLIAD_NORMALLabor(src.getTAGLIAD_NORMALLabor());
-            if (src.getBANOHATMaterials() != null) dst.setBANOHATMaterials(src.getBANOHATMaterials());
-            if (src.getBANOHATLabor() != null) dst.setBANOHATLabor(src.getBANOHATLabor());
+            if (src.getHdfGermanParquetMaterials() != null) dst.setHdfGermanParquetMaterials(src.getHdfGermanParquetMaterials());
+            if (src.getHdfGermanParquetLabor() != null) dst.setHdfGermanParquetLabor(src.getHdfGermanParquetLabor());
+            if (src.getHdfWaterproofParquetMaterials() != null) dst.setHdfWaterproofParquetMaterials(src.getHdfWaterproofParquetMaterials());
+            if (src.getHdfWaterproofParquetLabor() != null) dst.setHdfWaterproofParquetLabor(src.getHdfWaterproofParquetLabor());
+            if (src.getPcdParquetMaterials() != null) dst.setPcdParquetMaterials(src.getPcdParquetMaterials());
+            if (src.getPcdParquetLabor() != null) dst.setPcdParquetLabor(src.getPcdParquetLabor());
+            if (src.getPorcelain60x80ParquetMaterials() != null) dst.setPorcelain60x80ParquetMaterials(src.getPorcelain60x80ParquetMaterials());
+            if (src.getPorcelain60x80ParquetLabor() != null) dst.setPorcelain60x80ParquetLabor(src.getPorcelain60x80ParquetLabor());
+            if (src.getPorcelain85x125ParquetMaterials() != null) dst.setPorcelain85x125ParquetMaterials(src.getPorcelain85x125ParquetMaterials());
+            if (src.getPorcelain85x125ParquetLabor() != null) dst.setPorcelain85x125ParquetLabor(src.getPorcelain85x125ParquetLabor());
+            if (src.getSpcImportedParquetMaterials() != null) dst.setSpcImportedParquetMaterials(src.getSpcImportedParquetMaterials());
+            if (src.getSpcImportedParquetLabor() != null) dst.setSpcImportedParquetLabor(src.getSpcImportedParquetLabor());
+            if (src.getSpcLocalParquetMaterials() != null) dst.setSpcLocalParquetMaterials(src.getSpcLocalParquetMaterials());
+            if (src.getSpcLocalParquetLabor() != null) dst.setSpcLocalParquetLabor(src.getSpcLocalParquetLabor());
+            if (src.getPaintNormalMaterials() != null) dst.setPaintNormalMaterials(src.getPaintNormalMaterials());
+            if (src.getPaintNormalLabor() != null) dst.setPaintNormalLabor(src.getPaintNormalLabor());
+            if (src.getPaintDicoarMaterials() != null) dst.setPaintDicoarMaterials(src.getPaintDicoarMaterials());
+            if (src.getPaintDicoarLabor() != null) dst.setPaintDicoarLabor(src.getPaintDicoarLabor());
+            if (src.getTagliadMadeMaterials() != null) dst.setTagliadMadeMaterials(src.getTagliadMadeMaterials());
+            if (src.getTagliadMadeLabor() != null) dst.setTagliadMadeLabor(src.getTagliadMadeLabor());
+            if (src.getTagliadNormalMaterials() != null) dst.setTagliadNormalMaterials(src.getTagliadNormalMaterials());
+            if (src.getTagliadNormalLabor() != null) dst.setTagliadNormalLabor(src.getTagliadNormalLabor());
+            if (src.getBanohAtMaterials() != null) dst.setBanohAtMaterials(src.getBanohAtMaterials());
+            if (src.getBanohAtLabor() != null) dst.setBanohAtLabor(src.getBanohAtLabor());
         }
 
-        // تحديث CeilingPrices
         if (updates.getCeilingPrices() != null) {
             CeilingPrices src = updates.getCeilingPrices();
             CeilingPrices dst = existing.getCeilingPrices();
 
-            if (src.getCelingPaint_NormalMaterials() != null) dst.setCelingPaint_NormalMaterials(src.getCelingPaint_NormalMaterials());
-            if (src.getCelingPaint_NormalLabor() != null) dst.setCelingPaint_NormalLabor(src.getCelingPaint_NormalLabor());
-            if (src.getCelingPaint_StritchMaterials() != null) dst.setCelingPaint_StritchMaterials(src.getCelingPaint_StritchMaterials());
-            if (src.getCelingPaint_StritchLabor() != null) dst.setCelingPaint_StritchLabor(src.getCelingPaint_StritchLabor());
-            if (src.getCelingDicoar_QatifaMaterials() != null) dst.setCelingDicoar_QatifaMaterials(src.getCelingDicoar_QatifaMaterials());
-            if (src.getCelingDicoar_QatifaLabor() != null) dst.setCelingDicoar_QatifaLabor(src.getCelingDicoar_QatifaLabor());
-            if (src.getCelingDicoar_TagalidMaterials() != null) dst.setCelingDicoar_TagalidMaterials(src.getCelingDicoar_TagalidMaterials());
-            if (src.getCelingDicoar_TagalidLabor() != null) dst.setCelingDicoar_TagalidLabor(src.getCelingDicoar_TagalidLabor());
+            if (src.getCeilingPaintNormalMaterials() != null) dst.setCeilingPaintNormalMaterials(src.getCeilingPaintNormalMaterials());
+            if (src.getCeilingPaintNormalLabor() != null) dst.setCeilingPaintNormalLabor(src.getCeilingPaintNormalLabor());
+            if (src.getCeilingPaintStretchMaterials() != null) dst.setCeilingPaintStretchMaterials(src.getCeilingPaintStretchMaterials());
+            if (src.getCeilingPaintStretchLabor() != null) dst.setCeilingPaintStretchLabor(src.getCeilingPaintStretchLabor());
+            if (src.getCeilingDicoarQatifaMaterials() != null) dst.setCeilingDicoarQatifaMaterials(src.getCeilingDicoarQatifaMaterials());
+            if (src.getCeilingDicoarQatifaLabor() != null) dst.setCeilingDicoarQatifaLabor(src.getCeilingDicoarQatifaLabor());
+            if (src.getCeilingDicoarTagalidMaterials() != null) dst.setCeilingDicoarTagalidMaterials(src.getCeilingDicoarTagalidMaterials());
+            if (src.getCeilingDicoarTagalidLabor() != null) dst.setCeilingDicoarTagalidLabor(src.getCeilingDicoarTagalidLabor());
         }
 
-        // حفظ التغييرات
         return priceRepository.save(existing);
     }
 

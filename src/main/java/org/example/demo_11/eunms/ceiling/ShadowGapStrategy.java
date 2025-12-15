@@ -11,13 +11,15 @@ public class ShadowGapStrategy implements CeilingPriceStrategy {
 
     @Override
     public Long calculatePrice(Double area, Double perimeter) {
-        // خد القيم من الـ CeilingPrices الـ Embedded
         Long materials = price.getCeilingPrices().getShadowGapMaterials();
         Long labor = price.getCeilingPrices().getShadowGapLabor();
-        Long band51 = price.getCeilingPrices().getBand51();
+        Long band51Materials = price.getCeilingPrices().getBand51Materials();
+        Long band51Labor = price.getCeilingPrices().getBand51Labor();
 
-        Long shadowGap = safeAdd(materials, labor);
-        return shadowGap * perimeter.longValue() + band51;
+        Long shadowGapPrice = safeAdd(materials, labor);
+        Long band51Price = safeAdd(band51Materials, band51Labor);
+
+        return shadowGapPrice * perimeter.longValue() + band51Price;
     }
 
     private Long safeAdd(Long materials, Long labor) {

@@ -7,7 +7,7 @@ public enum MixerType {
     BASIN_SURFACE("حوض عادي", BasinSurfacePriceStrategy.class),
     BASIN_CONCEALED("حوض دفن", BasinConcealedPriceStrategy.class),
     SHOWER_SURFACE("شاور عادي", ShowerSurfacePriceStrategy.class),
-    SHOWER_CONCEALED_2("شاور دفن ", ShowerConcealed2PriceStrategy.class),
+    SHOWER_CONCEALED_2("شاور دفن ", ShowerConcealedTwoOutletPriceStrategy.class),
 //    SHOWER_CONCEALED_3("شاور دفن ٣ مخرج", ShowerConcealed3PriceStrategy.class),
     SHOWER_SMART("شاور سمارت", ShowerSmartPriceStrategy.class),
     SHATTAF_SURFACE("شطاف عادي", ShattafSurfacePriceStrategy.class),

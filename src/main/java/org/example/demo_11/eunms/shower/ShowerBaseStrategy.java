@@ -1,7 +1,5 @@
 package org.example.demo_11.eunms.shower;
 
-// استراتيجية لكل نوع
-
 import org.example.demo_11.model.Price;
 
 public class ShowerBaseStrategy implements ShowerPriceStrategy {
@@ -13,9 +11,10 @@ public class ShowerBaseStrategy implements ShowerPriceStrategy {
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getBathroomPrices().getShower_baseLabor(), price.getBathroomPrices().getShower_baseMaterials(),
-                price.getBathroomPrices().getShowerBaseGlass80_210Labor(),price.getBathroomPrices().getShowerBaseGlass80_210Materials()
-                );
+        return safeAdd(price.getBathroomPrices().getShowerBaseLabor(),
+                price.getBathroomPrices().getShowerBaseMaterials(),
+                price.getBathroomPrices().getShowerBaseGlass80_210Labor(),
+                price.getBathroomPrices().getShowerBaseGlass80_210Materials());
     }
 
     private Long safeAdd(Long... values) {
@@ -25,5 +24,4 @@ public class ShowerBaseStrategy implements ShowerPriceStrategy {
         }
         return sum;
     }
-
 }

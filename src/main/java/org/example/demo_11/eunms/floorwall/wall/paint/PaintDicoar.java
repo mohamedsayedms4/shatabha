@@ -4,20 +4,21 @@ import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
 
-public class PAINT_DICOAR extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
-    public PAINT_DICOAR(Price price, Double area, Double perimeter) {
+public class PaintDicoar extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
+    public PaintDicoar(Price price, Double area, Double perimeter) {
         super(price, area, perimeter);
     }
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getFloorWallPrices().getPAINT_DICOARMaterials(),
-                price.getFloorWallPrices().getPAINT_DICOARLabor(),
+        return safeAdd(price.getFloorWallPrices().getPaintDicoarMaterials(),
+                price.getFloorWallPrices().getPaintDicoarLabor(),
                 perimeter);
     }
-    private Long safeAdd(Long materials, Long labor, double area) {
+
+    private Long safeAdd(Long materials, Long labor, double perimeter) {
         long m = (materials != null ? materials : 0L);
         long l = (labor != null ? labor : 0L);
-        return Math.round((m + l) * perimeter*3);
+        return Math.round((m + l) * perimeter * 3);
     }
 }

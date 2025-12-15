@@ -11,9 +11,10 @@ public class HDF_WATERPROOF_Parquet extends BaseClassPriceAreaPermaitair impleme
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getFloorWallPrices().getHDFWATERPROOFParquetMaterials(),
-                price.getFloorWallPrices().getHDFWATERPROOFParquetLabor(),
-                area*1.2);
+        // التعديل: تغيير اسم الدالة إلى الأسماء الجديدة
+        return safeAdd(price.getFloorWallPrices().getHdfWaterproofParquetMaterials(),
+                price.getFloorWallPrices().getHdfWaterproofParquetLabor(),
+                area * 1.2);
     }
 
     private Long safeAdd(Long materials, Long labor, double area) {

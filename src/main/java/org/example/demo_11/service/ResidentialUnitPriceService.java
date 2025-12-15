@@ -22,7 +22,6 @@ public class ResidentialUnitPriceService {
 
         ResidentialUnitDto dto = new ResidentialUnitDto();
 
-        // المعلومات الأساسية
         dto.setTotalArea(unit.getTotalArea() != null ? unit.getTotalArea() : 0);
         dto.setRoomsNumber(unit.getRoomsNumber() != 0 ? unit.getRoomsNumber() : 0);
         dto.setLocation(unit.getLocation());
@@ -31,19 +30,16 @@ public class ResidentialUnitPriceService {
 
         long total = 0;
 
-        // === تكسير التشطيب السابق ===
         long previousFinishingDemolition = calculateDemolitionPrice(unit, priceFromDb);
         dto.setPreviousFinishingDemolition(previousFinishingDemolition);
         dto.setDemolitionFormula(getDemolitionFormula(unit, priceFromDb));
         total += previousFinishingDemolition;
 
-        // === تأسيس الكهرباء ===
         long electricalInstallation = calculateElectricalInstallation(unit, priceFromDb);
         dto.setElectricalInstallation(electricalInstallation);
         dto.setElectricalFormula(getElectricalFormula(unit, priceFromDb));
         total += electricalInstallation;
 
-        // === المواد الأساسية ===
         long cementAndMaterialSupply = calculateCementAndMaterialSupply(unit, priceFromDb);
         dto.setCementAndMaterialSupply(cementAndMaterialSupply);
         dto.setCementMaterialFormula(getCementMaterialFormula(unit, priceFromDb));
@@ -54,7 +50,6 @@ public class ResidentialUnitPriceService {
         dto.setCementSandFormula(getCementSandFormula(unit, priceFromDb));
         total += cementSandAndMaterialsSupply;
 
-        // === الإضاءة (SPOT) ===
         long spotPrice = unit.getSpot() != null ? calculateSpotPrice(unit, priceFromDb) : 0;
         dto.setSpotPrice(spotPrice);
         dto.setSpotTypeStr(unit.getSpot() != null ? unit.getSpot().getArabicName() : "");
@@ -62,7 +57,6 @@ public class ResidentialUnitPriceService {
         dto.setSpotFormula(getSpotFormula(unit, priceFromDb));
         total += spotPrice;
 
-        // === الماجنتيك تراك ===
         long magneticTrackPrice = unit.getMAGNTIC_TRACK() != null ? calculateMagneticTrackPrice(unit, priceFromDb) : 0;
         dto.setMagneticTrackPrice(magneticTrackPrice);
         dto.setMagneticTrackTypeStr(unit.getMAGNTIC_TRACK() != null ? unit.getMAGNTIC_TRACK().getArabicName() : "");
@@ -70,7 +64,6 @@ public class ResidentialUnitPriceService {
         dto.setMagneticTrackFormula(getMagneticTrackFormula(unit, priceFromDb));
         total += magneticTrackPrice;
 
-        // === الأبواب الداخلية ===
         long interiorDoorsPrice = unit.getInterDoor() != null && unit.getInterDoorCounter() != 0
                 ? unit.getInterDoor().createStrategy(priceFromDb).calculatePrice() * unit.getInterDoorCounter()
                 : 0;
@@ -80,14 +73,12 @@ public class ResidentialUnitPriceService {
         dto.setInteriorDoorsFormula(getInteriorDoorsFormula(unit, priceFromDb));
         total += interiorDoorsPrice;
 
-        // === الباب الخارجي ===
         long exteriorDoorsPrice = unit.getOutDoor() != null ? unit.getOutDoor().createStrategy(priceFromDb).calculatePrice() : 0;
         dto.setExteriorDoorsPrice(exteriorDoorsPrice);
         dto.setExteriorDoorsType(unit.getOutDoor());
         dto.setExteriorDoorsFormula(getExteriorDoorsFormula(unit, priceFromDb));
         total += exteriorDoorsPrice;
 
-        // === الشاتر ===
         if (unit.getShutterTypes() != null && !unit.getShutterTypes().isEmpty() && unit.getWidowCounter() != null) {
             List<String> shutterDetails = new ArrayList<>();
             List<String> shutterFormulas = new ArrayList<>();
@@ -112,7 +103,6 @@ public class ResidentialUnitPriceService {
             total += totalShutterPrice;
         }
 
-        // === النوافذ ===
         long windowsPrice = unit.getWindowType() != null && unit.getWidowCounter() != null
                 ? unit.getWindowType().createStrategy(priceFromDb).calculatePrice() * unit.getWidowCounter()
                 : 0;
@@ -126,41 +116,39 @@ public class ResidentialUnitPriceService {
         return dto;
     }
 
-    // ========== دوال الحساب الأصلية ==========
-
     private long calculateDemolitionPrice(ResidentialUnit unit, Price price) {
         long area = unit.getTotalArea() != null ? unit.getTotalArea() : 0;
 
-        if (area <= 100) return price.getPreviousFinishingDemolitionLessThan100M();
-        else if (area <= 150) return price.getPreviousFinishingDemolitionLessThan150M();
-        else return price.getPreviousFinishingDemolitionMoreThan150M();
+        if (area <= 100) return price.getPreviousFinishingDemolitionLessThan100Sqm();
+        else if (area <= 150) return price.getPreviousFinishingDemolitionLessThan150Sqm();
+        else return price.getPreviousFinishingDemolitionMoreThan150Sqm();
     }
 
     private long calculateElectricalInstallation(ResidentialUnit unit, Price price) {
         long area = unit.getTotalArea() != null ? unit.getTotalArea() : 0;
 
-        if (area <= 100) return price.getElectricalInstallationLessThan100MCategory() +
-                price.getElectricalInstallationLessThan100MManufacturers();
-        else if (area <= 150) return price.getElectricalInstallationLessThan150MCategory() +
-                price.getElectricalInstallationLessThan150MManufacturers();
-        else return price.getElectricalInstallationMoreThan150MCategory() +
-                    price.getElectricalInstallationMoreThan150MManufacturers();
+        if (area <= 100) return price.getElectricalInstallationLessThan100SqmCategory() +
+                price.getElectricalInstallationLessThan100SqmManufacturers();
+        else if (area <= 150) return price.getElectricalInstallationLessThan150SqmCategory() +
+                price.getElectricalInstallationLessThan150SqmManufacturers();
+        else return price.getElectricalInstallationMoreThan150SqmCategory() +
+                    price.getElectricalInstallationMoreThan150SqmManufacturers();
     }
 
     private long calculateCementAndMaterialSupply(ResidentialUnit unit, Price price) {
         long area = unit.getTotalArea() != null ? unit.getTotalArea() : 0;
 
-        if (area <= 100) return price.getCementAndMaterialSupplyLessThan100M();
-        else if (area <= 150) return price.getCementAndMaterialSupplyLessThan150M();
-        else return price.getCementAndMaterialSupplyMoreThan150M();
+        if (area <= 100) return price.getCementAndMaterialSupplyLessThan100Sqm();
+        else if (area <= 150) return price.getCementAndMaterialSupplyLessThan150Sqm();
+        else return price.getCementAndMaterialSupplyMoreThan150Sqm();
     }
 
     private long calculateCementSandAndMaterialsSupply(ResidentialUnit unit, Price price) {
         long area = unit.getTotalArea() != null ? unit.getTotalArea() : 0;
 
-        if (area <= 100) return price.getCementSandAndMaterialsSupplyLessThan100M();
-        else if (area <= 150) return price.getCementSandAndMaterialsSupplyLessThan150M();
-        else return price.getCementSandAndMaterialsSupplyMoreThan150M();
+        if (area <= 100) return price.getCementSandAndMaterialsSupplyLessThan100Sqm();
+        else if (area <= 150) return price.getCementSandAndMaterialsSupplyLessThan150Sqm();
+        else return price.getCementSandAndMaterialsSupplyMoreThan150Sqm();
     }
 
     private long calculateSpotPrice(ResidentialUnit unit, Price price) {
@@ -185,8 +173,6 @@ public class ResidentialUnitPriceService {
         };
     }
 
-    // ========== دوال المعادلات ==========
-
     private String getDemolitionFormula(ResidentialUnit unit, Price price) {
         long area = unit.getTotalArea() != null ? unit.getTotalArea() : 0;
         String category;
@@ -194,13 +180,13 @@ public class ResidentialUnitPriceService {
 
         if (area <= 100) {
             category = "أقل من 100 م²";
-            value = price.getPreviousFinishingDemolitionLessThan100M();
+            value = price.getPreviousFinishingDemolitionLessThan100Sqm();
         } else if (area <= 150) {
             category = "من 100 إلى 150 م²";
-            value = price.getPreviousFinishingDemolitionLessThan150M();
+            value = price.getPreviousFinishingDemolitionLessThan150Sqm();
         } else {
             category = "أكثر من 150 م²";
-            value = price.getPreviousFinishingDemolitionMoreThan150M();
+            value = price.getPreviousFinishingDemolitionMoreThan150Sqm();
         }
 
         return String.format("المساحة %d م² (%s) = %d", area, category, value);
@@ -213,16 +199,16 @@ public class ResidentialUnitPriceService {
 
         if (area <= 100) {
             category = "أقل من 100 م²";
-            categoryValue = price.getElectricalInstallationLessThan100MCategory();
-            manufacturersValue = price.getElectricalInstallationLessThan100MManufacturers();
+            categoryValue = price.getElectricalInstallationLessThan100SqmCategory();
+            manufacturersValue = price.getElectricalInstallationLessThan100SqmManufacturers();
         } else if (area <= 150) {
             category = "من 100 إلى 150 م²";
-            categoryValue = price.getElectricalInstallationLessThan150MCategory();
-            manufacturersValue = price.getElectricalInstallationLessThan150MManufacturers();
+            categoryValue = price.getElectricalInstallationLessThan150SqmCategory();
+            manufacturersValue = price.getElectricalInstallationLessThan150SqmManufacturers();
         } else {
             category = "أكثر من 150 م²";
-            categoryValue = price.getElectricalInstallationMoreThan150MCategory();
-            manufacturersValue = price.getElectricalInstallationMoreThan150MManufacturers();
+            categoryValue = price.getElectricalInstallationMoreThan150SqmCategory();
+            manufacturersValue = price.getElectricalInstallationMoreThan150SqmManufacturers();
         }
 
         return String.format("المساحة %d م² (%s): التصنيف %d + الشركات المصنعة %d = %d",
@@ -236,13 +222,13 @@ public class ResidentialUnitPriceService {
 
         if (area <= 100) {
             category = "أقل من 100 م²";
-            value = price.getCementAndMaterialSupplyLessThan100M();
+            value = price.getCementAndMaterialSupplyLessThan100Sqm();
         } else if (area <= 150) {
             category = "من 100 إلى 150 م²";
-            value = price.getCementAndMaterialSupplyLessThan150M();
+            value = price.getCementAndMaterialSupplyLessThan150Sqm();
         } else {
             category = "أكثر من 150 م²";
-            value = price.getCementAndMaterialSupplyMoreThan150M();
+            value = price.getCementAndMaterialSupplyMoreThan150Sqm();
         }
 
         return String.format("المساحة %d م² (%s) = %d", area, category, value);
@@ -255,13 +241,13 @@ public class ResidentialUnitPriceService {
 
         if (area <= 100) {
             category = "أقل من 100 م²";
-            value = price.getCementSandAndMaterialsSupplyLessThan100M();
+            value = price.getCementSandAndMaterialsSupplyLessThan100Sqm();
         } else if (area <= 150) {
             category = "من 100 إلى 150 م²";
-            value = price.getCementSandAndMaterialsSupplyLessThan150M();
+            value = price.getCementSandAndMaterialsSupplyLessThan150Sqm();
         } else {
             category = "أكثر من 150 م²";
-            value = price.getCementSandAndMaterialsSupplyMoreThan150M();
+            value = price.getCementSandAndMaterialsSupplyMoreThan150Sqm();
         }
 
         return String.format("المساحة %d م² (%s) = %d", area, category, value);

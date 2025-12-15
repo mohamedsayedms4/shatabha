@@ -4,20 +4,21 @@ import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
 
-public class PAINT_NORMAL extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
-    public PAINT_NORMAL(Price price, Double area, Double perimeter) {
+public class TagliadNormal extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
+    public TagliadNormal(Price price, Double area, Double perimeter) {
         super(price, area, perimeter);
     }
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getFloorWallPrices().getPAINT_NORMALMaterials(),
-                price.getFloorWallPrices().getPAINT_NORMALLabor(),
+        return safeAdd(price.getFloorWallPrices().getTagliadNormalMaterials(),
+                price.getFloorWallPrices().getTagliadNormalLabor(),
                 perimeter);
     }
-    private Long safeAdd(Long materials, Long labor, double area) {
+
+    private Long safeAdd(Long materials, Long labor, double perimeter) {
         long m = (materials != null ? materials : 0L);
         long l = (labor != null ? labor : 0L);
-        return Math.round((m + l) * perimeter*3);
+        return Math.round((m + l) * perimeter * 3);
     }
 }

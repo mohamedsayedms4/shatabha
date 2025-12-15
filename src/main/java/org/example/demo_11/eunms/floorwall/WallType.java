@@ -4,7 +4,7 @@ package org.example.demo_11.eunms.floorwall;
 import org.example.demo_11.eunms.floorwall.wall.DicoarQatifaStrategy;
 import org.example.demo_11.eunms.floorwall.wall.DicoarTagalidStrategy;
 import org.example.demo_11.eunms.floorwall.wall.PaintNormalStrategy;
-import org.example.demo_11.eunms.floorwall.wall.PaintStritchStrategy;
+import org.example.demo_11.eunms.floorwall.wall.PaintStretchStrategy;
 import org.example.demo_11.eunms.floorwall.wall.ceramic.Ceramic_Wall_120x60;
 import org.example.demo_11.eunms.floorwall.wall.ceramic.Ceramic_Wall_60x30;
 import org.example.demo_11.eunms.floorwall.wall.ceramic.Ceramic_Wall_75x25;
@@ -46,13 +46,13 @@ public enum WallType {
     Porcelain_Spanish_Wall_120x180("بورسلين اسباني حوائط 120×180", Porcelain_Spanish_Wall_120x180.class),
     Porcelain_Spanish_Wall_120x240("بورسلين اسباني حوائط 120×240", Porcelain_Spanish_Wall_120x240.class),
     // Paint and Panels
-    PAINT_NORMAL("دهان عادي", PAINT_NORMAL.class),
-    PAINT_DICOAR("دهان ديكور", PAINT_DICOAR.class),
-    TAGLIAD_MADE("تجاليد صناعية", TAGLIAD_MADE.class),
-    TAGLIAD_NORMAL("تجاليد طبيعي", TAGLIAD_NORMAL.class),
-    BANOHAT("بانوهات", BANOHAT.class),
+    PAINT_NORMAL("دهان عادي", PaintNormal.class),
+    PAINT_DICOAR("دهان ديكور", PaintDicoar.class),
+    TAGLIAD_MADE("تجاليد صناعية", TagliadMade.class),
+    TAGLIAD_NORMAL("تجاليد طبيعي", TagliadNormal.class),
+    BANOHAT("بانوهات", BanohAt.class),
     Paint_Normal("دهان عادي", PaintNormalStrategy.class),
-    Paint_Stritch("ديكور سترتش", PaintStritchStrategy.class),
+    Paint_Stritch("ديكور سترتش", PaintStretchStrategy.class),
     Dicoar_Qatifa("ديكور قطيفة", DicoarQatifaStrategy.class),
     Dicoar_Tagalid("ديكور تجاليد", DicoarTagalidStrategy.class);
 

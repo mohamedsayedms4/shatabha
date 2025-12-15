@@ -22,7 +22,6 @@ public class KitchenPriceService {
 
         long total = 0;
 
-        // ✅ أرضية
         Long floorPrice = 0L;
         String floorFormula = "";
         if (kitchen.getFloorWallMaterial() != null) {
@@ -30,7 +29,6 @@ public class KitchenPriceService {
                     .createStrategy(price, kitchen.getArea(), kitchen.getPerimeter())
                     .calculatePrice();
 
-            // بناء المعادلة حسب نوع المادة
             floorFormula = buildFloorFormula(kitchen.getFloorWallMaterial(), price, kitchen.getArea());
         }
         dto.setPriceFloorMaterial(floorPrice);
@@ -40,7 +38,6 @@ public class KitchenPriceService {
         dto.setFloorMaterial(kitchen.getFloorWallMaterial());
         total += floorPrice;
 
-        // ✅ الحوائط
         Long wallPrice = 0L;
         String wallFormula = "";
         if (kitchen.getWallType() != null) {
@@ -57,7 +54,6 @@ public class KitchenPriceService {
         dto.setWallMaterial(kitchen.getWallType());
         total += wallPrice;
 
-        // ✅ السقف
         Long ceilingPrice = 0L;
         String ceilingFormula = "";
         if (kitchen.getCeilingType() != null) {
@@ -74,7 +70,6 @@ public class KitchenPriceService {
                 kitchen.getCeilingType().getNameAr() : "");
         total += ceilingPrice;
 
-        // ✅ الشفاط
         Long exhaustPrice = 0L;
         String exhaustFormula = "";
         if (kitchen.getExhaustType() != null) {
@@ -91,7 +86,6 @@ public class KitchenPriceService {
         dto.setExhaustType(kitchen.getExhaustType());
         total += exhaustPrice;
 
-        // ✅ الحوض (Sink)
         Long sinkPrice = 0L;
         String sinkFormula = "";
         if (kitchen.getSinkType() != null) {
@@ -102,7 +96,6 @@ public class KitchenPriceService {
         dto.setAdaptationPriceFormula(sinkFormula);
         total += sinkPrice;
 
-        // باقي الأسعار
         Long coldInsulation = price != null ? price.getColdInsulationForFloors() : 0;
         dto.setFloorColdInsulation(coldInsulation);
         dto.setFloorColdInsulationFormula(coldInsulation + " جنيه (ثابت)");
@@ -113,18 +106,18 @@ public class KitchenPriceService {
         dto.setPlumbingKitchenSetupFormula(plumbingSetup + " جنيه (ثابت)");
         total += plumbingSetup;
 
-        Long plumbingFinnish = price != null ? price.getPlumbingKitchenFinnish() : 0;
-        dto.setPlumbingKitchenFinnish(plumbingFinnish);
-        dto.setPlumbingKitchenFinnishFormula(plumbingFinnish + " جنيه (ثابت)");
-        total += plumbingFinnish;
+        Long plumbingFinish = price != null ? price.getPlumbingKitchenFinish() : 0;
+        dto.setPlumbingKitchenFinnish(plumbingFinish);
+        dto.setPlumbingKitchenFinnishFormula(plumbingFinish + " جنيه (ثابت)");
+        total += plumbingFinish;
 
-        Long maharhPrice = price != null ?
-                (long) (price.getMaharhBand38() * 3 * kitchen.getPerimeter()) : 0;
-        dto.setMaharhBand38(maharhPrice);
+        Long mahrhaPrice = price != null ?
+                (long) (price.getMahrhaBand38() * 3 * kitchen.getPerimeter()) : 0;
+        dto.setMaharhBand38(mahrhaPrice);
         dto.setMaharhBand38Formula(String.format("%.2f × 3 × %.2f = %d جنيه",
-                price != null ? price.getMaharhBand38() : 0.0,
-                kitchen.getPerimeter(), maharhPrice));
-        total += maharhPrice;
+                price != null ? price.getMahrhaBand38() : 0.0,
+                kitchen.getPerimeter(), mahrhaPrice));
+        total += mahrhaPrice;
 
         dto.setTotalPrice(total);
         dto.setTotalPriceFormula(buildTotalFormula(dto));
@@ -134,7 +127,6 @@ public class KitchenPriceService {
 
     private String buildFloorFormula(org.example.demo_11.eunms.floorwall.FloorMaterial material,
                                      Price price, Double area) {
-        // حسب نوع المادة - الباركيه بيضرب في 1.2
         boolean isParquet = material.name().contains("Parquet") &&
                 (material.name().contains("HDF") || material.name().contains("SPC"));
 
@@ -164,11 +156,8 @@ public class KitchenPriceService {
             case CORNICE_FUTEC_SMALL:
             case CORNICE_FUTEC_LARGE:
                 return "(مواد + عمالة) = السعر الثابت";
-
-            // ✅ الحالة الجديدة للسقف المسطح (FLAT)
             case FLAT:
                 return String.format("(مواد + عمالة) × %.2f م² (المساحة) = المساحة", area);
-
             default:
                 return "غير محدد";
         }
@@ -224,7 +213,6 @@ public class KitchenPriceService {
             formula.append("محارة (").append(dto.getMaharhBand38()).append(") + ");
         }
 
-        // إزالة آخر " + "
         if (formula.toString().endsWith(" + ")) {
             formula.setLength(formula.length() - 3);
         }

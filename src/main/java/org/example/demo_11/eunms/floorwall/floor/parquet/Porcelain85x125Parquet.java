@@ -4,15 +4,15 @@ import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
 
-public class PCD_Parquet extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
-    public PCD_Parquet(Price price, Double area, Double perimeter) {
+public class Porcelain85x125Parquet extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
+    public Porcelain85x125Parquet(Price price, Double area, Double perimeter) {
         super(price, area, perimeter);
     }
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getFloorWallPrices().getPCDParquetMaterials(),
-                price.getFloorWallPrices().getPCDParquetLabor(),
+        return safeAdd(price.getFloorWallPrices().getPorcelain85x125ParquetMaterials(),
+                price.getFloorWallPrices().getPorcelain85x125ParquetLabor(),
                 area);
     }
 

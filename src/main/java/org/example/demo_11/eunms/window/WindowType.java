@@ -5,7 +5,7 @@ import org.example.demo_11.model.Price;
 public enum WindowType {
     // ============ ألوميتال ============
     ALUMETAL_PS("ألوميتال PS", AlumetalPsStrategy.class),
-    ALUMETAL_JUMPO("ألوميتال Jumpo", AlumetalJumpoStrategy.class),
+    ALUMETAL_JUMPO("ألوميتال Jumpo", AlumetalJumboStrategy.class),
 
     // ============ UPVC ============
     UPVC_TURKEY("UPVC Turkey", UpvcTurkeyStrategy.class),

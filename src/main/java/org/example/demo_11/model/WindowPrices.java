@@ -21,13 +21,14 @@ public class WindowPrices {
     @JsonProperty("alumetalPsLabor")
     private Long alumetalPsLabor;
 
-    @Column(name = "alumetal_jumpo_materials")
-    @JsonProperty("alumetalJumpoMaterials")
-    private Long alumetalJumpoMaterials;
+    // تصحيح: Jumpo → Jumbo
+    @Column(name = "alumetal_jumbo_materials")
+    @JsonProperty("alumetalJumboMaterials")
+    private Long alumetalJumboMaterials;
 
-    @Column(name = "alumetal_jumpo_labor")
-    @JsonProperty("alumetalJumpoLabor")
-    private Long alumetalJumpoLabor;
+    @Column(name = "alumetal_jumbo_labor")
+    @JsonProperty("alumetalJumboLabor")
+    private Long alumetalJumboLabor;
 
     @Column(name = "upvc_turkey_materials")
     @JsonProperty("upvcTurkeyMaterials")
@@ -45,14 +46,7 @@ public class WindowPrices {
     @JsonProperty("upvcBelgiumLabor")
     private Long upvcBelgiumLabor;
 
-    @Column(name = "window_shutter_general_materials")
-    @JsonProperty("windowShutterGeneralMaterials")
-    private Long windowShutterGeneralMaterials;
-
-    @Column(name = "window_shutter_general_labor")
-    @JsonProperty("windowShutterGeneralLabor")
-    private Long windowShutterGeneralLabor;
-
+    // توحيد التسمية: General → Normal (أو العكس)
     @Column(name = "window_shutter_normal_materials")
     @JsonProperty("windowShutterNormalMaterials")
     private Long windowShutterNormalMaterials;
@@ -61,6 +55,7 @@ public class WindowPrices {
     @JsonProperty("windowShutterNormalLabor")
     private Long windowShutterNormalLabor;
 
+    // يمكن حذف General إذا كان نفس Normal
     @Column(name = "window_shutter_armored_materials")
     @JsonProperty("windowShutterArmoredMaterials")
     private Long windowShutterArmoredMaterials;

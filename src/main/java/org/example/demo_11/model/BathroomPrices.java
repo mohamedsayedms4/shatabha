@@ -53,37 +53,38 @@ public class BathroomPrices {
     @JsonProperty("showerConcealedLabor")
     private Long showerConcealedLabor;
 
-    @Column(name = "shower_concealed2materials")
-    @JsonProperty("showerConcealed2Materials")
-    private Long showerConcealed2Materials;
+    // تصحيح: إضافة underscores وتوضيح المعنى
+    @Column(name = "shower_concealed_two_outlet_materials")
+    @JsonProperty("showerConcealedTwoOutletMaterials")
+    private Long showerConcealedTwoOutletMaterials;
 
-    @Column(name = "shower_concealed2labor")
-    @JsonProperty("showerConcealed2Labor")
-    private Long showerConcealed2Labor;
+    @Column(name = "shower_concealed_two_outlet_labor")
+    @JsonProperty("showerConcealedTwoOutletLabor")
+    private Long showerConcealedTwoOutletLabor;
 
-    @Column(name = "buried_shower_mixer2outlet_materials")
-    @JsonProperty("buriedShowerMixer2OutletMaterials")
-    private Long buriedShowerMixer2OutletMaterials;
+    @Column(name = "buried_shower_mixer_two_outlet_materials")
+    @JsonProperty("buriedShowerMixerTwoOutletMaterials")
+    private Long buriedShowerMixerTwoOutletMaterials;
 
-    @Column(name = "buried_shower_mixer2outlet_labor")
-    @JsonProperty("buriedShowerMixer2OutletLabor")
-    private Long buriedShowerMixer2OutletLabor;
+    @Column(name = "buried_shower_mixer_two_outlet_labor")
+    @JsonProperty("buriedShowerMixerTwoOutletLabor")
+    private Long buriedShowerMixerTwoOutletLabor;
 
-    @Column(name = "shower_concealed3materials")
-    @JsonProperty("showerConcealed3Materials")
-    private Long showerConcealed3Materials;
+    @Column(name = "shower_concealed_three_outlet_materials")
+    @JsonProperty("showerConcealedThreeOutletMaterials")
+    private Long showerConcealedThreeOutletMaterials;
 
-    @Column(name = "shower_concealed3labor")
-    @JsonProperty("showerConcealed3Labor")
-    private Long showerConcealed3Labor;
+    @Column(name = "shower_concealed_three_outlet_labor")
+    @JsonProperty("showerConcealedThreeOutletLabor")
+    private Long showerConcealedThreeOutletLabor;
 
-    @Column(name = "buried_shower_mixer3outlet_materials")
-    @JsonProperty("buriedShowerMixer3OutletMaterials")
-    private Long buriedShowerMixer3OutletMaterials;
+    @Column(name = "buried_shower_mixer_three_outlet_materials")
+    @JsonProperty("buriedShowerMixerThreeOutletMaterials")
+    private Long buriedShowerMixerThreeOutletMaterials;
 
-    @Column(name = "buried_shower_mixer3outlet_labor")
-    @JsonProperty("buriedShowerMixer3OutletLabor")
-    private Long buriedShowerMixer3OutletLabor;
+    @Column(name = "buried_shower_mixer_three_outlet_labor")
+    @JsonProperty("buriedShowerMixerThreeOutletLabor")
+    private Long buriedShowerMixerThreeOutletLabor;
 
     @Column(name = "shower_smart_materials")
     @JsonProperty("showerSmartMaterials")
@@ -149,13 +150,14 @@ public class BathroomPrices {
     @JsonProperty("baseWallHungConcealedBoxLabor")
     private Long baseWallHungConcealedBoxLabor;
 
-    @Column(name = "basefloor_standing_materials")
-    @JsonProperty("basefloorStandingMaterials")
-    private Long basefloorStandingMaterials;
+    // تصحيح: إضافة underscore
+    @Column(name = "base_floor_standing_materials")
+    @JsonProperty("baseFloorStandingMaterials")
+    private Long baseFloorStandingMaterials;
 
-    @Column(name = "basefloor_standing_labor")
-    @JsonProperty("basefloorStandingLabor")
-    private Long basefloorStandingLabor;
+    @Column(name = "base_floor_standing_labor")
+    @JsonProperty("baseFloorStandingLabor")
+    private Long baseFloorStandingLabor;
 
     @Column(name = "bathtub_materials")
     @JsonProperty("bathtubMaterials")
@@ -173,11 +175,12 @@ public class BathroomPrices {
     @JsonProperty("jacuzziLabor")
     private Long jacuzziLabor;
 
-    @Column(name = "shower_base_glass80_210materials")
+    // تصحيح: إضافة underscores
+    @Column(name = "shower_base_glass_80_210_materials")
     @JsonProperty("showerBaseGlass80_210Materials")
     private Long showerBaseGlass80_210Materials;
 
-    @Column(name = "shower_base_glass80_210labor")
+    @Column(name = "shower_base_glass_80_210_labor")
     @JsonProperty("showerBaseGlass80_210Labor")
     private Long showerBaseGlass80_210Labor;
 
@@ -189,13 +192,14 @@ public class BathroomPrices {
     @JsonProperty("showerNoneLabor")
     private Long showerNoneLabor;
 
-    @Column(name = "shower_base_labor")
-    @JsonProperty("shower_baseLabor")
-    private Long shower_baseLabor;
-
+    // تصحيح: توحيد التسمية
     @Column(name = "shower_base_materials")
-    @JsonProperty("shower_baseMaterials")
-    private Long shower_baseMaterials;
+    @JsonProperty("showerBaseMaterials")
+    private Long showerBaseMaterials;
+
+    @Column(name = "shower_base_labor")
+    @JsonProperty("showerBaseLabor")
+    private Long showerBaseLabor;
 
     @Column(name = "sink_above_unit_materials")
     @JsonProperty("sinkAboveUnitMaterials")

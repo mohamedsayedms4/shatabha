@@ -20,23 +20,23 @@ public class Price {
     @JsonProperty("coldInsulationForFloors")
     private Long coldInsulationForFloors;
 
-    @JsonProperty("maharhBand38")
-    private Long maharhBand38;
+    @JsonProperty("mahrhaBand38")  // تصحيح: maharh → mahrha
+    private Long mahrhaBand38;
 
-    @JsonProperty("pathRoomAccesories")
-    private Long pathRoomAccesories;
+    @JsonProperty("bathRoomAccessories")  // تصحيح: path → bath, Accesories → Accessories
+    private Long bathRoomAccessories;
 
-    @JsonProperty("plumbingPatRoomSetup")
-    private Long plumbingPatRoomSetup;
+    @JsonProperty("plumbingBathRoomSetup")  // تصحيح: pat → bath
+    private Long plumbingBathRoomSetup;
 
-    @JsonProperty("plumbingPatRoomFinnish")
-    private Long plumbingPatRoomFinnish;
+    @JsonProperty("plumbingBathRoomFinish")  // تصحيح: pat → bath, Finnish → Finish
+    private Long plumbingBathRoomFinish;
 
     @JsonProperty("plumbingKitchenSetup")
     private Long plumbingKitchenSetup;
 
-    @JsonProperty("plumbingKitchenFinnish")
-    private Long plumbingKitchenFinnish;
+    @JsonProperty("plumbingKitchenFinish")  // تصحيح: Finnish → Finish
+    private Long plumbingKitchenFinish;
 
     @JsonProperty("paintForWallMaterials")
     private Long paintForWallMaterials;
@@ -50,50 +50,50 @@ public class Price {
     @JsonProperty("paintForCeilingLabor")
     private Long paintForCeilingLabor;
 
-    @JsonProperty("previousFinishingDemolitionLessThan100M")
-    private Long previousFinishingDemolitionLessThan100M;
+    @JsonProperty("previousFinishingDemolitionLessThan100Sqm")  // تصحيح: M → Sqm
+    private Long previousFinishingDemolitionLessThan100Sqm;
 
-    @JsonProperty("previousFinishingDemolitionLessThan150M")
-    private Long previousFinishingDemolitionLessThan150M;
+    @JsonProperty("previousFinishingDemolitionLessThan150Sqm")  // تصحيح: M → Sqm
+    private Long previousFinishingDemolitionLessThan150Sqm;
 
-    @JsonProperty("previousFinishingDemolitionMoreThan150M")
-    private Long previousFinishingDemolitionMoreThan150M;
+    @JsonProperty("previousFinishingDemolitionMoreThan150Sqm")  // تصحيح: M → Sqm
+    private Long previousFinishingDemolitionMoreThan150Sqm;
 
-    @JsonProperty("electricalInstallationLessThan100MCategory")
-    private Long electricalInstallationLessThan100MCategory;
+    @JsonProperty("electricalInstallationLessThan100SqmCategory")  // تصحيح: M → Sqm
+    private Long electricalInstallationLessThan100SqmCategory;
 
-    @JsonProperty("electricalInstallationLessThan100MManufacturers")
-    private Long electricalInstallationLessThan100MManufacturers;
+    @JsonProperty("electricalInstallationLessThan100SqmManufacturers")  // تصحيح: M → Sqm
+    private Long electricalInstallationLessThan100SqmManufacturers;
 
-    @JsonProperty("electricalInstallationLessThan150MCategory")
-    private Long electricalInstallationLessThan150MCategory;
+    @JsonProperty("electricalInstallationLessThan150SqmCategory")  // تصحيح: M → Sqm
+    private Long electricalInstallationLessThan150SqmCategory;
 
-    @JsonProperty("electricalInstallationLessThan150MManufacturers")
-    private Long electricalInstallationLessThan150MManufacturers;
+    @JsonProperty("electricalInstallationLessThan150SqmManufacturers")  // تصحيح: M → Sqm
+    private Long electricalInstallationLessThan150SqmManufacturers;
 
-    @JsonProperty("electricalInstallationMoreThan150MCategory")
-    private Long electricalInstallationMoreThan150MCategory;
+    @JsonProperty("electricalInstallationMoreThan150SqmCategory")  // تصحيح: M → Sqm
+    private Long electricalInstallationMoreThan150SqmCategory;
 
-    @JsonProperty("electricalInstallationMoreThan150MManufacturers")
-    private Long electricalInstallationMoreThan150MManufacturers;
+    @JsonProperty("electricalInstallationMoreThan150SqmManufacturers")  // تصحيح: M → Sqm
+    private Long electricalInstallationMoreThan150SqmManufacturers;
 
-    @JsonProperty("cementAndMaterialSupplyLessThan100M")
-    private Long cementAndMaterialSupplyLessThan100M;
+    @JsonProperty("cementAndMaterialSupplyLessThan100Sqm")  // تصحيح: M → Sqm
+    private Long cementAndMaterialSupplyLessThan100Sqm;
 
-    @JsonProperty("cementAndMaterialSupplyLessThan150M")
-    private Long cementAndMaterialSupplyLessThan150M;
+    @JsonProperty("cementAndMaterialSupplyLessThan150Sqm")  // تصحيح: M → Sqm
+    private Long cementAndMaterialSupplyLessThan150Sqm;
 
-    @JsonProperty("cementAndMaterialSupplyMoreThan150M")
-    private Long cementAndMaterialSupplyMoreThan150M;
+    @JsonProperty("cementAndMaterialSupplyMoreThan150Sqm")  // تصحيح: M → Sqm
+    private Long cementAndMaterialSupplyMoreThan150Sqm;
 
-    @JsonProperty("cementSandAndMaterialsSupplyLessThan100M")
-    private Long cementSandAndMaterialsSupplyLessThan100M;
+    @JsonProperty("cementSandAndMaterialsSupplyLessThan100Sqm")  // تصحيح: M → Sqm
+    private Long cementSandAndMaterialsSupplyLessThan100Sqm;
 
-    @JsonProperty("cementSandAndMaterialsSupplyLessThan150M")
-    private Long cementSandAndMaterialsSupplyLessThan150M;
+    @JsonProperty("cementSandAndMaterialsSupplyLessThan150Sqm")  // تصحيح: M → Sqm
+    private Long cementSandAndMaterialsSupplyLessThan150Sqm;
 
-    @JsonProperty("cementSandAndMaterialsSupplyMoreThan150M")
-    private Long cementSandAndMaterialsSupplyMoreThan150M;
+    @JsonProperty("cementSandAndMaterialsSupplyMoreThan150Sqm")  // تصحيح: M → Sqm
+    private Long cementSandAndMaterialsSupplyMoreThan150Sqm;
 
     @JsonProperty("adaptationMaterials")
     private Long adaptationMaterials;

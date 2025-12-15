@@ -1,19 +1,18 @@
-package org.example.demo_11.eunms.floorwall.wall;
+package org.example.demo_11.eunms.floorwall.floor.parquet;
 
 import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
 
-public class PaintStritchStrategy extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
-
-    public PaintStritchStrategy(Price price, Double area, Double perimeter) {
+public class Porcelain60x80Parquet extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
+    public Porcelain60x80Parquet(Price price, Double area, Double perimeter) {
         super(price, area, perimeter);
     }
 
     @Override
     public Long calculatePrice() {
-        return safeAdd(price.getCeilingPrices().getCelingPaint_StritchMaterials(),
-                price.getCeilingPrices().getCelingPaint_StritchLabor(),
+        return safeAdd(price.getFloorWallPrices().getPorcelain60x80ParquetMaterials(),
+                price.getFloorWallPrices().getPorcelain60x80ParquetLabor(),
                 area);
     }
 
@@ -23,5 +22,3 @@ public class PaintStritchStrategy extends BaseClassPriceAreaPermaitair implement
         return Math.round((m + l) * area);
     }
 }
-
-

@@ -22,7 +22,6 @@ public class PathRoomPriceService {
 
         long total = 0;
 
-        // === الأرضية ===
         if (pathRoom.getFloorWallMaterial() != null) {
             long floorPrice = pathRoom.getFloorWallMaterial()
                     .createStrategy(price, dto.getArea(), dto.getPerimeter())
@@ -31,12 +30,10 @@ public class PathRoomPriceService {
             dto.setFloorMaterialSTR(pathRoom.getFloorWallMaterial().getArabicName());
             dto.setFloorMaterial(pathRoom.getFloorWallMaterial());
 
-            // 🆕 المعادلة
             dto.setFloorMaterialFormula(getFloorFormula(pathRoom.getFloorWallMaterial(), price, dto.getArea()));
             total += floorPrice;
         }
 
-        // === الحوائط ===
         if (pathRoom.getWallType() != null) {
             long wallPrice = pathRoom.getWallType()
                     .createStrategy(price, dto.getArea(), dto.getPerimeter())
@@ -45,12 +42,10 @@ public class PathRoomPriceService {
             dto.setWallMaterialSTR(pathRoom.getWallType().getArabicName());
             dto.setWallMaterial(pathRoom.getWallType());
 
-            // 🆕 المعادلة
             dto.setWallMaterialFormula(getWallFormula(pathRoom.getWallType(), price, dto.getPerimeter()));
             total += wallPrice;
         }
 
-        // === السقف ===
         if (pathRoom.getCeilingType() != null) {
             long ceilingPrice = pathRoom.getCeilingType()
                     .createStrategy(price)
@@ -58,12 +53,10 @@ public class PathRoomPriceService {
             dto.setCeilingType(ceilingPrice);
             dto.setCeilingTypeSTR(pathRoom.getCeilingType().getNameAr());
 
-            // 🆕 المعادلة
             dto.setCeilingFormula(getCeilingFormula(pathRoom.getCeilingType(), price, dto.getArea(), dto.getPerimeter()));
             total += ceilingPrice;
         }
 
-        // === الشفاط ===
         if (pathRoom.getExhaustType() != null) {
             long exhaustPrice = pathRoom.getExhaustType()
                     .createStrategy(price)
@@ -72,12 +65,10 @@ public class PathRoomPriceService {
             dto.setExhaustMaterialSTR(pathRoom.getExhaustType().getArabicName());
             dto.setExhaustType(pathRoom.getExhaustType());
 
-            // 🆕 المعادلة
             dto.setExhaustFormula(getExhaustFormula(pathRoom.getExhaustType(), price));
             total += exhaustPrice;
         }
 
-        // === الخلاط ===
         if (pathRoom.getMixerType() != null) {
             long mixerPrice = pathRoom.getMixerType()
                     .createStrategy(price)
@@ -86,12 +77,10 @@ public class PathRoomPriceService {
             dto.setMixerTypeSTR(pathRoom.getMixerType().getArabicName());
             dto.setMixerType(pathRoom.getMixerType().toString());
 
-            // 🆕 المعادلة
             dto.setMixerFormula(getMixerFormula(pathRoom.getMixerType(), price));
             total += mixerPrice;
         }
 
-        // === القاعدة ===
         if (pathRoom.getBaseType() != null) {
             long basePrice = pathRoom.getBaseType()
                     .createStrategy(price)
@@ -100,12 +89,10 @@ public class PathRoomPriceService {
             dto.setBaseTypeSTR(pathRoom.getBaseType().getArabicName());
             dto.setBaseType(pathRoom.getBaseType().toString());
 
-            // 🆕 المعادلة
             dto.setBaseFormula(getBaseFormula(pathRoom.getBaseType(), price));
             total += basePrice;
         }
 
-        // === منطقة الاستحمام ===
         if (pathRoom.getShowerArea() != null) {
             long showerPrice = pathRoom.getShowerArea()
                     .createStrategy(price)
@@ -113,53 +100,46 @@ public class PathRoomPriceService {
             dto.setPriceShowerArea(showerPrice);
             dto.setShowerAreaSTR(pathRoom.getShowerArea().getArabicName());
 
-            // 🆕 المعادلة
             dto.setShowerFormula(getShowerFormula(pathRoom.getShowerArea(), price));
             total += showerPrice;
         }
 
-        // === الحوض ===
         if (pathRoom.getSinkType() != null) {
             long sinkPrice = pathRoom.getSinkType().calculatePrice(price);
             dto.setSinkPrice(sinkPrice);
             dto.setSinkTypeSTR(pathRoom.getSinkType().getArabicName());
             dto.setSinkType(pathRoom.getSinkType());
 
-            // 🆕 المعادلة
             dto.setSinkFormula(getSinkFormula(pathRoom.getSinkType(), price));
             total += sinkPrice;
         }
 
-        // === الأسعار الثابتة ===
         long floorColdInsulation = price != null ? price.getColdInsulationForFloors() : 0;
         dto.setFloorColdInsulation(floorColdInsulation);
         dto.setFloorColdInsulationFormula("قيمة ثابتة: " + floorColdInsulation);
         total += floorColdInsulation;
 
-        long plumbingSetup = price != null ? price.getPlumbingPatRoomSetup() : 0;
+        long plumbingSetup = price != null ? price.getPlumbingBathRoomSetup() : 0;
         dto.setPlumbingPatRoomSetup(plumbingSetup);
         dto.setPlumbingSetupFormula("قيمة ثابتة: " + plumbingSetup);
         total += plumbingSetup;
 
-        long plumbingFinnish = price != null ? price.getPlumbingPatRoomFinnish() : 0;
-        dto.setPlumbingPatRoomFinnish(plumbingFinnish);
-        dto.setPlumbingFinnishFormula("قيمة ثابتة: " + plumbingFinnish);
-        total += plumbingFinnish;
+        long plumbingFinish = price != null ? price.getPlumbingBathRoomFinish() : 0;
+        dto.setPlumbingPatRoomFinnish(plumbingFinish);
+        dto.setPlumbingFinnishFormula("قيمة ثابتة: " + plumbingFinish);
+        total += plumbingFinish;
 
-        // === المحارة ===
-        long maharahPrice = dto.getPerimeter() > 0 ? (long) (price.getMaharhBand38() * 3 * dto.getPerimeter()) : 0;
-        dto.setMaharhBand38(maharahPrice);
+        long mahrhaPrice = dto.getPerimeter() > 0 ? (long) (price.getMahrhaBand38() * 3 * dto.getPerimeter()) : 0;
+        dto.setMaharhBand38(mahrhaPrice);
         dto.setMaharhFormula(String.format("سعر المتر (%d) × 3 × المحيط (%.2f) = %d",
-                price.getMaharhBand38(), dto.getPerimeter(), maharahPrice));
-        total += maharahPrice;
+                price.getMahrhaBand38(), dto.getPerimeter(), mahrhaPrice));
+        total += mahrhaPrice;
 
-        // === النقاشة ===
         calculatePaintingPrices(dto, price);
         total += dto.getPaintForWall() != null ? dto.getPaintForWall() : 0;
         total += dto.getPaintForCeiling() != null ? dto.getPaintForCeiling() : 0;
 
-        // === اكسسوارات الحمام ===
-        long accessories = price != null ? price.getPathRoomAccesories() : 0;
+        long accessories = price != null ? price.getBathRoomAccessories() : 0;
         dto.setPathRoomAccesories(accessories);
         dto.setAccessoriesFormula("قيمة ثابتة: " + accessories);
         total += accessories;
@@ -172,14 +152,12 @@ public class PathRoomPriceService {
         long area = dto.getArea().longValue();
         long perimeter = dto.getPerimeter().longValue();
 
-        // دهان الحوائط
         double wallPaint = (price.getPaintForWallMaterials() + price.getPaintForWallLabor()) * perimeter * 2.7;
         long wallPaintPrice = (long) wallPaint;
         dto.setPaintForWall(wallPaintPrice);
         dto.setPaintWallFormula(String.format("(مواد %d + عمالة %d) × المحيط %d × 2.7 = %d",
                 price.getPaintForWallMaterials(), price.getPaintForWallLabor(), perimeter, wallPaintPrice));
 
-        // دهان السقف
         double ceilingPaint = (price.getPaintForCeilingMaterials() + price.getPaintForCeilingLabor()) * area;
         long ceilingPaintPrice = (long) ceilingPaint;
         dto.setPaintForCeiling(ceilingPaintPrice);
@@ -187,12 +165,9 @@ public class PathRoomPriceService {
                 price.getPaintForCeilingMaterials(), price.getPaintForCeilingLabor(), area, ceilingPaintPrice));
     }
 
-    // ========== دوال المعادلات ==========
-
     private String getFloorFormula(Object floorType, Price price, Double area) {
         String typeName = floorType.toString();
 
-        // حسب النوع اجيب المعادلة المناسبة
         if (typeName.contains("Parquet") && (typeName.contains("HDF") || typeName.contains("SPC"))) {
             return String.format("(مواد + عمالة) × المساحة × 1.2 = (مواد + عمالة) × %.2f × 1.2", area);
         }
@@ -209,33 +184,32 @@ public class PathRoomPriceService {
 
         switch (typeName) {
             case "BEIT_NOOR":
-                return String.format(
-                        "(مواد + عمالة) × المحيط + إضاءة خلفية = (مواد + عمالة) × %.2f + %d",
-                        perimeter,
-                        price.getLightingPrices().getBackLedHiddenLighting()
-                );
+                Long backLedMaterials = price.getLightingPrices().getBackLedHiddenLightingMaterials();
+                Long backLedLabor = price.getLightingPrices().getBackLedHiddenLightingLabor();
+                Long backLedPrice = safeAdd(backLedMaterials, backLedLabor);
+                return String.format("(مواد + عمالة) × المحيط + إضاءة خلفية = (مواد + عمالة) × %.2f + %d",
+                        perimeter, backLedPrice);
 
             case "SHADOW_GAP":
-                return String.format(
-                        "(مواد + عمالة) × المحيط + باند 51 = (مواد + عمالة) × %.2f + %d",
-                        perimeter,
-                        price.getCeilingPrices().getBand51()
-                );
+                Long band51Materials = price.getCeilingPrices().getBand51Materials();
+                Long band51Labor = price.getCeilingPrices().getBand51Labor();
+                Long band51Price = safeAdd(band51Materials, band51Labor);
+                return String.format("(مواد + عمالة) × المحيط + باند 51 = (مواد + عمالة) × %.2f + %d",
+                        perimeter, band51Price);
 
             case "SHADOW_GAP_LIGHT":
-                return String.format(
-                        "(مواد + عمالة) × المحيط + (المساحة × باند 51) = (مواد + عمالة) × %.2f + (%.2f × %d)",
-                        perimeter,
-                        area,
-                        price.getCeilingPrices().getBand51()
-                );
+                Long band51Materials2 = price.getCeilingPrices().getBand51Materials();
+                Long band51Labor2 = price.getCeilingPrices().getBand51Labor();
+                Long band51Price2 = safeAdd(band51Materials2, band51Labor2);
+                return String.format("(مواد + عمالة) × المحيط + (المساحة × باند 51) = (مواد + عمالة) × %.2f + (%.2f × %d)",
+                        perimeter, area, band51Price2);
 
-            case "FLAT": // ✅ النوع الجديد (مسطح)
-                return String.format(
-                        "(مواد + عمالة) × المساحة = (%.2f × %.2f)",
-                        price.getCeilingPrices().getFlatLabor()+price.getCeilingPrices().getFlatMaterials(),
-                        area
-                );
+            case "FLAT":
+                Long flatMaterials = price.getCeilingPrices().getFlatMaterials();
+                Long flatLabor = price.getCeilingPrices().getFlatLabor();
+                Long flatPrice = safeAdd(flatMaterials, flatLabor);
+                return String.format("(مواد + عمالة) × المساحة = (%d + %d) × %.2f = %d × %.2f",
+                        flatMaterials, flatLabor, area, flatPrice, area);
 
             default:
                 return "مواد + عمالة";
@@ -287,5 +261,11 @@ public class PathRoomPriceService {
 
     private String getSinkFormula(Object sinkType, Price price) {
         return "مواد + عمالة";
+    }
+
+    private Long safeAdd(Long materials, Long labor) {
+        long m = materials != null ? materials : 0L;
+        long l = labor != null ? labor : 0L;
+        return m + l;
     }
 }
