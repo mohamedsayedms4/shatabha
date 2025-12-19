@@ -1,5 +1,10 @@
 package org.example.demo_11.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.example.demo_11.model.EnumDisplayName;
+import org.example.demo_11.repository.EnumDisplayNameRepository;
+import org.example.demo_11.service.EnumService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -9,7 +14,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/enums")
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class EnumController {
+    private final EnumService enumService;
+    private final EnumDisplayNameRepository enumDisplayNameRepository;
 
     // ✅ القيم باللغة الإنجليزية (أسماء الـ Enum)
     @GetMapping("/{enumName}/en")
@@ -113,4 +121,32 @@ public class EnumController {
         };
         return Arrays.asList(availableEnums);
     }
+
+
+
+//    @GetMapping("/{enumType}/ar")
+//    public List<String> getEnums(@PathVariable String enumType) {
+//        return enumService.getEnumValues(enumType);
+//    }
+//    // CREATE
+//    @PostMapping(
+//            consumes = "application/json",
+//            produces = "application/json"
+//    )
+//    public EnumDisplayName create(@RequestBody EnumDisplayName body) {
+//        return enumService.create(body);
+//    }
+//
+//    // UPDATE
+//    @PutMapping(
+//            value = "/{id}",
+//            consumes = "application/json",
+//            produces = "application/json"
+//    )
+//    public EnumDisplayName update(
+//            @PathVariable Long id,
+//            @RequestBody EnumDisplayName body
+//    ) {
+//        return enumService.update(id, body);
+//    }
 }

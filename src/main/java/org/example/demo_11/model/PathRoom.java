@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.demo_11.eunms.BathFloorMaterial;
 import org.example.demo_11.eunms.base.BaseType;
 import org.example.demo_11.eunms.ceiling.CeilingType;
 import org.example.demo_11.eunms.exhaust.ExhaustType;
@@ -41,16 +42,9 @@ public class PathRoom {
     private CeilingType ceilingType;
 
 
-    // ============ مواد الأرضيات والجدران ============
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private FloorMaterial floorWallMaterial;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-
-    private WallType wallType;
-
+    private BathFloorMaterial  bathFloorMaterial;
 
     // ============ أنواع الخلاطات ============
     @Enumerated(EnumType.STRING)

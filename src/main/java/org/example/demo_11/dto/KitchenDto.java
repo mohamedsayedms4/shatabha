@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.demo_11.eunms.BathFloorMaterial;
 import org.example.demo_11.eunms.exhaust.ExhaustType;
-import org.example.demo_11.eunms.floorwall.FloorMaterial;
-import org.example.demo_11.eunms.floorwall.WallType;
 
 @Setter
 @Getter
@@ -33,17 +32,12 @@ import org.example.demo_11.eunms.floorwall.WallType;
         "maharhBand38",
         "maharhBand38Formula",
 
-        "priceFloorMaterialSTR",
-        "priceFloorMaterial",
-        "priceFloorMaterialFormula",
-        "floorMaterialSTR",
-        "floorMaterial",
-
-        "priceWallMaterialSTR",
-        "priceWallMaterial",
-        "priceWallMaterialFormula",
-        "wallMaterialSTR",
-        "wallMaterial",
+        // ===== (جديد) خامة المطبخ المدمجة =====
+        "priceKitchenMaterialSTR",
+        "priceKitchenMaterial",
+        "priceKitchenMaterialFormula",
+        "kitchenMaterialSTR",
+        "kitchenMaterial",
 
         "ceilingTypeSTR",
         "ceilingTypePrice",
@@ -88,19 +82,12 @@ public class KitchenDto {
     private Long maharhBand38;
     private String maharhBand38Formula;
 
-    // الأرضية
-    private String priceFloorMaterialSTR = "سعر الارضية";
-    private Long priceFloorMaterial;
-    private String priceFloorMaterialFormula;
-    private String floorMaterialSTR;
-    private FloorMaterial floorMaterial;
-
-    // الحوائط
-    private String priceWallMaterialSTR = "سعر الحوائط";
-    private Long priceWallMaterial;
-    private String priceWallMaterialFormula;
-    private String wallMaterialSTR;
-    private WallType wallMaterial;
+    // ===== (جديد) خامة المطبخ (مُدمج) =====
+    private String priceKitchenMaterialSTR = "سعر خامة المطبخ";
+    private Long priceKitchenMaterial;
+    private String priceKitchenMaterialFormula;
+    private String kitchenMaterialSTR;
+    private BathFloorMaterial kitchenMaterial;
 
     // السقف
     private String ceilingTypeSTR;
@@ -113,7 +100,7 @@ public class KitchenDto {
     private String priceExhaustFormula;
     private ExhaustType exhaustType;
 
-    // الحوض
+    // أعمال تكيف/تعديل (كنت مستخدمها للحوض)
     private String adaptationPriceSTR = "أعمال تكيف المطبخ";
     private Long adaptationprice;
     private String adaptationPriceFormula;

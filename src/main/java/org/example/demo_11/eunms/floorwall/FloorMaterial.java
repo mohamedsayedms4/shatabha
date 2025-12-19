@@ -36,7 +36,7 @@ public enum FloorMaterial {
     Parquet_PORCELAIN_60x80("باركية بورسلين 60×80", Porcelain60x80Parquet.class),
     Parquet_PORCELAIN_85x125("باركية بورسلين 85×125", Porcelain85x125Parquet.class),
 
-    Local_Porcelain_60x120("بورسلين محلي أرضيات 60×120", Local_Porcelain_60x120_Floor.class),
+    Porcelain_Local_60x120("بورسلين محلي أرضيات 60×120", Local_Porcelain_60x120_Floor.class),
 
     Porcelain_Hindi_60x120("بورسلين هندي أرضيات 60×120", Hindi_Porcelain_60x120_Floor.class),
     Porcelain_Hindi_120x180("بورسلين هندي أرضيات 120×180", Hindi_Porcelain_120x180_Floor.class),

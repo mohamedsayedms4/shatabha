@@ -4,8 +4,8 @@ import org.example.demo_11.model.Price;
 
 public enum ShutterType {
     SHUTTER_PROTECTION("شاتر - حمايه", ShutterProtectionStrategy.class),
-    SHUTTER_WEATHER_RESISTANT("شاتر - ضد عوامل الجو", ShutterWeatherResistantStrategy.class),
-    SHUTTER_ANTI_THEFT("شاتر - ضد السرقه", ShutterAntiTheftStrategy.class);
+    SHUTTER_WEATHER_RESISTANT("شاتر - ضد عوامل الجو", ShutterWeatherResistantStrategy.class);
+//    SHUTTER_ANTI_THEFT("شاتر - ضد السرقه", ShutterAntiTheftStrategy.class);
 
     private final String arabicName;
     private final Class<? extends ShutterPriceStrategy> strategyClass;

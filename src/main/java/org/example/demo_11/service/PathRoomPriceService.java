@@ -22,30 +22,26 @@ public class PathRoomPriceService {
 
         long total = 0;
 
-        if (pathRoom.getFloorWallMaterial() != null) {
-            long floorPrice = pathRoom.getFloorWallMaterial()
-                    .createStrategy(price, dto.getArea(), dto.getPerimeter())
-                    .calculatePrice();
-            dto.setPriceFloorMaterial(floorPrice);
-            dto.setFloorMaterialSTR(pathRoom.getFloorWallMaterial().getArabicName());
-            dto.setFloorMaterial(pathRoom.getFloorWallMaterial());
+        // ===================== BathFloorMaterial (Merged) =====================
+        if (pathRoom.getBathFloorMaterial() != null) {
+            long bathFloorPrice = pathRoom.getBathFloorMaterial()
+                    .calculatePrice(price, dto.getArea(), dto.getPerimeter());
 
-            dto.setFloorMaterialFormula(getFloorFormula(pathRoom.getFloorWallMaterial(), price, dto.getArea()));
-            total += floorPrice;
+            // لازم تكون ضايف دول في PathDto:
+            // bathFloorMaterialSTR, bathFloorMaterial, bathFloorMaterialFormula, priceBathFloorMaterial
+            dto.setPriceBathFloorMaterial(bathFloorPrice);
+            dto.setBathFloorMaterial(pathRoom.getBathFloorMaterial());
+            dto.setBathFloorMaterialSTR(pathRoom.getBathFloorMaterial().getArabicName());
+
+            dto.setBathFloorMaterialFormula(String.format(
+                    "(مواد + عمالة) × المساحة (%.2f) + (مواد + عمالة) × المحيط (%.2f) × 3",
+                    dto.getArea(), dto.getPerimeter()
+            ));
+
+            total += bathFloorPrice;
         }
 
-        if (pathRoom.getWallType() != null) {
-            long wallPrice = pathRoom.getWallType()
-                    .createStrategy(price, dto.getArea(), dto.getPerimeter())
-                    .calculatePrice();
-            dto.setPriceWallMaterial(wallPrice);
-            dto.setWallMaterialSTR(pathRoom.getWallType().getArabicName());
-            dto.setWallMaterial(pathRoom.getWallType());
-
-            dto.setWallMaterialFormula(getWallFormula(pathRoom.getWallType(), price, dto.getPerimeter()));
-            total += wallPrice;
-        }
-
+        // ===================== Ceiling =====================
         if (pathRoom.getCeilingType() != null) {
             long ceilingPrice = pathRoom.getCeilingType()
                     .createStrategy(price)
@@ -57,6 +53,7 @@ public class PathRoomPriceService {
             total += ceilingPrice;
         }
 
+        // ===================== Exhaust =====================
         if (pathRoom.getExhaustType() != null) {
             long exhaustPrice = pathRoom.getExhaustType()
                     .createStrategy(price)
@@ -69,6 +66,7 @@ public class PathRoomPriceService {
             total += exhaustPrice;
         }
 
+        // ===================== Mixer =====================
         if (pathRoom.getMixerType() != null) {
             long mixerPrice = pathRoom.getMixerType()
                     .createStrategy(price)
@@ -81,6 +79,7 @@ public class PathRoomPriceService {
             total += mixerPrice;
         }
 
+        // ===================== Base =====================
         if (pathRoom.getBaseType() != null) {
             long basePrice = pathRoom.getBaseType()
                     .createStrategy(price)
@@ -93,6 +92,7 @@ public class PathRoomPriceService {
             total += basePrice;
         }
 
+        // ===================== Shower Area =====================
         if (pathRoom.getShowerArea() != null) {
             long showerPrice = pathRoom.getShowerArea()
                     .createStrategy(price)
@@ -104,6 +104,7 @@ public class PathRoomPriceService {
             total += showerPrice;
         }
 
+        // ===================== Sink =====================
         if (pathRoom.getSinkType() != null) {
             long sinkPrice = pathRoom.getSinkType().calculatePrice(price);
             dto.setSinkPrice(sinkPrice);
@@ -114,6 +115,7 @@ public class PathRoomPriceService {
             total += sinkPrice;
         }
 
+        // ===================== Fixed Items =====================
         long floorColdInsulation = price != null ? price.getColdInsulationForFloors() : 0;
         dto.setFloorColdInsulation(floorColdInsulation);
         dto.setFloorColdInsulationFormula("قيمة ثابتة: " + floorColdInsulation);

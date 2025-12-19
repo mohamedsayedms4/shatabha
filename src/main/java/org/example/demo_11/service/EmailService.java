@@ -297,8 +297,8 @@ public class EmailService {
                         <strong>المطبخ %s:</strong>
                     """, i + 1));
 
-                addPriceItem(html, " - الأرضية (" + safeToString(kitchen.getFloorMaterialSTR()) + ")", kitchen.getPriceFloorMaterial());
-                addPriceItem(html, " - الحوائط (" + safeToString(kitchen.getWallMaterialSTR()) + ")", kitchen.getPriceWallMaterial());
+//                addPriceItem(html, " - الأرضية (" + safeToString(kitchen.getFloorMaterialSTR()) + ")", kitchen.getPriceFloorMaterial());
+//                addPriceItem(html, " - الحوائط (" + safeToString(kitchen.getWallMaterialSTR()) + ")", kitchen.getPriceWallMaterial());
                 addPriceItem(html, " - السقف (" + safeToString(kitchen.getCeilingTypeSTR()) + ")", kitchen.getCeilingTypePrice());
                 addPriceItem(html, " - الشفاط (" + safeToString(kitchen.getExhaustMaterialSTR()) + ")", kitchen.getPriceExhaust());
                 addPriceItem(html, " - الحوض", kitchen.getAdaptationprice());
@@ -339,8 +339,8 @@ public class EmailService {
                         <strong>الحمام %s:</strong>
                     """, i + 1));
 
-                addPriceItem(html, " - الأرضية (" + safeToString(pathRoom.getFloorMaterialSTR()) + ")", pathRoom.getPriceFloorMaterial());
-                addPriceItem(html, " - الحوائط (" + safeToString(pathRoom.getWallMaterialSTR()) + ")", pathRoom.getPriceWallMaterial());
+//                addPriceItem(html, " - الأرضية (" + safeToString(pathRoom.getFloorMaterialSTR()) + ")", pathRoom.getPriceFloorMaterial());
+//                addPriceItem(html, " - الحوائط (" + safeToString(pathRoom.getWallMaterialSTR()) + ")", pathRoom.getPriceWallMaterial());
                 addPriceItem(html, " - السقف (" + safeToString(pathRoom.getCeilingTypeSTR()) + ")", pathRoom.getCeilingType());
                 addPriceItem(html, " - الشفاط (" + safeToString(pathRoom.getExhaustMaterialSTR()) + ")", pathRoom.getPriceExhaust());
                 addPriceItem(html, " - الخلاط (" + safeToString(pathRoom.getMixerTypeSTR()) + ")", pathRoom.getPriceMixer());

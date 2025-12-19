@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.demo_11.eunms.BathFloorMaterial;
 import org.example.demo_11.eunms.exhaust.ExhaustType;
-import org.example.demo_11.eunms.floorwall.FloorMaterial;
-import org.example.demo_11.eunms.floorwall.WallType;
 import org.example.demo_11.eunms.sink.SinkType;
 
 @Setter
@@ -17,13 +16,9 @@ import org.example.demo_11.eunms.sink.SinkType;
 @JsonPropertyOrder({
         "area", "perimeter",
 
-        // الأرضية
-        "floorMaterialSTR", "floorMaterial",
-        "floorMaterialFormula", "priceFloorMaterial",
-
-        // الحوائط
-        "wallMaterialSTR", "wallMaterial",  // ✅ حرف صغير
-        "wallMaterialFormula", "priceWallMaterial",
+        // ===== تشطيب الحمام (مُدمج) =====
+        "bathFloorMaterialSTR", "bathFloorMaterial",
+        "bathFloorMaterialFormula", "priceBathFloorMaterial",
 
         // السقف
         "ceilingTypeSTR", "ceilingFormula", "ceilingType",
@@ -60,17 +55,11 @@ public class PathDto {
     private Double area;
     private Double perimeter;
 
-    // === الأرضية ===
-    private String floorMaterialSTR;
-    private FloorMaterial floorMaterial;
-    private String floorMaterialFormula;
-    private Long priceFloorMaterial;
-
-    // === الحوائط ===
-    private String wallMaterialSTR;      // ✅ حرف صغير
-    private WallType wallMaterial;       // ✅ حرف صغير
-    private String wallMaterialFormula;
-    private Long priceWallMaterial;
+    // ===== تشطيب الحمام (مُدمج) =====
+    private String bathFloorMaterialSTR;
+    private BathFloorMaterial bathFloorMaterial;
+    private String bathFloorMaterialFormula;
+    private Long priceBathFloorMaterial;
 
     // === السقف ===
     private String ceilingTypeSTR;

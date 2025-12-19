@@ -101,6 +101,98 @@ public class Price {
     @JsonProperty("adaptationLabor")
     private Long adaptationLabor;
 
+    /* ===================== Bathroom Combined Floor/Wall Materials ===================== */
+    // الفكرة: (material + labor) تُستخدم مع area + perimeter*3 داخل BathFloorMaterial
+
+    // ===== Porcelain - Local =====
+    @JsonProperty("bathLocalPorcelain60x120Material")
+    private Long bathLocalPorcelain60x120Material;
+
+    @JsonProperty("bathLocalPorcelain60x120Labor")
+    private Long bathLocalPorcelain60x120Labor;
+
+    // ===== Ceramic - Local =====
+    @JsonProperty("bathLocalCeramic60x60Material")
+    private Long bathLocalCeramic60x60Material;
+
+    @JsonProperty("bathLocalCeramic60x60Labor")
+    private Long bathLocalCeramic60x60Labor;
+
+    @JsonProperty("bathLocalCeramic60x120Material")
+    private Long bathLocalCeramic60x120Material;
+
+    @JsonProperty("bathLocalCeramic60x120Labor")
+    private Long bathLocalCeramic60x120Labor;
+
+    // ===== Porcelain - Hindi Imported =====
+    @JsonProperty("bathHindiPorcelain75x75Material")
+    private Long bathHindiPorcelain75x75Material;
+
+    @JsonProperty("bathHindiPorcelain75x75Labor")
+    private Long bathHindiPorcelain75x75Labor;
+
+    @JsonProperty("bathHindiPorcelain120x60Material")
+    private Long bathHindiPorcelain120x60Material;
+
+    @JsonProperty("bathHindiPorcelain120x60Labor")
+    private Long bathHindiPorcelain120x60Labor;
+
+    @JsonProperty("bathHindiPorcelain120x180Material")
+    private Long bathHindiPorcelain120x180Material;
+
+    @JsonProperty("bathHindiPorcelain120x180Labor")
+    private Long bathHindiPorcelain120x180Labor;
+
+    @JsonProperty("bathHindiPorcelain120x240Material")
+    private Long bathHindiPorcelain120x240Material;
+
+    @JsonProperty("bathHindiPorcelain120x240Labor")
+    private Long bathHindiPorcelain120x240Labor;
+
+    // ===== Porcelain - Spanish Imported =====
+    @JsonProperty("bathSpanishPorcelain60x170Material")
+    private Long bathSpanishPorcelain60x170Material;
+
+    @JsonProperty("bathSpanishPorcelain60x170Labor")
+    private Long bathSpanishPorcelain60x170Labor;
+
+    @JsonProperty("bathSpanishPorcelain120x180Material")
+    private Long bathSpanishPorcelain120x180Material;
+
+    @JsonProperty("bathSpanishPorcelain120x180Labor")
+    private Long bathSpanishPorcelain120x180Labor;
+
+    @JsonProperty("bathSpanishPorcelain120x240Material")
+    private Long bathSpanishPorcelain120x240Material;
+
+    @JsonProperty("bathSpanishPorcelain120x240Labor")
+    private Long bathSpanishPorcelain120x240Labor;
+
+    // ===== Marble =====
+    @JsonProperty("bathMarbleType1Material")
+    private Long bathMarbleType1Material;
+
+    @JsonProperty("bathMarbleType1Labor")
+    private Long bathMarbleType1Labor;
+
+    @JsonProperty("bathMarbleType2Material")
+    private Long bathMarbleType2Material;
+
+    @JsonProperty("bathMarbleType2Labor")
+    private Long bathMarbleType2Labor;
+
+    @JsonProperty("bathMarbleType3Material")
+    private Long bathMarbleType3Material;
+
+    @JsonProperty("bathMarbleType3Labor")
+    private Long bathMarbleType3Labor;
+
+    @JsonProperty("bathMarbleType4Material")
+    private Long bathMarbleType4Material;
+
+    @JsonProperty("bathMarbleType4Labor")
+    private Long bathMarbleType4Labor;
+
     @Embedded
     @JsonProperty("windowPrices")
     private WindowPrices windowPrices;

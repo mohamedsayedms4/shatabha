@@ -5,10 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.example.demo_11.eunms.BathFloorMaterial;
 import org.example.demo_11.eunms.ceiling.CeilingType;
 import org.example.demo_11.eunms.exhaust.ExhaustType;
-import org.example.demo_11.eunms.floorwall.FloorMaterial;
-import org.example.demo_11.eunms.floorwall.WallType;
 import org.example.demo_11.eunms.sink.SinkType;
 
 @Getter
@@ -16,6 +15,7 @@ import org.example.demo_11.eunms.sink.SinkType;
 @ToString(onlyExplicitlyIncluded = true)
 @Entity
 public class Kitchen {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,31 +26,24 @@ public class Kitchen {
     private Double area;         // المساحة الكلية
     private Double perimeter;    // المحيط
 
-    private Boolean adaptation ;
+    private Boolean adaptation;
+
     // ============ أنواع الأسقف ============
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private CeilingType ceilingType;
 
-    // ============ مواد الأرضيات والجدران ============
+    // ============ (جديد) خامة تشطيب المطبخ (مُدمج أرضيات + حوائط) ============
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private FloorMaterial floorWallMaterial;
-
-    @Column(nullable = true)
-    @Enumerated(EnumType.STRING)
-    private WallType wallType;
-
+    private BathFloorMaterial kitchenMaterial;
 
     // ============ أنواع الأحوض ============
     @Column(nullable = true)
-
     @Enumerated(EnumType.STRING)
     private SinkType sinkType;
 
-
     @Column(nullable = true)
-
     @Enumerated(EnumType.STRING)
     private ExhaustType exhaustType;
 
@@ -59,13 +52,12 @@ public class Kitchen {
     @JsonBackReference("unit=kitchens")
     private ResidentialUnit residentialUnit;
 
-
     @PrePersist
     @PreUpdate
     private void calculateAreaAndPerimeter() {
         if (width != null && length != null) {
-            this.area = width * length;               // المساحة
-            this.perimeter = 2 * (width + length);    // المحيط
+            this.area = width * length;
+            this.perimeter = 2 * (width + length);
         }
     }
 }
