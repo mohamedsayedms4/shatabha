@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.demo_11.eunms.BathFloorMaterial;
 import org.example.demo_11.eunms.exhaust.ExhaustType;
+import org.example.demo_11.eunms.mixer.BasinMixerType;
+import org.example.demo_11.eunms.mixer.ShattafMixerType;
+import org.example.demo_11.eunms.mixer.ShowerMixerType;
 import org.example.demo_11.eunms.sink.SinkType;
 
 @Setter
@@ -23,8 +26,13 @@ import org.example.demo_11.eunms.sink.SinkType;
         // السقف
         "ceilingTypeSTR", "ceilingFormula", "ceilingType",
 
-        // الخلاط
-        "mixerTypeSTR", "mixerType", "mixerFormula", "priceMixer",
+        // ===== الخلاطات (مقسمة) =====
+        // خلاط الحوض
+        "basinMixerTypeSTR", "basinMixerType", "basinMixerFormula", "priceBasinMixer",
+        // خلاط الدش
+        "showerMixerTypeSTR", "showerMixerType", "showerMixerFormula", "priceShowerMixer",
+        // الشطاف
+        "shattafMixerTypeSTR", "shattafMixerType", "shattafMixerFormula", "priceShattafMixer",
 
         // القاعدة
         "baseTypeSTR", "baseType", "baseFormula", "priceBase",
@@ -66,11 +74,25 @@ public class PathDto {
     private String ceilingFormula;
     private Long ceilingType;
 
-    // === الخلاط ===
-    private String mixerTypeSTR;
-    private String mixerType;
-    private String mixerFormula;
-    private Long priceMixer;
+    // ===== الخلاطات (مقسمة) =====
+
+    // === خلاط الحوض ===
+    private String basinMixerTypeSTR;
+    private BasinMixerType basinMixerType;
+    private String basinMixerFormula;
+    private Long priceBasinMixer;
+
+    // === خلاط الدش ===
+    private String showerMixerTypeSTR;
+    private ShowerMixerType showerMixerType;
+    private String showerMixerFormula;
+    private Long priceShowerMixer;
+
+    // === الشطاف ===
+    private String shattafMixerTypeSTR;
+    private ShattafMixerType shattafMixerType;
+    private String shattafMixerFormula;
+    private Long priceShattafMixer;
 
     // === القاعدة ===
     private String baseTypeSTR;

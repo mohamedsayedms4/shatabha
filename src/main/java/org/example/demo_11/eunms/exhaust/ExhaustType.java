@@ -6,8 +6,8 @@ import org.example.demo_11.model.Price;
 public enum ExhaustType {
 
     WINDOW_EXHAUST("شفاط شباك", WindowExhaustStrategy.class),
-    CEILING_EXHAUST("شفاط سقف", CeilingExhaustStrategy.class),
-    NONE("لا يوجد", NoneExhaustStrategy.class);
+    CEILING_EXHAUST("شفاط سقف", CeilingExhaustStrategy.class);
+//    NONE("لا يوجد", NoneExhaustStrategy.class);
 
     private final String arabicName;
     private final Class<? extends ExhaustPriceStrategy> strategyClass;

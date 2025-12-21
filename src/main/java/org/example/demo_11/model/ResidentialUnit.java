@@ -11,7 +11,6 @@ import org.example.demo_11.eunms.window.WindowType;
 import java.util.List;
 
 @Entity
-//@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -23,17 +22,29 @@ public class ResidentialUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include @ToString.Include
-
     private Long id;
 
     @Column(nullable = true)
     @ToString.Include
-    private Long totalArea ;
-
+    private Long totalArea;
 
     @Column(nullable = true)
     @ToString.Include
     private int roomsNumber;
+
+    // ✅ بيانات العميل
+    @Column(nullable = true)
+    @ToString.Include
+    private String customerName;
+
+    @Column(nullable = true)
+    @ToString.Include
+    private String customerPhone;
+
+    // ✅ (جديد) إيميل العميل
+    @Column(nullable = true)
+    @ToString.Include
+    private String customerEmail;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
@@ -48,7 +59,7 @@ public class ResidentialUnit {
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     @ToString.Exclude
-    private FinishingStatus  finishingStatus;
+    private FinishingStatus finishingStatus;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
@@ -60,23 +71,21 @@ public class ResidentialUnit {
     @ToString.Exclude
     private MAGNTIC_TRACK MAGNTIC_TRACK;
 
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     @ToString.Exclude
-    private DoorType interDoor ;
+    private DoorType interDoor;
 
     private int interDoorCounter;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     @ToString.Exclude
-    private DoorType outDoor ;
-
+    private DoorType outDoor;
 
     private Long widowCounter;
-    // ============ أنواع النوافذ ============
-    @Column(nullable = true)
 
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private WindowType windowType;
 
@@ -89,8 +98,7 @@ public class ResidentialUnit {
     @OneToMany(mappedBy = "residentialUnit", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("unit=pathRooms")
     @ToString.Exclude
-    private List<PathRoom> pathRooms ;
-
+    private List<PathRoom> pathRooms;
 
     @OneToMany(mappedBy = "residentialUnit", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("unit=kitchens")
@@ -103,8 +111,5 @@ public class ResidentialUnit {
     private List<Room> rooms;
 
     @Column(nullable = true)
-    private Long totalPrice; // السعر المحسوب للوحدة
-
-
-
+    private Long totalPrice;
 }

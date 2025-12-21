@@ -27,8 +27,6 @@ public class PathRoomPriceService {
             long bathFloorPrice = pathRoom.getBathFloorMaterial()
                     .calculatePrice(price, dto.getArea(), dto.getPerimeter());
 
-            // لازم تكون ضايف دول في PathDto:
-            // bathFloorMaterialSTR, bathFloorMaterial, bathFloorMaterialFormula, priceBathFloorMaterial
             dto.setPriceBathFloorMaterial(bathFloorPrice);
             dto.setBathFloorMaterial(pathRoom.getBathFloorMaterial());
             dto.setBathFloorMaterialSTR(pathRoom.getBathFloorMaterial().getArabicName());
@@ -66,17 +64,51 @@ public class PathRoomPriceService {
             total += exhaustPrice;
         }
 
-        // ===================== Mixer =====================
-        if (pathRoom.getMixerType() != null) {
-            long mixerPrice = pathRoom.getMixerType()
+        // ===================== Mixers (NEW: split) =====================
+
+        // 1) Basin Mixer
+        if (pathRoom.getBasinMixerType() != null) {
+            long basinMixerPrice = pathRoom.getBasinMixerType()
                     .createStrategy(price)
                     .calculatePrice();
-            dto.setPriceMixer(mixerPrice);
-            dto.setMixerTypeSTR(pathRoom.getMixerType().getArabicName());
-            dto.setMixerType(pathRoom.getMixerType().toString());
 
-            dto.setMixerFormula(getMixerFormula(pathRoom.getMixerType(), price));
-            total += mixerPrice;
+            dto.setPriceBasinMixer(basinMixerPrice);
+            dto.setBasinMixerTypeSTR(pathRoom.getBasinMixerType().getArabicName());
+            dto.setBasinMixerType(pathRoom.getBasinMixerType());
+
+            dto.setBasinMixerFormula(getMixerFormula(pathRoom.getBasinMixerType(), price));
+            total += basinMixerPrice;
+        }
+
+        // 2) Shower Mixer (only if ShowerArea != NONE)
+        boolean hasShowerArea = pathRoom.getShowerArea() != null
+                && !"NONE".equals(pathRoom.getShowerArea().toString());
+
+        if (hasShowerArea && pathRoom.getShowerMixerType() != null) {
+            long showerMixerPrice = pathRoom.getShowerMixerType()
+                    .createStrategy(price)
+                    .calculatePrice();
+
+            dto.setPriceShowerMixer(showerMixerPrice);
+            dto.setShowerMixerTypeSTR(pathRoom.getShowerMixerType().getArabicName());
+            dto.setShowerMixerType(pathRoom.getShowerMixerType());
+
+            dto.setShowerMixerFormula(getMixerFormula(pathRoom.getShowerMixerType(), price));
+            total += showerMixerPrice;
+        }
+
+        // 3) Shattaf Mixer
+        if (pathRoom.getShattafMixerType() != null) {
+            long shattafMixerPrice = pathRoom.getShattafMixerType()
+                    .createStrategy(price)
+                    .calculatePrice();
+
+            dto.setPriceShattafMixer(shattafMixerPrice);
+            dto.setShattafMixerTypeSTR(pathRoom.getShattafMixerType().getArabicName());
+            dto.setShattafMixerType(pathRoom.getShattafMixerType());
+
+            dto.setShattafMixerFormula(getMixerFormula(pathRoom.getShattafMixerType(), price));
+            total += shattafMixerPrice;
         }
 
         // ===================== Base =====================

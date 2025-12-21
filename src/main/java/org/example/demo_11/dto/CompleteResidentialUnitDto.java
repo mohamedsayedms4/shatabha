@@ -16,13 +16,19 @@ import java.util.List;
         // === المعلومات الأساسية ===
         "totalArea",
         "roomsNumber",
+
+        // ✅ بيانات العميل
+        "customerName",
+        "customerPhone",
+        "customerEmail",
+
         "location",
         "unitCollection",
         "finishingStatus",
 
         // === الوحدة السكنية ===
         "unitPriceDetails",
-        "unitTotalPrice",  // ✅ أضف هنا
+        "unitTotalPrice",
 
         // === الغرف ===
         "roomsCount",
@@ -47,13 +53,21 @@ public class CompleteResidentialUnitDto {
     // === المعلومات الأساسية ===
     private Long totalArea;
     private int roomsNumber;
+
+    // ✅ بيانات العميل
+    private String customerName;
+    private String customerPhone;
+
+    // ✅ (جديد) إيميل العميل
+    private String customerEmail;
+
     private String location;
     private String unitCollection;
     private String finishingStatus;
 
     // === الوحدة السكنية ===
     private ResidentialUnitDto unitPriceDetails;
-    private Long unitTotalPrice;  // ✅ موجود هنا
+    private Long unitTotalPrice;
 
     // === الغرف ===
     private int roomsCount;

@@ -7,7 +7,6 @@ public enum CeilingType {
     BEIT_NOOR("بيت نور", "Beit Noor", BeitNoorStrategy.class),
     SHADOW_GAP("شادو جاب", "Shadow Gap", ShadowGapStrategy.class),
     SHADOW_GAP_LIGHT("شادو جاب + اضاءه", "Shadow Gap + Light", ShadowGapLightStrategy.class),
-//    MAGNETIC_TRACK("ماجنتك تراك", "Magnetic Track", MagneticTrackStrategy.class),
     CORNICE_FUTEC_SMALL("كرانيش فيوتك (صغير)", "Cornice Futec Small", CorniceFutecSmallStrategy.class),
     CORNICE_FUTEC_LARGE("كرانيش فيوتك (كبير)", "Cornice Futec Large", CorniceFutecLargeStrategy.class),
     FLAT("مسطح","falt",FlatStrategy.class);

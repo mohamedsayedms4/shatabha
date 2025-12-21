@@ -45,7 +45,7 @@ public class FloorWallPrices {
     @JsonProperty("marbleFloorOtherLabor")
     private Long marbleFloorOtherLabor;
 
-    // تصحيح: توحيد التسمية
+    // ========= Parquet =========
     @Column(name = "hdf_german_parquet_materials")
     @JsonProperty("hdfGermanParquetMaterials")
     private Long hdfGermanParquetMaterials;
@@ -102,7 +102,7 @@ public class FloorWallPrices {
     @JsonProperty("spcLocalParquetLabor")
     private Long spcLocalParquetLabor;
 
-    // تصحيح: إضافة underscores
+    // ========= Floors =========
     @Column(name = "ceramic_floor_60x60_materials")
     @JsonProperty("ceramicFloor60x60Materials")
     private Long ceramicFloor60x60Materials;
@@ -175,7 +175,7 @@ public class FloorWallPrices {
     @JsonProperty("spanishPorcelainFloor120x240Labor")
     private Long spanishPorcelainFloor120x240Labor;
 
-    // تصحيح: إزالة underscore من JSON وتوحيد التسمية
+    // ========= Paint & Old Tagliad =========
     @Column(name = "paint_normal_materials")
     @JsonProperty("paintNormalMaterials")
     private Long paintNormalMaterials;
@@ -208,7 +208,6 @@ public class FloorWallPrices {
     @JsonProperty("tagliadNormalLabor")
     private Long tagliadNormalLabor;
 
-    // تصحيح: توضيح المعنى (ربما "banoh at" أو شيء آخر)
     @Column(name = "banoh_at_materials")
     @JsonProperty("banohAtMaterials")
     private Long banohAtMaterials;
@@ -217,6 +216,7 @@ public class FloorWallPrices {
     @JsonProperty("banohAtLabor")
     private Long banohAtLabor;
 
+    // ========= Walls =========
     @Column(name = "ceramic_wall_60x30_materials")
     @JsonProperty("ceramicWall60x30Materials")
     private Long ceramicWall60x30Materials;
@@ -296,4 +296,48 @@ public class FloorWallPrices {
     @Column(name = "spanish_porcelain_wall_120x240_labor")
     @JsonProperty("spanishPorcelainWall120x240Labor")
     private Long spanishPorcelainWall120x240Labor;
+
+    /* ============================================================
+       NEW: Tagalid breakdown (Natural: marble/wood, Made: wood/marble/mixed)
+       ============================================================ */
+
+    @Column(name = "tagalid_natural_marble_materials")
+    @JsonProperty("tagalidNaturalMarbleMaterials")
+    private Long tagalidNaturalMarbleMaterials;
+
+    @Column(name = "tagalid_natural_marble_labor")
+    @JsonProperty("tagalidNaturalMarbleLabor")
+    private Long tagalidNaturalMarbleLabor;
+
+    @Column(name = "tagalid_natural_wood_materials")
+    @JsonProperty("tagalidNaturalWoodMaterials")
+    private Long tagalidNaturalWoodMaterials;
+
+    @Column(name = "tagalid_natural_wood_labor")
+    @JsonProperty("tagalidNaturalWoodLabor")
+    private Long tagalidNaturalWoodLabor;
+
+    @Column(name = "tagalid_made_wood_materials")
+    @JsonProperty("tagalidMadeWoodMaterials")
+    private Long tagalidMadeWoodMaterials;
+
+    @Column(name = "tagalid_made_wood_labor")
+    @JsonProperty("tagalidMadeWoodLabor")
+    private Long tagalidMadeWoodLabor;
+
+    @Column(name = "tagalid_made_marble_materials")
+    @JsonProperty("tagalidMadeMarbleMaterials")
+    private Long tagalidMadeMarbleMaterials;
+
+    @Column(name = "tagalid_made_marble_labor")
+    @JsonProperty("tagalidMadeMarbleLabor")
+    private Long tagalidMadeMarbleLabor;
+
+    @Column(name = "tagalid_made_mixed_materials")
+    @JsonProperty("tagalidMadeMixedMaterials")
+    private Long tagalidMadeMixedMaterials;
+
+    @Column(name = "tagalid_made_mixed_labor")
+    @JsonProperty("tagalidMadeMixedLabor")
+    private Long tagalidMadeMixedLabor;
 }

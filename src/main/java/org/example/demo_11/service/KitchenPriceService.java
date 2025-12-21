@@ -143,8 +143,8 @@ public class KitchenPriceService {
                 return "مواد شفاط شباك + عمالة تركيب";
             case CEILING_EXHAUST:
                 return "مواد شفاط سقف + عمالة تركيب";
-            case NONE:
-                return "لا يوجد شفاط - 0 جنيه";
+//            case NONE:
+//                return "لا يوجد شفاط - 0 جنيه";
             default:
                 return "غير محدد";
         }

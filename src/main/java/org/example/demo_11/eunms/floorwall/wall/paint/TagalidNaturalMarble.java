@@ -4,9 +4,9 @@ import org.example.demo_11.eunms.floorwall.BaseClassPriceAreaPermaitair;
 import org.example.demo_11.eunms.floorwall.FloorWallPriceStrategy;
 import org.example.demo_11.model.Price;
 
-public class BanohAt extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
+public class TagalidNaturalMarble extends BaseClassPriceAreaPermaitair implements FloorWallPriceStrategy {
 
-    public BanohAt(Price price, Double area, Double perimeter) {
+    public TagalidNaturalMarble(Price price, Double area, Double perimeter) {
         super(price, area, perimeter);
     }
 
@@ -14,8 +14,8 @@ public class BanohAt extends BaseClassPriceAreaPermaitair implements FloorWallPr
     public Long calculatePrice() {
         if (price.getFloorWallPrices() == null) return 0L;
 
-        Long materials = price.getFloorWallPrices().getPaintNormalMaterials();
-        Long labor = price.getFloorWallPrices().getPaintNormalLabor();
+        Long materials = price.getFloorWallPrices().getTagalidNaturalMarbleMaterials();
+        Long labor = price.getFloorWallPrices().getTagalidNaturalMarbleLabor();
 
         return safeAdd(materials, labor, perimeter);
     }

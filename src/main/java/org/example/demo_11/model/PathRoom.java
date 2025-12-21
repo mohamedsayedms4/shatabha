@@ -9,18 +9,18 @@ import org.example.demo_11.eunms.BathFloorMaterial;
 import org.example.demo_11.eunms.base.BaseType;
 import org.example.demo_11.eunms.ceiling.CeilingType;
 import org.example.demo_11.eunms.exhaust.ExhaustType;
-import org.example.demo_11.eunms.floorwall.FloorMaterial;
-import org.example.demo_11.eunms.floorwall.WallType;
-import org.example.demo_11.eunms.mixer.MixerType;
+import org.example.demo_11.eunms.mixer.BasinMixerType;
+import org.example.demo_11.eunms.mixer.ShattafMixerType;
+import org.example.demo_11.eunms.mixer.ShowerMixerType;
 import org.example.demo_11.eunms.shower.ShowerArea;
 import org.example.demo_11.eunms.sink.SinkType;
-
 
 @Getter
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
 @Entity
 public class PathRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,24 +33,34 @@ public class PathRoom {
 
     // ============ أنواع القواعد في الحمامات ============
     @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private BaseType baseType;
-
 
     // ============ أنواع الأسقف ============
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private CeilingType ceilingType;
 
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private BathFloorMaterial  bathFloorMaterial;
+    private BathFloorMaterial bathFloorMaterial;
 
-    // ============ أنواع الخلاطات ============
+    // ============ أنواع الخلاطات (مقسمة) ============
+
+    // خلاط الحوض
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    private MixerType mixerType;
+    private BasinMixerType basinMixerType;
 
+    // خلاط الدش (يُترك null لو ShowerArea = WITHOUT)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private ShowerMixerType showerMixerType;
+
+    // الشطاف (يُترك null لو القاعدة عادية حسب منطقك)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private ShattafMixerType shattafMixerType;
 
     // ============ مناطق الاستحمام ============
     @Enumerated(EnumType.STRING)
@@ -62,18 +72,14 @@ public class PathRoom {
     @Column(nullable = true)
     private SinkType sinkType;
 
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
     private ExhaustType exhaustType;
-
 
     @ManyToOne
     @JoinColumn(name = "residential_unit_id")
     @JsonBackReference("unit=pathRooms")
     private ResidentialUnit residentialUnit;
-
-
 
     @PrePersist
     @PreUpdate

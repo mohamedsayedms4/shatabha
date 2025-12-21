@@ -2,8 +2,7 @@ package org.example.demo_11.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.demo_11.dto.RoomDto;
-import org.example.demo_11.model.Price;
-import org.example.demo_11.model.Room;
+import org.example.demo_11.model.*;
 import org.example.demo_11.repository.PriceRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +15,19 @@ public class RoomPriceService {
     public RoomDto calculateRoomPrice(Room room) {
         Price price = priceRepository.findById(1L).orElse(new Price());
 
+        // ✅ مهم جدًا: لو السعر جديد أو الـ embeddeds null، نعمل init عشان الـ strategies ما تقعش
+        ensureEmbeddedObjects(price);
+
         RoomDto dto = new RoomDto();
-        dto.setArea(room.getArea() != null ? room.getArea() : 0);
-        dto.setPerimeter(room.getPerimeter() != null ? room.getPerimeter() : 0);
+        dto.setArea(room.getArea() != null ? room.getArea() : 0.0);
+        dto.setPerimeter(room.getPerimeter() != null ? room.getPerimeter() : 0.0);
 
         long total = 0;
 
-        // ✅ العزل البارد
-        long coldInsulation = price != null ? price.getColdInsulationForFloors() : 0;
+        // ✅ العزل البارد (Safe من null)
+        Long ci = price.getColdInsulationForFloors();
+        long coldInsulation = (ci != null ? ci : 0L);
+
         dto.setPriceFloorColdInsulation(coldInsulation);
         dto.setPriceFloorColdInsulationFormula(coldInsulation + " جنيه (ثابت)");
         total += coldInsulation;
@@ -97,16 +101,33 @@ public class RoomPriceService {
         return dto;
     }
 
+    /**
+     * مهم لتفادي NullPointer داخل أي strategy لو الـ Price جديد (new Price()).
+     * Price عندك فيه Embedded objects كتير (floorWallPrices / ceilingPrices / ...)،
+     * فلازم تتعمل init لو null.
+     */
+    private void ensureEmbeddedObjects(Price price) {
+        if (price.getFloorWallPrices() == null) price.setFloorWallPrices(new FloorWallPrices());
+        if (price.getCeilingPrices() == null) price.setCeilingPrices(new CeilingPrices());
+        if (price.getVentilationPrices() == null) price.setVentilationPrices(new VentilationPrices());
+        if (price.getLightingPrices() == null) price.setLightingPrices(new LightingPrices());
+        if (price.getDoorPrices() == null) price.setDoorPrices(new DoorPrices());
+        if (price.getWindowPrices() == null) price.setWindowPrices(new WindowPrices());
+        if (price.getShutterPrices() == null) price.setShutterPrices(new ShutterPrices());
+        if (price.getBathroomPrices() == null) price.setBathroomPrices(new BathroomPrices());
+    }
+
     private String buildFloorFormula(org.example.demo_11.eunms.floorwall.FloorMaterial material,
                                      Double area) {
         // الباركيه HDF و SPC بيضرب في 1.2
         boolean isParquet = material.name().contains("Parquet") &&
                 (material.name().contains("HDF") || material.name().contains("SPC"));
 
-        double actualArea = isParquet ? area * 1.2 : area;
+        double baseArea = (area != null ? area : 0.0);
+        double actualArea = isParquet ? baseArea * 1.2 : baseArea;
 
         if (isParquet) {
-            return String.format("(مواد + عمالة) × %.2f م² × 1.2 (هالك باركيه) = السعر", area);
+            return String.format("(مواد + عمالة) × %.2f م² × 1.2 (هالك باركيه) = السعر", baseArea);
         } else {
             return String.format("(مواد + عمالة) × %.2f م² = السعر", actualArea);
         }
@@ -114,31 +135,28 @@ public class RoomPriceService {
 
     private String buildWallFormula(org.example.demo_11.eunms.floorwall.WallType wallType,
                                     Double perimeter) {
-        return String.format("(مواد + عمالة) × %.2f م (المحيط) × 3 م (الارتفاع) = السعر",
-                perimeter);
+        double p = (perimeter != null ? perimeter : 0.0);
+        return String.format("(مواد + عمالة) × %.2f م (المحيط) × 3 م (الارتفاع) = السعر", p);
     }
 
     private String buildCeilingFormula(org.example.demo_11.eunms.ceiling.CeilingType ceilingType,
                                        Double area, Double perimeter) {
+        double a = (area != null ? area : 0.0);
+        double p = (perimeter != null ? perimeter : 0.0);
+
         switch (ceilingType) {
             case BEIT_NOOR:
-                return String.format("(مواد + عمالة) × %.2f م (المحيط) + إضاءة خلفية LED = السعر",
-                        perimeter);
+                return String.format("(مواد + عمالة) × %.2f م (المحيط) + إضاءة خلفية LED = السعر", p);
             case SHADOW_GAP:
-                return String.format("(مواد + عمالة) × %.2f م (المحيط) + باند 51 = السعر",
-                        perimeter);
+                return String.format("(مواد + عمالة) × %.2f م (المحيط) + باند 51 = السعر", p);
             case SHADOW_GAP_LIGHT:
-                return String.format("(مواد + عمالة) × %.2f م + (باند 51 × %.2f م²) = السعر",
-                        perimeter, area);
+                return String.format("(مواد + عمالة) × %.2f م + (باند 51 × %.2f م²) = السعر", p, a);
             case CORNICE_FUTEC_SMALL:
                 return "كرانيش فيوتك صغير (مواد + عمالة) = السعر الثابت";
             case CORNICE_FUTEC_LARGE:
                 return "كرانيش فيوتك كبير (مواد + عمالة) = السعر الثابت";
-
-            // ✅ النوع الجديد (Flat)
             case FLAT:
-                return String.format("(مواد + عمالة) ×  م² = المساحة", area);
-
+                return String.format("(مواد + عمالة) × %.2f م² = السعر", a);
             default:
                 return "غير محدد";
         }
@@ -150,8 +168,8 @@ public class RoomPriceService {
                 return "شفاط شباك (مواد + عمالة تركيب) = السعر";
             case CEILING_EXHAUST:
                 return "شفاط سقف (مواد + عمالة تركيب) = السعر";
-            case NONE:
-                return "لا يوجد شفاط - 0 جنيه";
+//            case NONE:
+//                return "لا يوجد شفاط - 0 جنيه";
             default:
                 return "غير محدد";
         }

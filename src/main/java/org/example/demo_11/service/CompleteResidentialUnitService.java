@@ -27,6 +27,12 @@ public class CompleteResidentialUnitService {
         // تعيين المعلومات الأساسية
         completeDto.setTotalArea(unit.getTotalArea() != null ? unit.getTotalArea() : 0);
         completeDto.setRoomsNumber(unit.getRoomsNumber() != 0 ? unit.getRoomsNumber() : 0);
+
+        // ✅ بيانات العميل
+        completeDto.setCustomerName(unit.getCustomerName());
+        completeDto.setCustomerPhone(unit.getCustomerPhone());
+        completeDto.setCustomerEmail(unit.getCustomerEmail()); // ✅ (جديد)
+
         completeDto.setLocation(unit.getLocation() != null ? unit.getLocation().getArabicName() : null);
         completeDto.setUnitCollection(unit.getUnitCollection() != null ? unit.getUnitCollection().getArabicName() : null);
         completeDto.setFinishingStatus(unit.getFinishingStatus() != null ? unit.getFinishingStatus().getArabicName() : null);
@@ -92,8 +98,9 @@ public class CompleteResidentialUnitService {
 
         completeDto.setTotalPrice(totalPrice);
 
-//        emailService.sendDetailedResidentialUnitEmail(completeDto, "ms4002@fayoum.wdu.wg");
-
+        // ✅ إرسال الإيميل للعميل (لو إدخله) + للأدمن تلقائيًا داخل EmailService
+        emailService.sendDetailedResidentialUnitEmail(completeDto, unit.getCustomerEmail());
+        emailService.sendDetailedResidentialUnitEmail(completeDto, "ms4002@fayoum.edu.eg");
         return completeDto;
     }
 }

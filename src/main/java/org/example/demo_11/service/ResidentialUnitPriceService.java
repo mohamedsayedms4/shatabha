@@ -24,6 +24,11 @@ public class ResidentialUnitPriceService {
 
         dto.setTotalArea(unit.getTotalArea() != null ? unit.getTotalArea() : 0);
         dto.setRoomsNumber(unit.getRoomsNumber() != 0 ? unit.getRoomsNumber() : 0);
+
+        // ✅ (جديد) بيانات العميل
+        dto.setCustomerName(unit.getCustomerName());
+        dto.setCustomerPhone(unit.getCustomerPhone());
+
         dto.setLocation(unit.getLocation());
         dto.setUnitCollection(unit.getUnitCollection());
         dto.setFinishingStatus(unit.getFinishingStatus());

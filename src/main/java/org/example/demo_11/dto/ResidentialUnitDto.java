@@ -5,11 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.demo_11.eunms.UnitCollection;
-import org.example.demo_11.eunms.FinishingStatus;
-import org.example.demo_11.eunms.Location;
-import org.example.demo_11.eunms.SPOT;
-import org.example.demo_11.eunms.MAGNTIC_TRACK;
+import org.example.demo_11.eunms.*;
 import org.example.demo_11.eunms.door.DoorType;
 import org.example.demo_11.eunms.shutter.ShutterType;
 import org.example.demo_11.eunms.window.WindowType;
@@ -22,7 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @JsonPropertyOrder({
         // المعلومات الأساسية
-        "totalArea", "roomsNumber", "location", "unitCollection", "finishingStatus",
+        "totalArea", "roomsNumber",
+        "customerName", "customerPhone", "customerEmail", // ✅ (جديد)
+        "location", "unitCollection", "finishingStatus",
 
         // التكسير
         "previousFinishingDemolitionStr", "demolitionFormula", "previousFinishingDemolition",
@@ -60,57 +58,65 @@ public class ResidentialUnitDto {
     // === المعلومات الأساسية ===
     private Long totalArea;
     private int roomsNumber;
+
+    // ✅ بيانات العميل
+    private String customerName;
+    private String customerPhone;
+
+    // ✅ (جديد) إيميل العميل
+    private String customerEmail;
+
     private Location location;
     private UnitCollection unitCollection;
     private FinishingStatus finishingStatus;
 
     // === التكسير ===
     private String previousFinishingDemolitionStr = "تكسيـر التشطيب السابق";
-    private String demolitionFormula; // 🆕
+    private String demolitionFormula;
     private Long previousFinishingDemolition;
 
     // === الكهرباء ===
     private String electricalInstallationStr = "تأسيس الكهرباء";
-    private String electricalFormula; // 🆕
+    private String electricalFormula;
     private Long electricalInstallation;
 
     // === المواد الأساسية ===
     private String cementAndMaterialSupplyStr = "توريدات أسمنت ومواد";
-    private String cementMaterialFormula; // 🆕
+    private String cementMaterialFormula;
     private Long cementAndMaterialSupply;
 
     private String cementSandAndMaterialsSupplyStr = "توريدات رمل وأسمنت وخامات أخرى وتشوينات";
-    private String cementSandFormula; // 🆕
+    private String cementSandFormula;
     private Long cementSandAndMaterialsSupply;
 
     // === الإضاءة ===
     private String spotTypeStr;
     private SPOT spotType;
-    private String spotFormula; // 🆕
+    private String spotFormula;
     private Long spotPrice;
 
     private String magneticTrackTypeStr;
     private MAGNTIC_TRACK magneticTrackType;
-    private String magneticTrackFormula; // 🆕
+    private String magneticTrackFormula;
     private Long magneticTrackPrice;
 
     // === الأبواب ===
     private String interiorDoorsStr = "الأبواب الداخلية";
     private DoorType interiorDoorsType;
     private int interiorDoorsCount;
-    private String interiorDoorsFormula; // 🆕
+    private String interiorDoorsFormula;
     private Long interiorDoorsPrice;
 
     private String exteriorDoorsStr = "الباب الخارجي";
     private DoorType exteriorDoorsType;
-    private String exteriorDoorsFormula; // 🆕
+    private String exteriorDoorsFormula;
     private Long exteriorDoorsPrice;
 
     // === الشاتر ===
     private String shutterStr = "الشاتر";
     private List<ShutterType> shutterTypes;
     private Long shutterCount;
-    private String shutterFormula; // 🆕
+    private String shutterFormula;
     private List<String> shutterDetails;
     private Long shutterPrice;
 
@@ -118,7 +124,7 @@ public class ResidentialUnitDto {
     private String windowsStr = "النوافذ";
     private WindowType windowsType;
     private Long windowsCount;
-    private String windowsFormula; // 🆕
+    private String windowsFormula;
     private Long windowsPrice;
 
     // === الإجمالي ===

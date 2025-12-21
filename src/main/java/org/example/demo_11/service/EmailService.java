@@ -19,6 +19,9 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
+    // بريد الأدمن الافتراضي
+    private static final String ADMIN_EMAIL = "ms4002@fayoum.edu.eg";
+
     public void sendEmail(String email, String subject, String body) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -36,16 +39,20 @@ public class EmailService {
 
     /**
      * إرسال رسالة مفصلة بتكلفة الوحدة السكنية
+     * - يرسل دائمًا للأدمن
+     * - ويرسل للعميل لو البريد موجود
      */
     public void sendDetailedResidentialUnitEmail(CompleteResidentialUnitDto completeDto, String customerEmail) {
         String subject = "📊 تفاصيل تكلفة الوحدة السكنية - تقرير مفصل";
         String body = generateDetailedEmailBody(completeDto);
 
-        sendEmail("ms4002@fayoum.edu.eg", subject, body);
+        // إرسال للأدمن دائمًا
+        sendEmail(ADMIN_EMAIL, subject, body);
 
-        // إرسال نسخة للعميل إذا كان لديه بريد إلكتروني
-        if (customerEmail != null && !customerEmail.trim().isEmpty()) {
-            sendEmail(customerEmail, subject, body);
+        // إرسال نسخة للعميل لو البريد موجود
+        if (customerEmail != null && !customerEmail.trim().isEmpty()
+                && !customerEmail.trim().equalsIgnoreCase(ADMIN_EMAIL)) {
+            sendEmail(customerEmail.trim(), subject, body);
         }
     }
 
@@ -55,7 +62,6 @@ public class EmailService {
     private String generateDetailedEmailBody(CompleteResidentialUnitDto completeDto) {
         StringBuilder html = new StringBuilder();
 
-        // تنسيق HTML مع تصميم عربي
         html.append("""
             <!DOCTYPE html>
             <html dir="rtl" lang="ar">
@@ -71,7 +77,7 @@ public class EmailService {
                         padding: 20px;
                     }
                     .container {
-                        max-width: 800px;
+                        max-width: 900px;
                         margin: 0 auto;
                         background: white;
                         padding: 30px;
@@ -109,6 +115,22 @@ public class EmailService {
                         background: white;
                         border-radius: 6px;
                         border: 1px solid #e9ecef;
+                        gap: 10px;
+                    }
+                    .price-item .label {
+                        flex: 1;
+                    }
+                    .price-item .value {
+                        white-space: nowrap;
+                    }
+                    .formula {
+                        margin: 0 0 10px 0;
+                        padding: 8px 12px;
+                        background: #fff;
+                        border-radius: 6px;
+                        border: 1px dashed #cfd6dd;
+                        color: #555;
+                        font-size: 13px;
                     }
                     .total {
                         font-weight: bold;
@@ -125,7 +147,10 @@ public class EmailService {
                         background: #d6eaf8;
                         padding: 10px;
                         border-radius: 6px;
-                        margin: 5px 0;
+                        margin: 10px 0 0 0;
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 10px;
                     }
                     .room-details {
                         background: #fff;
@@ -160,35 +185,30 @@ public class EmailService {
                     </div>
             """);
 
-        // المعلومات الأساسية - استخدام String.format بدلاً من formatted()
+        // ✅ (جديد) استخراج بيانات العميل مع fallback
+        String customerName = resolveCustomerName(completeDto);
+        String customerPhone = resolveCustomerPhone(completeDto);
+
+        // المعلومات الأساسية
         html.append(String.format("""
             <div class="section">
                 <div class="section-title">📋 المعلومات الأساسية</div>
                 <div class="info-grid">
-                    <div class="info-item">
-                        <strong>المساحة الكلية:</strong> %s م²
-                    </div>
-                    <div class="info-item">
-                        <strong>عدد الغرف:</strong> %s
-                    </div>
-                    <div class="info-item">
-                        <strong>الموقع:</strong> %s
-                    </div>
-                    <div class="info-item">
-                        <strong>نوع الوحدة:</strong> %s
-                    </div>
-                    <div class="info-item">
-                        <strong>حالة التشطيب:</strong> %s
-                    </div>
-                    <div class="info-item">
-                        <strong>عدد الحمامات:</strong> %s
-                    </div>
-                    <div class="info-item">
-                        <strong>عدد المطابخ:</strong> %s
-                    </div>
+                    <div class="info-item"><strong>اسم العميل:</strong> %s</div>
+                    <div class="info-item"><strong>رقم الهاتف:</strong> %s</div>
+
+                    <div class="info-item"><strong>المساحة الكلية:</strong> %s م²</div>
+                    <div class="info-item"><strong>عدد الغرف:</strong> %s</div>
+                    <div class="info-item"><strong>الموقع:</strong> %s</div>
+                    <div class="info-item"><strong>نوع الوحدة:</strong> %s</div>
+                    <div class="info-item"><strong>حالة التشطيب:</strong> %s</div>
+                    <div class="info-item"><strong>عدد الحمامات:</strong> %s</div>
+                    <div class="info-item"><strong>عدد المطابخ:</strong> %s</div>
                 </div>
             </div>
             """,
+                escapeHtml(customerName),
+                escapeHtml(customerPhone),
                 formatNumber(completeDto.getTotalArea()),
                 safeToString(completeDto.getRoomsNumber()),
                 safeToString(completeDto.getLocation()),
@@ -198,41 +218,77 @@ public class EmailService {
                 safeToString(completeDto.getKitchensCount())
         ));
 
-        // قسم الوحدة السكنية الأساسية
+        // ===== قسم الوحدة السكنية الأساسية =====
         if (completeDto.getUnitPriceDetails() != null) {
             ResidentialUnitDto unitDto = completeDto.getUnitPriceDetails();
             html.append("""
                 <div class="section">
                     <div class="section-title">🏗️ تكاليف الوحدة السكنية الأساسية</div>
-                """);
+            """);
 
-            addPriceItem(html, "تكسير التشطيب السابق", unitDto.getPreviousFinishingDemolition());
-            addPriceItem(html, "تأسيس الكهرباء", unitDto.getElectricalInstallation());
-            addPriceItem(html, "توريد أسمنت ومواد", unitDto.getCementAndMaterialSupply());
-            addPriceItem(html, "توريد رمل وأسمنت وخامات", unitDto.getCementSandAndMaterialsSupply());
+            addPriceItem(html,
+                    safeLabel(unitDto.getPreviousFinishingDemolitionStr(), "تكسير التشطيب السابق"),
+                    unitDto.getPreviousFinishingDemolition(),
+                    unitDto.getDemolitionFormula());
+
+            addPriceItem(html,
+                    safeLabel(unitDto.getElectricalInstallationStr(), "تأسيس الكهرباء"),
+                    unitDto.getElectricalInstallation(),
+                    unitDto.getElectricalFormula());
+
+            addPriceItem(html,
+                    safeLabel(unitDto.getCementAndMaterialSupplyStr(), "توريدات أسمنت ومواد"),
+                    unitDto.getCementAndMaterialSupply(),
+                    unitDto.getCementMaterialFormula());
+
+            addPriceItem(html,
+                    safeLabel(unitDto.getCementSandAndMaterialsSupplyStr(), "توريدات رمل وأسمنت وخامات"),
+                    unitDto.getCementSandAndMaterialsSupply(),
+                    unitDto.getCementSandFormula());
 
             if (unitDto.getSpotPrice() != null && unitDto.getSpotPrice() > 0) {
-                addPriceItem(html, "الإضاءة (" + safeToString(unitDto.getSpotTypeStr()) + ")", unitDto.getSpotPrice());
+                addPriceItem(html,
+                        "الإضاءة (" + safeToString(unitDto.getSpotTypeStr()) + ")",
+                        unitDto.getSpotPrice(),
+                        unitDto.getSpotFormula());
             }
 
             if (unitDto.getMagneticTrackPrice() != null && unitDto.getMagneticTrackPrice() > 0) {
-                addPriceItem(html, "الماجنتيك تراك (" + safeToString(unitDto.getMagneticTrackTypeStr()) + ")", unitDto.getMagneticTrackPrice());
+                addPriceItem(html,
+                        "الماجنتيك تراك (" + safeToString(unitDto.getMagneticTrackTypeStr()) + ")",
+                        unitDto.getMagneticTrackPrice(),
+                        unitDto.getMagneticTrackFormula());
             }
 
             if (unitDto.getInteriorDoorsPrice() != null && unitDto.getInteriorDoorsPrice() > 0) {
-                addPriceItem(html, "الأبواب الداخلية (" + safeToString(unitDto.getInteriorDoorsCount()) + " باب)", unitDto.getInteriorDoorsPrice());
+                addPriceItem(html,
+                        safeLabel(unitDto.getInteriorDoorsStr(), "الأبواب الداخلية")
+                                + " (" + safeToString(unitDto.getInteriorDoorsCount()) + " باب)",
+                        unitDto.getInteriorDoorsPrice(),
+                        unitDto.getInteriorDoorsFormula());
             }
 
             if (unitDto.getExteriorDoorsPrice() != null && unitDto.getExteriorDoorsPrice() > 0) {
-                addPriceItem(html, "الباب الخارجي", unitDto.getExteriorDoorsPrice());
+                addPriceItem(html,
+                        safeLabel(unitDto.getExteriorDoorsStr(), "الباب الخارجي"),
+                        unitDto.getExteriorDoorsPrice(),
+                        unitDto.getExteriorDoorsFormula());
             }
 
             if (unitDto.getShutterPrice() != null && unitDto.getShutterPrice() > 0) {
-                addPriceItem(html, "الشاتر (" + safeToString(unitDto.getShutterCount()) + " شباك)", unitDto.getShutterPrice());
+                addPriceItem(html,
+                        safeLabel(unitDto.getShutterStr(), "الشاتر")
+                                + " (" + safeToString(unitDto.getShutterCount()) + " شباك)",
+                        unitDto.getShutterPrice(),
+                        unitDto.getShutterFormula());
             }
 
             if (unitDto.getWindowsPrice() != null && unitDto.getWindowsPrice() > 0) {
-                addPriceItem(html, "النوافذ (" + safeToString(unitDto.getWindowsCount()) + " شباك)", unitDto.getWindowsPrice());
+                addPriceItem(html,
+                        safeLabel(unitDto.getWindowsStr(), "النوافذ")
+                                + " (" + safeToString(unitDto.getWindowsCount()) + " شباك)",
+                        unitDto.getWindowsPrice(),
+                        unitDto.getWindowsFormula());
             }
 
             html.append(String.format("""
@@ -245,7 +301,7 @@ public class EmailService {
             html.append("</div>");
         }
 
-        // قسم الغرف
+        // ===== قسم الغرف =====
         if (completeDto.getRoomsDetails() != null && !completeDto.getRoomsDetails().isEmpty()) {
             html.append(String.format("""
                 <div class="section">
@@ -259,14 +315,39 @@ public class EmailService {
                         <strong>الغرفة %s:</strong>
                     """, i + 1));
 
-                addPriceItem(html, " - الأرضية (" + safeToString(room.getFloorMaterialSTR()) + ")", room.getPriceFloorMaterial());
-                addPriceItem(html, " - الحوائط (" + safeToString(room.getWallMaterialSTR()) + ")", room.getPriceWallMaterial());
-//                addPriceItem(html, " - السقف (" + safeToString(room.getCeilingTypeSTR()) + ")", room.getCeilingTypePrice());
-//                addPriceItem(html, " - العزل الحراري", room.getFloorColdInsulation());
-//                addPriceItem(html, " - المحارة", room.getMaharhBand38());
+                addPriceItem(html,
+                        " - " + safeToString(room.getFloorColdInsulationStr()),
+                        room.getPriceFloorColdInsulation(),
+                        room.getPriceFloorColdInsulationFormula());
+
+                addPriceItem(html,
+                        " - الأرضية (" + safeToString(room.getFloorMaterialSTR()) + ")",
+                        room.getPriceFloorMaterial(),
+                        room.getPriceFloorMaterialFormula());
+
+                addPriceItem(html,
+                        " - الحوائط (" + safeToString(room.getWallMaterialSTR()) + ")",
+                        room.getPriceWallMaterial(),
+                        room.getPriceWallMaterialFormula());
+
+                addPriceItem(html,
+                        " - السقف (" + safeToString(room.getCeilingTypeSTR()) + ")",
+                        room.getCeilingTypePeice(),
+                        room.getCeilingTypePeiceFormula());
+
+                addPriceItem(html,
+                        " - الشفاط (" + safeToString(room.getExhaustMaterialSTR()) + ")",
+                        room.getPriceExhaust(),
+                        room.getPriceExhaustFormula());
+
+                if (room.getTotalPriceFormula() != null && !room.getTotalPriceFormula().trim().isEmpty()) {
+                    html.append(String.format("""
+                        <div class="formula"><strong>فورميولا الإجمالي:</strong> %s</div>
+                        """, escapeHtml(room.getTotalPriceFormula())));
+                }
 
                 html.append(String.format("""
-                    <div style="background: #e8f4fd; padding: 8px; border-radius: 4px; margin: 5px 0;">
+                    <div style="background: #e8f4fd; padding: 8px; border-radius: 4px; margin: 10px 0 0 0;">
                         <strong>المجموع:</strong> <span class="currency">%s ج.م</span>
                     </div>
                     </div>
@@ -283,7 +364,7 @@ public class EmailService {
             html.append("</div>");
         }
 
-        // قسم المطابخ
+        // ===== قسم المطابخ =====
         if (completeDto.getKitchensDetails() != null && !completeDto.getKitchensDetails().isEmpty()) {
             html.append(String.format("""
                 <div class="section">
@@ -297,18 +378,56 @@ public class EmailService {
                         <strong>المطبخ %s:</strong>
                     """, i + 1));
 
-//                addPriceItem(html, " - الأرضية (" + safeToString(kitchen.getFloorMaterialSTR()) + ")", kitchen.getPriceFloorMaterial());
-//                addPriceItem(html, " - الحوائط (" + safeToString(kitchen.getWallMaterialSTR()) + ")", kitchen.getPriceWallMaterial());
-                addPriceItem(html, " - السقف (" + safeToString(kitchen.getCeilingTypeSTR()) + ")", kitchen.getCeilingTypePrice());
-                addPriceItem(html, " - الشفاط (" + safeToString(kitchen.getExhaustMaterialSTR()) + ")", kitchen.getPriceExhaust());
-                addPriceItem(html, " - الحوض", kitchen.getAdaptationprice());
-                addPriceItem(html, " - العزل الحراري", kitchen.getFloorColdInsulation());
-                addPriceItem(html, " - تأسيس السباكة", kitchen.getPlumbingKitchenSetup());
-                addPriceItem(html, " - تشطيب السباكة", kitchen.getPlumbingKitchenFinnish());
-                addPriceItem(html, " - المحارة", kitchen.getMaharhBand38());
+                String kitchenMaterialName = firstNonBlank(kitchen.getKitchenMaterialSTR(),
+                        safeToString(kitchen.getKitchenMaterial()));
+                addPriceItem(html,
+                        " - خامة المطبخ (" + kitchenMaterialName + ")",
+                        kitchen.getPriceKitchenMaterial(),
+                        kitchen.getPriceKitchenMaterialFormula());
+
+                addPriceItem(html,
+                        " - السقف (" + safeToString(kitchen.getCeilingTypeSTR()) + ")",
+                        kitchen.getCeilingTypePrice(),
+                        kitchen.getCeilingTypeFormula());
+
+                addPriceItem(html,
+                        " - الشفاط (" + safeToString(kitchen.getExhaustMaterialSTR()) + ")",
+                        kitchen.getPriceExhaust(),
+                        kitchen.getPriceExhaustFormula());
+
+                addPriceItem(html,
+                        " - " + safeToString(kitchen.getAdaptationPriceSTR()),
+                        kitchen.getAdaptationprice(),
+                        kitchen.getAdaptationPriceFormula());
+
+                addPriceItem(html,
+                        " - " + safeToString(kitchen.getFloorColdInsulationSTR()),
+                        kitchen.getFloorColdInsulation(),
+                        kitchen.getFloorColdInsulationFormula());
+
+                addPriceItem(html,
+                        " - " + safeToString(kitchen.getPlumbingKitchenSetupSTR()),
+                        kitchen.getPlumbingKitchenSetup(),
+                        kitchen.getPlumbingKitchenSetupFormula());
+
+                addPriceItem(html,
+                        " - " + safeToString(kitchen.getPlumbingKitchenFinnishSTR()),
+                        kitchen.getPlumbingKitchenFinnish(),
+                        kitchen.getPlumbingKitchenFinnishFormula());
+
+                addPriceItem(html,
+                        " - " + safeToString(kitchen.getMaharhBand38STR()),
+                        kitchen.getMaharhBand38(),
+                        kitchen.getMaharhBand38Formula());
+
+                if (kitchen.getTotalPriceFormula() != null && !kitchen.getTotalPriceFormula().trim().isEmpty()) {
+                    html.append(String.format("""
+                        <div class="formula"><strong>فورميولا الإجمالي:</strong> %s</div>
+                        """, escapeHtml(kitchen.getTotalPriceFormula())));
+                }
 
                 html.append(String.format("""
-                    <div style="background: #e8f4fd; padding: 8px; border-radius: 4px; margin: 5px 0;">
+                    <div style="background: #e8f4fd; padding: 8px; border-radius: 4px; margin: 10px 0 0 0;">
                         <strong>المجموع:</strong> <span class="currency">%s ج.م</span>
                     </div>
                     </div>
@@ -325,7 +444,7 @@ public class EmailService {
             html.append("</div>");
         }
 
-        // قسم الحمامات
+        // ===== قسم الحمامات =====
         if (completeDto.getPathRoomsDetails() != null && !completeDto.getPathRoomsDetails().isEmpty()) {
             html.append(String.format("""
                 <div class="section">
@@ -339,24 +458,21 @@ public class EmailService {
                         <strong>الحمام %s:</strong>
                     """, i + 1));
 
-//                addPriceItem(html, " - الأرضية (" + safeToString(pathRoom.getFloorMaterialSTR()) + ")", pathRoom.getPriceFloorMaterial());
-//                addPriceItem(html, " - الحوائط (" + safeToString(pathRoom.getWallMaterialSTR()) + ")", pathRoom.getPriceWallMaterial());
-                addPriceItem(html, " - السقف (" + safeToString(pathRoom.getCeilingTypeSTR()) + ")", pathRoom.getCeilingType());
-                addPriceItem(html, " - الشفاط (" + safeToString(pathRoom.getExhaustMaterialSTR()) + ")", pathRoom.getPriceExhaust());
-                addPriceItem(html, " - الخلاط (" + safeToString(pathRoom.getMixerTypeSTR()) + ")", pathRoom.getPriceMixer());
-                addPriceItem(html, " - القاعدة (" + safeToString(pathRoom.getBaseTypeSTR()) + ")", pathRoom.getPriceBase());
-                addPriceItem(html, " - منطقة الاستحمام (" + safeToString(pathRoom.getShowerAreaSTR()) + ")", pathRoom.getPriceShowerArea());
-                addPriceItem(html, " - الحوض (" + safeToString(pathRoom.getSinkTypeSTR()) + ")", pathRoom.getSinkPrice());
-                addPriceItem(html, " - العزل الحراري", pathRoom.getFloorColdInsulation());
-                addPriceItem(html, " - تأسيس السباكة", pathRoom.getPlumbingPatRoomSetup());
-                addPriceItem(html, " - تشطيب السباكة", pathRoom.getPlumbingPatRoomFinnish());
-                addPriceItem(html, " - المحارة", pathRoom.getMaharhBand38());
-                addPriceItem(html, " - دهان الحوائط", pathRoom.getPaintForWall());
-                addPriceItem(html, " - دهان السقف", pathRoom.getPaintForCeiling());
-                addPriceItem(html, " - اكسسوارات الحمام", pathRoom.getPathRoomAccesories());
+                addPriceItem(html, " - السقف (" + safeToString(pathRoom.getCeilingTypeSTR()) + ")", pathRoom.getCeilingType(), null);
+                addPriceItem(html, " - الشفاط (" + safeToString(pathRoom.getExhaustMaterialSTR()) + ")", pathRoom.getPriceExhaust(), null);
+                addPriceItem(html, " - القاعدة (" + safeToString(pathRoom.getBaseTypeSTR()) + ")", pathRoom.getPriceBase(), null);
+                addPriceItem(html, " - منطقة الاستحمام (" + safeToString(pathRoom.getShowerAreaSTR()) + ")", pathRoom.getPriceShowerArea(), null);
+                addPriceItem(html, " - الحوض (" + safeToString(pathRoom.getSinkTypeSTR()) + ")", pathRoom.getSinkPrice(), null);
+                addPriceItem(html, " - العزل الحراري", pathRoom.getFloorColdInsulation(), null);
+                addPriceItem(html, " - تأسيس السباكة", pathRoom.getPlumbingPatRoomSetup(), null);
+                addPriceItem(html, " - تشطيب السباكة", pathRoom.getPlumbingPatRoomFinnish(), null);
+                addPriceItem(html, " - المحارة", pathRoom.getMaharhBand38(), null);
+                addPriceItem(html, " - دهان الحوائط", pathRoom.getPaintForWall(), null);
+                addPriceItem(html, " - دهان السقف", pathRoom.getPaintForCeiling(), null);
+                addPriceItem(html, " - اكسسوارات الحمام", pathRoom.getPathRoomAccesories(), null);
 
                 html.append(String.format("""
-                    <div style="background: #e8f4fd; padding: 8px; border-radius: 4px; margin: 5px 0;">
+                    <div style="background: #e8f4fd; padding: 8px; border-radius: 4px; margin: 10px 0 0 0;">
                         <strong>المجموع:</strong> <span class="currency">%s ج.م</span>
                     </div>
                     </div>
@@ -373,7 +489,7 @@ public class EmailService {
             html.append("</div>");
         }
 
-        // المجموع الكلي
+        // ===== المجموع الكلي =====
         html.append(String.format("""
             <div class="section">
                 <div class="section-title">💰 الإجمالي النهائي</div>
@@ -394,17 +510,66 @@ public class EmailService {
     }
 
     /**
-     * إضافة عنصر سعر إلى HTML
+     * إضافة عنصر سعر إلى HTML + (اختياري) فورميولا
      */
-    private void addPriceItem(StringBuilder html, String label, Long price) {
+    private void addPriceItem(StringBuilder html, String label, Long price, String formula) {
         if (price != null && price > 0) {
             html.append(String.format("""
                 <div class="price-item">
-                    <span>%s</span>
-                    <span class="currency">%s ج.م</span>
+                    <span class="label">%s</span>
+                    <span class="value currency">%s ج.م</span>
                 </div>
-                """, label, formatNumber(price)));
+                """, escapeHtml(label), formatNumber(price)));
+
+            if (formula != null && !formula.trim().isEmpty()) {
+                html.append(String.format("""
+                    <div class="formula"><strong>فورميولا:</strong> %s</div>
+                    """, escapeHtml(formula)));
+            }
         }
+    }
+
+    private String safeLabel(String preferred, String fallback) {
+        if (preferred == null || preferred.trim().isEmpty()) return fallback;
+        return preferred;
+    }
+
+    private String firstNonBlank(String a, String b) {
+        if (a != null && !a.trim().isEmpty()) return a.trim();
+        if (b != null && !b.trim().isEmpty()) return b.trim();
+        return "غير محدد";
+    }
+
+    private String resolveCustomerName(CompleteResidentialUnitDto completeDto) {
+        // 1) من Complete DTO (لو ضفته)
+        try {
+            String v = completeDto.getCustomerName();
+            if (v != null && !v.trim().isEmpty()) return v.trim();
+        } catch (Exception ignored) {}
+
+        // 2) fallback من unitPriceDetails
+        if (completeDto.getUnitPriceDetails() != null) {
+            String v = completeDto.getUnitPriceDetails().getCustomerName();
+            if (v != null && !v.trim().isEmpty()) return v.trim();
+        }
+
+        return "غير محدد";
+    }
+
+    private String resolveCustomerPhone(CompleteResidentialUnitDto completeDto) {
+        // 1) من Complete DTO (لو ضفته)
+        try {
+            String v = completeDto.getCustomerPhone();
+            if (v != null && !v.trim().isEmpty()) return v.trim();
+        } catch (Exception ignored) {}
+
+        // 2) fallback من unitPriceDetails
+        if (completeDto.getUnitPriceDetails() != null) {
+            String v = completeDto.getUnitPriceDetails().getCustomerPhone();
+            if (v != null && !v.trim().isEmpty()) return v.trim();
+        }
+
+        return "غير محدد";
     }
 
     /**
@@ -421,7 +586,7 @@ public class EmailService {
     }
 
     /**
-     * تحويل القيم إلى String بأمان (لتجنب NullPointerException)
+     * تحويل القيم إلى String بأمان
      */
     private String safeToString(Object obj) {
         if (obj == null) return "غير محدد";
@@ -431,5 +596,17 @@ public class EmailService {
     private String safeToString(Integer number) {
         if (number == null) return "0";
         return number.toString();
+    }
+
+    /**
+     * حماية بسيطة من كسر HTML لو النصوص فيها رموز
+     */
+    private String escapeHtml(String s) {
+        if (s == null) return "";
+        return s.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#39;");
     }
 }
